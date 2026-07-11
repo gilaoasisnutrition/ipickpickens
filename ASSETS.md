@@ -43,6 +43,24 @@ Recommended: compress JPGs (~80% quality) and keep hero/roots images ≤ 300 KB.
 | 9 | `book-liberated-mind.svg` | JPG/PNG | 600×900 (2:3) | Books section | Real book cover — *The Liberated Mind* |
 | 10 | `favicon.svg` | SVG | 64×64 | Browser tab icon | Provided; replace with a real mark if desired |
 
+## Real photos (already in place — do NOT replace with generated images)
+
+| File | Dimensions | Placement | Subject |
+|---|---|---|---|
+| `canfield-interview.jpg` | 1437×617 | Featured section | Michael & Jack Canfield, interview wide shot |
+| `canfield-titlecard.jpg` | 1466×610 | Featured section | Interview title card (Chief Empowerment Officer, Botanical Enlightenment) |
+| `canfield-selfie.jpg` | 1080×1440 | Featured section | Michael with Jack Canfield |
+| `about-deeohgee.jpg` | 1152×2048 | About photo rail | Michael & Dee Oh Gee (headset) on the livestream couch |
+| `donate-deeohgee.jpg` | 2048×1153 | Donate section | Dee Oh Gee with the animated "meats and treats" speech bubble |
+
+## Coming next (placeholder slots live in the About photo rail)
+
+| Slot | Aspect | Notes |
+|---|---|---|
+| 2012 photo | 3:4 | data-todo="about-photos" — drop in and replace the dashed placeholder tile |
+| 2016 photo | 3:4 | 〃 |
+| 2019 photo | 3:4 | 〃 |
+
 > **Book covers (#8, #9)** are real published books — use the actual cover art,
 > not a generated image.
 

@@ -71,6 +71,30 @@ const presets = [25, 50, 100, 250];
         </p>
       </form>
     </div>
+
+    <!-- Dee Oh Gee's endorsement — the most persuasive surrogate on the team -->
+    <figure class="donate-dog">
+      <div class="donate-dog__frame">
+        <img
+          src="/assets/donate-deeohgee.jpg"
+          width="2048"
+          height="1153"
+          alt="Dee Oh Gee the dog lying on the floor, looking up with hopeful eyes"
+          loading="lazy"
+        />
+        <div class="donate-dog__bubble" role="presentation">
+          <p>
+            “What Dad doesn't spend on yard signs and events means more
+            <span>meats&nbsp;and&nbsp;treats</span> for me.”
+          </p>
+        </div>
+      </div>
+      <figcaption class="donate-dog__caption">
+        — Dee Oh Gee, Campaign Morale Officer. She'd also like you to know about
+        Michael's canine cancer support project:
+        <a href="https://caninecancersupport.org" target="_blank" rel="noopener noreferrer">caninecancersupport.org</a>
+      </figcaption>
+    </figure>
   </div>
 </section>
 
@@ -162,6 +186,77 @@ const presets = [25, 50, 100, 250];
 
   .donate-panel__submit { width: 100%; font-size: 0.9rem; }
   .donate-panel__note { text-align: center; font-size: var(--step--1); color: var(--ink-soft); margin: 0; }
+
+  /* --- Dee Oh Gee's pitch ------------------------------------------------ */
+  .donate-dog {
+    margin: 1.4rem 0 0;
+  }
+  .donate-dog__frame {
+    position: relative;
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    box-shadow: var(--shadow);
+    border: 1px solid var(--driftwood);
+  }
+  .donate-dog__frame img {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+  .donate-dog__bubble {
+    position: absolute;
+    top: 6%;
+    right: 3.5%;
+    width: min(48%, 360px);
+    background: var(--fog);
+    color: var(--tide-deep);
+    border: 2px solid var(--gold);
+    border-radius: 18px;
+    padding: clamp(0.5rem, 0.3rem + 1vw, 1rem) clamp(0.7rem, 0.4rem + 1.2vw, 1.2rem);
+    box-shadow: 0 12px 30px -14px rgba(13, 43, 48, 0.55);
+    transform-origin: 15% 110%;
+    animation: bubble-pop 0.55s cubic-bezier(0.34, 1.56, 0.64, 1) both,
+      bubble-bob 4.5s ease-in-out 0.6s infinite;
+  }
+  .donate-dog__bubble::after {
+    /* Tail pointing down-left toward her head */
+    content: '';
+    position: absolute;
+    left: 12%;
+    bottom: -11px;
+    width: 20px;
+    height: 20px;
+    background: var(--fog);
+    border-right: 2px solid var(--gold);
+    border-bottom: 2px solid var(--gold);
+    transform: rotate(65deg) skew(20deg);
+    border-radius: 2px;
+  }
+  .donate-dog__bubble p {
+    margin: 0;
+    font-family: 'Caveat', 'Segoe Print', cursive;
+    font-weight: 600;
+    font-size: clamp(0.95rem, 0.4rem + 2vw, 1.65rem);
+    line-height: 1.2;
+  }
+  .donate-dog__bubble p span {
+    color: var(--gold-deep);
+    font-weight: 700;
+  }
+  .donate-dog__caption {
+    margin-top: 0.7rem;
+    font-size: var(--step--1);
+    color: var(--ink-soft);
+  }
+
+  @keyframes bubble-pop {
+    from { opacity: 0; transform: scale(0.4); }
+    to { opacity: 1; transform: scale(1); }
+  }
+  @keyframes bubble-bob {
+    0%, 100% { translate: 0 0; }
+    50% { translate: 0 -7px; }
+  }
 
   @media (min-width: 860px) {
     .donate__card { grid-template-columns: 1fr 1fr; }

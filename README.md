@@ -58,7 +58,8 @@ src/
     CelticTexture.astro# subtle Celtic knotwork lattice (heritage texture)
     Triquetra.astro    # Celtic trinity-knot accent glyph
     Principles.astro   # four Guiding Principles cards
-    About.astro        # "A Leader of Leaders" bio + timeline + Hinkle pull-quote
+    About.astro        # "A Leader of Leaders" bio + timeline + Hinkle pull-quote + photo rail
+    Highlight.astro    # Jack Canfield featured-interview section
     Books.astro        # two book cards
     Platform.astro     # six county-scoped issue cards
     Roots.astro        # Pacific County Roots photo strip

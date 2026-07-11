@@ -29,10 +29,10 @@ import ChartTexture from './ChartTexture.astro';
     <div class="hero__portrait">
       <div class="portrait-frame">
         <img
-          src="/assets/portrait-hero.svg"
-          width="900"
-          height="1125"
-          alt="Portrait of C. Michael Pickens, candidate for Pacific County Commissioner"
+          src="/assets/portrait-hero.jpg"
+          width="1153"
+          height="2048"
+          alt="C. Michael Pickens at a Pacific County fair, alongside a George Washington reenactor holding an ice cream cone"
           fetchpriority="high"
         />
       </div>
@@ -103,6 +103,8 @@ import ChartTexture from './ChartTexture.astro';
     height: auto;
     aspect-ratio: 4 / 5;
     object-fit: cover;
+    /* Source photo is taller than 4:5 — bias the crop upward to keep faces */
+    object-position: 50% 22%;
     border-radius: var(--radius-lg);
     border: 1px solid rgba(188, 179, 162, 0.35);
     box-shadow: var(--shadow);

@@ -32,7 +32,7 @@ Recommended: compress JPGs (~80% quality) and keep hero/roots images ≤ 300 KB.
 
 | # | File (placeholder) | Real format | Dimensions / Aspect | Placement | Notes |
 |---|---|---|---|---|---|
-| 1 | `portrait-hero.svg` | **PNG/JPG** | 900×1125 (4:5) | Hero, right column | **REAL PHOTO of the candidate only** |
+| 1 | ~~`portrait-hero.svg`~~ | — | — | Hero, right column | ✅ **DONE** — real photo in place (`portrait-hero.jpg`) |
 | 2 | `og-image.svg` | **PNG** | 1200×630 (1.91:1) | Social share card (`<head>` meta) | Referenced in meta as `og-image.png` — supply a real PNG |
 | 3 | `roots-oysters.svg` | JPG | 1200×800 (3:2) | Pacific County Roots strip | Willapa Bay oysters, South Bend |
 | 4 | `roots-razor-clams.svg` | JPG | 1200×800 (3:2) | Roots strip | Razor clam digging at dawn, Long Beach |
@@ -52,14 +52,11 @@ Recommended: compress JPGs (~80% quality) and keep hero/roots images ≤ 300 KB.
 | `canfield-selfie.jpg` | 1080×1440 | Featured section | Michael with Jack Canfield |
 | `about-deeohgee.jpg` | 1152×2048 | About photo rail | Michael & Dee Oh Gee (headset) on the livestream couch |
 | `donate-deeohgee.jpg` | 2048×1153 | Donate section | Dee Oh Gee with the animated "meats and treats" speech bubble |
-
-## Coming next (placeholder slots live in the About photo rail)
-
-| Slot | Aspect | Notes |
-|---|---|---|
-| 2012 photo | 3:4 | data-todo="about-photos" — drop in and replace the dashed placeholder tile |
-| 2016 photo | 3:4 | 〃 |
-| 2019 photo | 3:4 | 〃 |
+| `portrait-hero.jpg` | 1153×2048 | Hero portrait frame | Michael at a Pacific County fair with a George Washington reenactor |
+| `about-2012.jpg` | 900×601 | About photo rail | 2012 — black-and-white portrait |
+| `about-2016.jpg` | 2048×1462 | About photo rail | 2016 — speaking at the LPWA podium |
+| `about-2018.jpg` | 2048×1365 | About photo rail | 2018 — on stage, speaker badge |
+| `about-2019.jpg` | 2048×1365 | About photo rail | 2019 — professional portrait (Brian J. Daniel Photography) |
 
 > **Book covers (#8, #9)** are real published books — use the actual cover art,
 > not a generated image.

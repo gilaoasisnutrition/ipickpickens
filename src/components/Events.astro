@@ -2,8 +2,23 @@
 /**
  * Events — placeholder list layout with one sample entry structure so real
  * events can be dropped in 1:1. Includes an empty-state row.
+ *
+ * "Add to calendar": give an event `start`/`end` (ISO 8601, e.g.
+ * "2028-06-03T10:00:00") and an .ics download link renders automatically.
+ * The TBD sample has no dates, so no calendar link shows yet.
  */
-const events = [
+interface CampaignEvent {
+  month: string;
+  day: string;
+  title: string;
+  time: string;
+  place: string;
+  sample?: boolean;
+  start?: string;
+  end?: string;
+}
+
+const events: CampaignEvent[] = [
   {
     // Sample entry — replace/duplicate this structure for real events.
     // data-todo="events" — wire to a real events source before launch.
@@ -15,6 +30,26 @@ const events = [
     sample: true,
   },
 ];
+
+/** Build a data-URI .ics href for an event with start/end set. */
+function icsHref(e: CampaignEvent): string | null {
+  if (!e.start || !e.end) return null;
+  const fmt = (iso: string) => iso.replace(/[-:]/g, '').replace(/\.\d+/, '');
+  const ics = [
+    'BEGIN:VCALENDAR',
+    'VERSION:2.0',
+    'PRODID:-//IPickPickens//Campaign Events//EN',
+    'BEGIN:VEVENT',
+    `UID:${fmt(e.start)}@ipickpickens.com`,
+    `DTSTART:${fmt(e.start)}`,
+    `DTEND:${fmt(e.end)}`,
+    `SUMMARY:${e.title}`,
+    `LOCATION:${e.place}`,
+    'END:VEVENT',
+    'END:VCALENDAR',
+  ].join('\r\n');
+  return `data:text/calendar;charset=utf-8,${encodeURIComponent(ics)}`;
+}
 ---
 
 <section class="section events" id="events" aria-labelledby="events-title">
@@ -37,6 +72,11 @@ const events = [
             <h3 class="event-row__title">{e.title}</h3>
             <p class="event-row__meta">{e.time} · {e.place}</p>
             {e.sample && <span class="event-row__tag">Sample entry — real events coming soon</span>}
+            {icsHref(e) && (
+              <a class="event-row__ics" href={icsHref(e)} download={`${e.title.replace(/\W+/g, '-')}.ics`}>
+                Add to calendar
+              </a>
+            )}
           </div>
           <a class="btn btn--outline-ink event-row__cta" href="#get-involved">RSVP</a>
         </li>
@@ -92,6 +132,17 @@ const events = [
     text-transform: uppercase;
     letter-spacing: 0.08em;
     font-size: 0.68rem;
+    color: var(--gold-deep);
+  }
+  .event-row__ics {
+    display: inline-block;
+    margin-top: 0.5rem;
+    margin-left: 1rem;
+    font-family: var(--font-util);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    font-size: 0.68rem;
+    font-weight: 700;
     color: var(--gold-deep);
   }
   .event-row__cta { grid-column: 2; justify-self: start; padding: 0.55rem 1.1rem; }

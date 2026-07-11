@@ -16,9 +16,54 @@ import GetInvolved from '../components/GetInvolved.astro';
 import DonateWidget from '../components/DonateWidget.astro';
 import Footer from '../components/Footer.astro';
 import TideDivider from '../components/TideDivider.astro';
+import { SITE_URL, SOCIALS, BOOKS } from '../config';
+
+// Structured data: candidate + published books. Helps search engines build a
+// knowledge panel for "C. Michael Pickens Pacific County Commissioner".
+const schema = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'Person',
+      '@id': `${SITE_URL}/#candidate`,
+      name: 'C. Michael Pickens',
+      alternateName: 'CMPickens',
+      url: SITE_URL,
+      image: `${SITE_URL}/assets/og-image.png`,
+      description:
+        'Candidate for Pacific County Commissioner (Washington, 2028). Author, Chair of the Libertarian Party of Washington, and founder of the Libertarian Leadership Academy.',
+      affiliation: {
+        '@type': 'Organization',
+        name: 'Libertarian Party of Washington',
+        url: 'https://lpwa.org',
+      },
+      sameAs: [
+        SOCIALS.facebook,
+        SOCIALS.x,
+        SOCIALS.instagram,
+        SOCIALS.youtube,
+        'https://libertarianleadership.org',
+      ],
+    },
+    {
+      '@type': 'Book',
+      name: 'Libertarian Leadership: Planting the Seed for a Libertarian Future',
+      author: { '@id': `${SITE_URL}/#candidate` },
+      datePublished: '2012',
+      url: BOOKS.libertarianLeadership,
+    },
+    {
+      '@type': 'Book',
+      name: 'The Liberated Mind: Rewire Your Mind. Reclaim Your Power. Rewrite Your Life.',
+      author: { '@id': `${SITE_URL}/#candidate` },
+      url: BOOKS.liberatedMind,
+    },
+  ],
+};
 ---
 
 <BaseLayout>
+  <script type="application/ld+json" set:html={JSON.stringify(schema)} />
   <Nav />
   <Ticker />
   <main id="main">

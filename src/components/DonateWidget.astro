@@ -11,6 +11,9 @@
  * WA PDC NOTE: contribution limits, employer/occupation collection, and
  * disclaimer requirements must be confirmed before accepting real money.
  */
+import { Image } from 'astro:assets';
+import deeohgee from '../assets/photos/donate-deeohgee.jpg';
+
 const presets = [25, 50, 100, 250];
 ---
 
@@ -75,10 +78,12 @@ const presets = [25, 50, 100, 250];
     <!-- Dee Oh Gee's endorsement — the most persuasive surrogate on the team -->
     <figure class="donate-dog">
       <div class="donate-dog__frame">
-        <img
-          src="/assets/donate-deeohgee.jpg"
-          width="2048"
-          height="1153"
+        <Image
+          src={deeohgee}
+          widths={[700, 1100, 1600]}
+          sizes="(min-width: 1180px) 1100px, 94vw"
+          format="webp"
+          quality={80}
           alt="Dee Oh Gee the dog lying on the floor, looking up with hopeful eyes"
           loading="lazy"
         />

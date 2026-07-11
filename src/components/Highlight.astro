@@ -5,6 +5,11 @@
  * (co-creator of the Chicken Soup for the Soul® series). Links out to the
  * video; real photos supplied by the campaign.
  */
+import { Image } from 'astro:assets';
+import interview from '../assets/photos/canfield-interview.jpg';
+import titlecard from '../assets/photos/canfield-titlecard.jpg';
+import selfie from '../assets/photos/canfield-selfie.jpg';
+
 const videoUrl = 'https://www.facebook.com/share/v/195kdb9ixZ/';
 ---
 
@@ -34,29 +39,35 @@ const videoUrl = 'https://www.facebook.com/share/v/195kdb9ixZ/';
 
     <div class="highlight__media">
       <figure class="highlight__still">
-        <img
-          src="/assets/canfield-interview.jpg"
-          width="1437"
-          height="617"
+        <Image
+          src={interview}
+          widths={[640, 1280]}
+          sizes="(min-width: 940px) 640px, 92vw"
+          format="webp"
+          quality={80}
           alt="Michael Pickens and Jack Canfield seated across from each other during the filmed interview"
           loading="lazy"
         />
       </figure>
       <div class="highlight__row">
         <figure class="highlight__still">
-          <img
-            src="/assets/canfield-titlecard.jpg"
-            width="1466"
-            height="610"
+          <Image
+            src={titlecard}
+            widths={[420, 840]}
+            sizes="(min-width: 940px) 390px, 56vw"
+            format="webp"
+            quality={80}
             alt="Interview title card reading Michael Pickens, Chief Empowerment Officer, Botanical Enlightenment"
             loading="lazy"
           />
         </figure>
         <figure class="highlight__still highlight__still--portrait">
-          <img
-            src="/assets/canfield-selfie.jpg"
-            width="1080"
-            height="1440"
+          <Image
+            src={selfie}
+            widths={[260, 520]}
+            sizes="(min-width: 940px) 240px, 35vw"
+            format="webp"
+            quality={80}
             alt="Michael Pickens with Jack Canfield after the interview"
             loading="lazy"
           />

@@ -4,13 +4,18 @@
  * Positioning: he doesn't just run — he built the bench and wrote the playbook.
  * Facts sourced from the campaign brief; ALL biographical copy is draft.
  *
- * Timeline entries can carry a photo thumbnail (img: {src, w, h, alt, pos});
+ * Timeline entries can carry a photo thumbnail (img: {src, alt, pos});
  * pos is the object-position that keeps faces framed in the small crop.
  * The Jack Canfield feature intentionally does NOT appear here — it has its
  * own section (Highlight.astro).
  */
+import { Image } from 'astro:assets';
 import Triquetra from './Triquetra.astro';
 import CelticTexture from './CelticTexture.astro';
+import photo2012 from '../assets/photos/about-2012.jpg';
+import photo2016 from '../assets/photos/about-2016.jpg';
+import photo2018 from '../assets/photos/about-2018.jpg';
+import photo2019 from '../assets/photos/about-2019.jpg';
 
 const timeline = [
   { year: '2011', label: 'Enters Libertarian Party leadership' },
@@ -18,8 +23,7 @@ const timeline = [
     year: '2012',
     label: 'Publishes “Libertarian Leadership: Planting the Seed for a Libertarian Future”',
     img: {
-      src: '/assets/about-2012.jpg',
-      w: 900, h: 601,
+      src: photo2012,
       pos: '55% 40%',
       alt: 'Black-and-white photo of a young Michael Pickens in a suit',
     },
@@ -28,8 +32,7 @@ const timeline = [
     year: '2014',
     label: 'Elected Chair, Libertarian Party of Washington',
     img: {
-      src: '/assets/about-2016.jpg',
-      w: 2048, h: 1462,
+      src: photo2016,
       pos: '42% 30%',
       alt: 'Michael Pickens speaking at a podium in front of a Washington Libertarian Party banner',
     },
@@ -39,8 +42,7 @@ const timeline = [
     year: '—',
     label: 'Candidate-training work featured by the national Libertarian Party',
     img: {
-      src: '/assets/about-2018.jpg',
-      w: 2048, h: 1365,
+      src: photo2018,
       pos: '48% 30%',
       alt: 'Michael Pickens speaking on stage wearing a speaker badge',
     },
@@ -52,8 +54,7 @@ const timeline = [
     year: 'Today',
     label: 'Current Chair, Libertarian Party of Washington',
     img: {
-      src: '/assets/about-2019.jpg',
-      w: 2048, h: 1365,
+      src: photo2019,
       pos: '28% 40%',
       alt: 'Professional portrait of Michael Pickens in a brown blazer and plaid shirt',
     },
@@ -132,11 +133,12 @@ const timeline = [
               <span class="timeline__label">{t.label}</span>
             </div>
             {t.img && (
-              <img
+              <Image
                 class="timeline__thumb"
                 src={t.img.src}
-                width={t.img.w}
-                height={t.img.h}
+                width={132}
+                format="webp"
+                quality={78}
                 alt={t.img.alt}
                 loading="lazy"
                 style={`object-position: ${t.img.pos}`}

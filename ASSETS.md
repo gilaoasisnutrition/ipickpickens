@@ -17,14 +17,20 @@ coast, not stock-photo gloss.
 ---
 
 ## Replacement workflow (1:1)
+
+**Real photos now live in `src/assets/photos/`** — Astro optimizes them at
+build (WebP, responsive srcset), so drop in full-resolution originals; no
+manual compression needed. To replace one, overwrite the file with the same
+name and rebuild.
+
+For the **remaining placeholders** (roots strip, OG image):
 1. Export your real image (JPG for photos, PNG where transparency is needed).
-2. Save it into `public/assets/`. Easiest: keep the same base name, e.g.
-   `roots-oysters.jpg`.
+2. Save it into `public/assets/` (roots/OG are referenced from there), keeping
+   the same base name where possible.
 3. Search the repo for the placeholder path (e.g. `roots-oysters.svg`) and update
    the `src` to your new file (one line, in the relevant component).
-4. `npm run build` to confirm.
-
-Recommended: compress JPGs (~80% quality) and keep hero/roots images ≤ 300 KB.
+4. `npm run build` to confirm. (Ask Claude to move new photos into
+   `src/assets/photos/` + `<Image>` for automatic optimization.)
 
 ---
 

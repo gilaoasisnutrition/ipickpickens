@@ -42,9 +42,14 @@ npm run deploy         # wrangler deploy (see Deployment below)
 
 ```
 public/
-  assets/              # placeholder images (see ASSETS.md) — swap in real photos
+  assets/              # placeholder images + small static assets (see ASSETS.md)
+  robots.txt
   favicon.svg
+worker/
+  index.js             # Cloudflare Worker: serves ./dist + POST /api/signup → KV
 src/
+  config.ts            # public config: Turnstile site key, analytics token, links
+  assets/photos/       # real photos — optimized by Astro at build (WebP + srcset)
   layouts/
     BaseLayout.astro   # <head>, meta/OG tags, font loading, skip link
   styles/
@@ -131,13 +136,23 @@ npm run wrangler:dev          # serves ./dist via the Workers runtime
   years/dates.
 
 **Functional TODOs** (marked with `data-todo="…"` or `TODO:` in the code):
-- `form-backend` — Get Involved signup form has no backend wired.
 - `donate-embed` — DonateWidget is visual-only. **TODO: replace with the Give
   Gold Payments embed.**
 - `events` / `endorsements` — placeholder content to be replaced with real data.
 - ~~Book purchase links~~ — ✅ wired to Amazon.
 - ~~Footer social links~~ — ✅ wired (Facebook, X, Instagram, YouTube).
 - ~~Livestream link~~ — ✅ wired to the YouTube channel's live tab.
+- ~~Signup form backend~~ — ✅ live: `worker/index.js` stores entries in the
+  `ipickpickens-signups` KV namespace. Read them with
+  `npx wrangler kv key list --binding SIGNUPS` (add `--local` during dev).
+
+**Optional hardening (5 min each, both free):**
+- **Turnstile bot check** — dash.cloudflare.com → Turnstile → Add site; paste
+  the site key into `src/config.ts`, then
+  `npx wrangler secret put TURNSTILE_SECRET_KEY`. Until then the form works
+  without a bot check.
+- **Cloudflare Web Analytics** — dash.cloudflare.com → Web Analytics → Add a
+  site; paste the token into `src/config.ts`.
 
 **Compliance:**
 - The footer disclaimer box (`Paid for by [Committee Name TBD] — [Address TBD]`)

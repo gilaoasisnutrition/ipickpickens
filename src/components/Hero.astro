@@ -1,5 +1,7 @@
 ---
+import { Image } from 'astro:assets';
 import ChartTexture from './ChartTexture.astro';
+import portrait from '../assets/photos/portrait-hero.jpg';
 ---
 
 <section class="hero on-dark" id="top">
@@ -28,12 +30,15 @@ import ChartTexture from './ChartTexture.astro';
 
     <div class="hero__portrait">
       <div class="portrait-frame">
-        <img
-          src="/assets/portrait-hero.jpg"
-          width="1153"
-          height="2048"
+        <Image
+          src={portrait}
+          widths={[480, 840]}
+          sizes="(min-width: 860px) 420px, 90vw"
+          format="webp"
+          quality={80}
           alt="C. Michael Pickens at a Pacific County fair, alongside a George Washington reenactor holding an ice cream cone"
           fetchpriority="high"
+          loading="eager"
         />
       </div>
     </div>

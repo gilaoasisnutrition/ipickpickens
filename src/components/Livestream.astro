@@ -4,16 +4,20 @@
  * candidates nationwide. Pulled out of the About timeline into its own section.
  * CTA points at the YouTube channel's live tab.
  */
+import { Image } from 'astro:assets';
+import couch from '../assets/photos/about-deeohgee.jpg';
 ---
 
 <section class="section section--driftwood live" id="live" aria-labelledby="live-title">
   <div class="container live__grid">
     <div class="live__media">
       <div class="live__frame">
-        <img
-          src="/assets/about-deeohgee.jpg"
-          width="1152"
-          height="2048"
+        <Image
+          src={couch}
+          widths={[400, 680]}
+          sizes="340px"
+          format="webp"
+          quality={80}
           alt="Michael Pickens on the livestream couch with his dog Dee Oh Gee, who is wearing a headset"
           loading="lazy"
         />

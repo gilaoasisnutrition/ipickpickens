@@ -1,5 +1,18 @@
 ---
+// Self-hosted fonts (no external font requests; font-display: swap built in)
+import '@fontsource/besley/500.css';
+import '@fontsource/besley/600.css';
+import '@fontsource/besley/700.css';
+import '@fontsource/archivo/500.css';
+import '@fontsource/archivo/600.css';
+import '@fontsource/archivo/700.css';
+import '@fontsource/source-sans-3/400.css';
+import '@fontsource/source-sans-3/400-italic.css';
+import '@fontsource/source-sans-3/600.css';
+import '@fontsource/caveat/600.css';
+import '@fontsource/caveat/700.css';
 import '../styles/global.css';
+import { CF_ANALYTICS_TOKEN } from '../config';
 
 export interface Props {
   title?: string;
@@ -44,14 +57,18 @@ const ogImage = `${site}/assets/og-image.png`;
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={ogImage} />
 
-    <!-- Fonts: preconnect + display=swap so text renders immediately (no FOIT).
-         Besley (display slab), Archivo (utility), Source Sans 3 (body). -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700&family=Besley:wght@500;600;700&family=Caveat:wght@600;700&family=Source+Sans+3:ital,wght@0,400;0,600;1,400&display=swap"
-    />
+    <!-- Cloudflare Web Analytics (free, cookieless) — emitted only when a token
+         is set in src/config.ts -->
+    {
+      CF_ANALYTICS_TOKEN && (
+        <script
+          is:inline
+          defer
+          src="https://static.cloudflareinsights.com/beacon.min.js"
+          data-cf-beacon={`{"token": "${CF_ANALYTICS_TOKEN}"}`}
+        />
+      )
+    }
   </head>
   <body>
     <a class="skip-link" href="#main">Skip to content</a>

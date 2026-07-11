@@ -12,6 +12,11 @@
     "deploy": "wrangler deploy"
   },
   "dependencies": {
+    "@astrojs/sitemap": "^3.7.3",
+    "@fontsource/archivo": "^5.2.8",
+    "@fontsource/besley": "^5.2.8",
+    "@fontsource/caveat": "^5.2.8",
+    "@fontsource/source-sans-3": "^5.2.9",
     "astro": "^5.6.1"
   },
   "devDependencies": {

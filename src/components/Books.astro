@@ -5,15 +5,19 @@
  */
 const books = [
   {
-    cover: '/assets/book-libertarian-leadership.svg',
+    cover: '/assets/book-libertarian-leadership.jpg',
+    w: 311, h: 466,
     title: 'Libertarian Leadership',
     // DRAFT COPY — verify with candidate
     line: 'Planting the Seed for a Libertarian Future (2012) — endorsed by Mark Hinkle & Judge Jim Gray.',
+    href: 'https://www.amazon.com/Libertarian-Leadership-Planting-Seed-Future/dp/0983963525',
   },
   {
-    cover: '/assets/book-liberated-mind.svg',
+    cover: '/assets/book-liberated-mind.jpg',
+    w: 342, h: 342,
     title: 'The Liberated Mind',
     line: 'Rewire Your Mind. Reclaim Your Power. Rewrite Your Life.',
+    href: 'https://www.amazon.com/Liberated-Mind-Rewire-Reclaim-Rewrite/dp/B0FFJ1XRYJ',
   },
 ];
 ---
@@ -22,7 +26,7 @@ const books = [
   <div class="container">
     <div class="books__row">
       <div class="books__heading">
-        <p class="eyebrow">He Wrote the Playbook</p>
+        <p class="eyebrow">Also an Author</p>
         <h2 class="books__title" id="books-title">Books by Michael</h2>
       </div>
 
@@ -32,15 +36,15 @@ const books = [
             <img
               class="book__cover"
               src={b.cover}
-              width="600"
-              height="900"
+              width={b.w}
+              height={b.h}
               alt={`Book cover: ${b.title}`}
               loading="lazy"
             />
             <div class="book__text">
               <h3 class="book__name">{b.title}</h3>
               <p class="book__line">{b.line}</p>
-              <a class="book__link" href="#" data-todo="amazon-link">Get the book →</a>
+              <a class="book__link" href={b.href} target="_blank" rel="noopener noreferrer">Get the book →</a>
             </div>
           </li>
         ))}
@@ -77,9 +81,10 @@ const books = [
   }
   .book__cover {
     flex: none;
-    width: 64px;
+    /* Height-locked so square (audiobook) and 2:3 covers sit level and show whole */
     height: 96px;
-    object-fit: cover;
+    width: auto;
+    max-width: 96px;
     border-radius: 3px;
     box-shadow: 0 8px 18px -12px rgba(13, 43, 48, 0.6);
     border: 1px solid var(--driftwood);

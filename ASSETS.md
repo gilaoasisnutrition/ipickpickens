@@ -39,8 +39,8 @@ Recommended: compress JPGs (~80% quality) and keep hero/roots images ≤ 300 KB.
 | 5 | `roots-ilwaco-fleet.svg` | JPG | 1200×800 (3:2) | Roots strip | Ilwaco fishing fleet |
 | 6 | `roots-cranberry-bog.svg` | JPG | 1200×800 (3:2) | Roots strip | Cranberry bog harvest |
 | 7 | `roots-cedar-grove.svg` | JPG | 1200×800 (3:2) | Roots strip | Old-growth cedar, Long Island |
-| 8 | `book-libertarian-leadership.svg` | JPG/PNG | 600×900 (2:3) | Books section | Real book cover — *Libertarian Leadership* |
-| 9 | `book-liberated-mind.svg` | JPG/PNG | 600×900 (2:3) | Books section | Real book cover — *The Liberated Mind* |
+| 8 | ~~`book-libertarian-leadership.svg`~~ | — | — | Books section | ✅ **DONE** — real cover `book-libertarian-leadership.jpg` (311×466) |
+| 9 | ~~`book-liberated-mind.svg`~~ | — | — | Books section | ✅ **DONE** — real cover `book-liberated-mind.jpg` (342×342, square) |
 | 10 | `favicon.svg` | SVG | 64×64 | Browser tab icon | Provided; replace with a real mark if desired |
 
 ## Real photos (already in place — do NOT replace with generated images)

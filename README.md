@@ -134,9 +134,10 @@ npm run wrangler:dev          # serves ./dist via the Workers runtime
 - `form-backend` — Get Involved signup form has no backend wired.
 - `donate-embed` — DonateWidget is visual-only. **TODO: replace with the Give
   Gold Payments embed.**
-- `amazon-link` — book "Get the Book" buttons need real purchase URLs.
 - `events` / `endorsements` — placeholder content to be replaced with real data.
-- Social links (`facebook-url`, `x-url`, `instagram-url`, `youtube-url`) in the footer.
+- ~~Book purchase links~~ — ✅ wired to Amazon.
+- ~~Footer social links~~ — ✅ wired (Facebook, X, Instagram, YouTube).
+- ~~Livestream link~~ — ✅ wired to the YouTube channel's live tab.
 
 **Compliance:**
 - The footer disclaimer box (`Paid for by [Committee Name TBD] — [Address TBD]`)

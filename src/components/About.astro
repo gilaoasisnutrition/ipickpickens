@@ -3,62 +3,71 @@
  * About — "A Leader of Leaders." Bio + vertical timeline + Hinkle pull-quote.
  * Positioning: he doesn't just run — he built the bench and wrote the playbook.
  * Facts sourced from the campaign brief; ALL biographical copy is draft.
+ *
+ * Timeline entries can carry a photo thumbnail (img: {src, w, h, alt, pos});
+ * pos is the object-position that keeps faces framed in the small crop.
+ * The Jack Canfield feature intentionally does NOT appear here — it has its
+ * own section (Highlight.astro).
  */
 import Triquetra from './Triquetra.astro';
 import CelticTexture from './CelticTexture.astro';
 
-// Photo rail — real photos, chronological. object-position keeps faces framed
-// inside the 3:4 tile crop. Captions are draft — verify wording with candidate.
-const photos = [
-  {
-    src: '/assets/about-2012.jpg',
-    w: 900, h: 601,
-    pos: '55% 40%',
-    alt: 'Black-and-white photo of a young Michael Pickens in a suit, 2012',
-    caption: '2012 · Where the work began',
-  },
-  {
-    src: '/assets/about-2016.jpg',
-    w: 2048, h: 1462,
-    pos: '42% 30%',
-    alt: 'Michael Pickens speaking at a podium in front of a Washington Libertarian Party banner, 2016',
-    caption: '2016 · Leading the LPWA',
-  },
-  {
-    src: '/assets/about-2018.jpg',
-    w: 2048, h: 1365,
-    pos: '48% 30%',
-    alt: 'Michael Pickens speaking on stage wearing a speaker badge, 2018',
-    caption: '2018 · On the speaker circuit',
-  },
-  {
-    src: '/assets/about-2019.jpg',
-    w: 2048, h: 1365,
-    pos: '28% 40%',
-    alt: 'Professional portrait of Michael Pickens in a brown blazer and plaid shirt, 2019',
-    caption: '2019 · Building the Academy',
-  },
-  {
-    src: '/assets/about-deeohgee.jpg',
-    w: 1152, h: 2048,
-    pos: '50% 25%',
-    alt: 'Michael Pickens on the livestream couch with his dog Dee Oh Gee, who is wearing a headset',
-    caption: 'Today · Live, weekdays — with co-host Dee Oh Gee',
-  },
-];
-
 const timeline = [
-  { year: '2011', label: 'Enters Libertarian Party leadership' },
-  { year: '2014', label: 'Elected Chair, Libertarian Party of Washington' },
+  {
+    year: '2011',
+    label: 'Enters Libertarian Party leadership',
+    img: {
+      src: '/assets/about-2012.jpg',
+      w: 900, h: 601,
+      pos: '55% 40%',
+      alt: 'Black-and-white photo of a young Michael Pickens in a suit',
+    },
+  },
+  {
+    year: '2014',
+    label: 'Elected Chair, Libertarian Party of Washington',
+    img: {
+      src: '/assets/about-2016.jpg',
+      w: 2048, h: 1462,
+      pos: '42% 30%',
+      alt: 'Michael Pickens speaking at a podium in front of a Washington Libertarian Party banner',
+    },
+  },
   { year: '—', label: 'Publishes “Libertarian Leadership: Planting the Seed for a Libertarian Future”' },
-  { year: '—', label: 'Founds the Libertarian Leadership Academy (LibertarianLeadership.org)' },
-  { year: '—', label: 'Candidate-training work featured by the national Libertarian Party' },
+  { year: '2015', label: 'Founds the Libertarian Leadership Academy (LibertarianLeadership.org)' },
+  {
+    year: '—',
+    label: 'Candidate-training work featured by the national Libertarian Party',
+    img: {
+      src: '/assets/about-2018.jpg',
+      w: 2048, h: 1365,
+      pos: '48% 30%',
+      alt: 'Michael Pickens speaking on stage wearing a speaker badge',
+    },
+  },
   { year: '2017–20', label: 'Founds Cannasales Inc. — cannabis-industry brand development: marketing, training, event staff & wholesale' },
   { year: '2021–', label: 'Moves into holistic product manufacturing & retail, expanding into canine wellness products and cancer support guides' },
-  { year: '—', label: 'Featured in an on-camera interview with Jack Canfield (Chicken Soup for the Soul®)' },
-  { year: 'Daily', label: 'Hosts a weekday livestream showcasing Libertarian candidates nationwide' },
+  {
+    year: 'Daily',
+    label: 'Hosts a weekday livestream showcasing Libertarian candidates nationwide',
+    img: {
+      src: '/assets/about-deeohgee.jpg',
+      w: 1152, h: 2048,
+      pos: '50% 25%',
+      alt: 'Michael Pickens on the livestream couch with his dog Dee Oh Gee, who is wearing a headset',
+    },
+  },
   { year: '—', label: 'Publishes “The Liberated Mind”' },
-  { year: 'Today', label: 'Current Chair, Libertarian Party of Washington' },
+  {
+    year: 'Today',
+    label: 'Current Chair, Libertarian Party of Washington',
+    img: {
+      src: '/assets/about-2019.jpg',
+      w: 2048, h: 1365,
+      pos: '28% 40%',
+      alt: 'Professional portrait of Michael Pickens in a brown blazer and plaid shirt',
+    },
+  },
   { year: '2028', label: 'Runs for Pacific County Commissioner', highlight: true },
 ];
 ---
@@ -79,8 +88,9 @@ const timeline = [
           candidates, training them, and building the local organizations that
           keep communities represented. He is the author of two books on
           practical political leadership and the founder of the Libertarian
-          Leadership Academy, an online program that has taught candidates across
-          the country how to run disciplined, honest, winning campaigns.
+          Leadership Academy — an online program that, since 2015, has taught
+          candidates across the country how to run disciplined, honest, winning
+          campaigns.
         </p>
         <p>
           His leadership record runs deep and local: Chair of the Libertarian
@@ -125,24 +135,6 @@ const timeline = [
           <span class="pull-quote__note">(print endorsement of <em>Libertarian Leadership</em>; endorsement of the book, not the 2028 campaign)</span>
         </figcaption>
       </figure>
-
-      <!-- Photo rail — real photos, 2012 → today.
-           DRAFT COPY — verify caption wording with candidate. -->
-      <div class="about__photos">
-        {photos.map((p) => (
-          <figure class="about-photo">
-            <img
-              src={p.src}
-              width={p.w}
-              height={p.h}
-              alt={p.alt}
-              loading="lazy"
-              style={`object-position: ${p.pos}`}
-            />
-            <figcaption>{p.caption}</figcaption>
-          </figure>
-        ))}
-      </div>
     </div>
 
     <div class="about__timeline" id="leadership">
@@ -150,8 +142,21 @@ const timeline = [
       <ol class="timeline">
         {timeline.map((t) => (
           <li class={`timeline__item${t.highlight ? ' timeline__item--now' : ''}`}>
-            <span class="timeline__year">{t.year}</span>
-            <span class="timeline__label">{t.label}</span>
+            <div class="timeline__text">
+              <span class="timeline__year">{t.year}</span>
+              <span class="timeline__label">{t.label}</span>
+            </div>
+            {t.img && (
+              <img
+                class="timeline__thumb"
+                src={t.img.src}
+                width={t.img.w}
+                height={t.img.h}
+                alt={t.img.alt}
+                loading="lazy"
+                style={`object-position: ${t.img.pos}`}
+              />
+            )}
           </li>
         ))}
       </ol>
@@ -219,28 +224,6 @@ const timeline = [
   .pull-quote figcaption span { display: block; text-transform: none; letter-spacing: 0; }
   .pull-quote__note { font-size: 0.72rem; opacity: 0.75; margin-top: 0.3rem; }
 
-  .about__photos {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 0.9rem;
-    margin-top: 2.2rem;
-  }
-  .about-photo { margin: 0; }
-  .about-photo img {
-    width: 100%;
-    aspect-ratio: 3 / 4;
-    object-fit: cover;
-    border-radius: var(--radius);
-    border: 1px solid var(--driftwood);
-    box-shadow: 0 10px 26px -20px rgba(13, 43, 48, 0.6);
-  }
-  .about-photo figcaption {
-    margin-top: 0.45rem;
-    font-size: var(--step--1);
-    color: var(--ink-soft);
-    line-height: 1.35;
-  }
-
   .about__timeline-title {
     font-size: var(--step-1);
     margin-bottom: 1.3rem;
@@ -254,7 +237,11 @@ const timeline = [
   .timeline__item {
     position: relative;
     padding: 0 0 1.35rem 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.9rem;
   }
+  .timeline__text { flex: 1; min-width: 0; }
   .timeline__item::before {
     content: '';
     position: absolute;
@@ -280,6 +267,17 @@ const timeline = [
   }
   .timeline__label { display: block; color: var(--ink); font-size: var(--step-0); }
   .timeline__item--now .timeline__label { font-weight: 600; }
+
+  .timeline__thumb {
+    flex: none;
+    width: 62px;
+    height: 78px;
+    object-fit: cover;
+    border-radius: var(--radius);
+    border: 2px solid var(--gold);
+    box-shadow: 0 8px 20px -14px rgba(13, 43, 48, 0.7);
+  }
+
   .about__timeline-note {
     margin-top: 0.6rem;
     font-size: var(--step--1);
@@ -287,11 +285,7 @@ const timeline = [
     font-style: italic;
   }
 
-  @media (min-width: 620px) {
-    .about__photos { grid-template-columns: repeat(3, 1fr); }
-  }
   @media (min-width: 940px) {
     .about__grid { grid-template-columns: 1.25fr 0.75fr; }
-    .about__photos { grid-template-columns: repeat(5, 1fr); }
   }
 </style>

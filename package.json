@@ -9,7 +9,8 @@
     "build": "astro build",
     "preview": "astro preview",
     "wrangler:dev": "wrangler dev",
-    "deploy": "wrangler deploy"
+    "deploy": "wrangler deploy",
+    "deploy:staging": "wrangler deploy --env staging"
   },
   "dependencies": {
     "@astrojs/sitemap": "^3.7.3",

@@ -13,6 +13,9 @@
   "name": "ipickpickens",
   "main": "worker/index.js",
   "compatibility_date": "2026-07-01",
+  // TODO after ipickpickens.com is attached: set "workers_dev": false here so
+  // the production workers.dev URL stops serving (staging keeps its own).
+
   "assets": {
     "directory": "./dist",
     "binding": "ASSETS",
@@ -25,5 +28,36 @@
       // "ipickpickens-signups" namespace (created 2026-07-11)
       "id": "0b90617001f64e5d896941ef1e64e966"
     }
-  ]
+  ],
+
+  // Staging: deploy with `npm run deploy:staging`.
+  // Separate Worker (ipickpickens-staging) + separate signups KV, served at
+  // staging.ipickpickens.com (domain provisioned automatically on deploy once
+  // the ipickpickens.com zone is in this Cloudflare account) and at
+  // ipickpickens-staging.<subdomain>.workers.dev. The Worker sends
+  // X-Robots-Tag: noindex on any non-production hostname.
+  "env": {
+    "staging": {
+      "name": "ipickpickens-staging",
+      "workers_dev": true,
+      "routes": [
+        { "pattern": "staging.ipickpickens.com", "custom_domain": true }
+      ],
+      "assets": {
+        "directory": "./dist",
+        "binding": "ASSETS",
+        "not_found_handling": "404-page",
+        // Route every request through the Worker so the X-Robots-Tag: noindex
+        // header is applied to pages too (prod keeps the faster asset path).
+        "run_worker_first": true
+      },
+      "kv_namespaces": [
+        {
+          "binding": "SIGNUPS",
+          // "ipickpickens-signups-staging" namespace (created 2026-07-11)
+          "id": "1d679cadec334fca85cedec27c497733"
+        }
+      ]
+    }
+  }
 }

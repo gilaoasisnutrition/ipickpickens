@@ -28,7 +28,17 @@ export default {
       return handleSignup(request, env);
     }
 
-    return env.ASSETS.fetch(request);
+    const response = await env.ASSETS.fetch(request);
+
+    // Keep staging / workers.dev copies out of search results — only the real
+    // domain should be indexed (avoids duplicate-content penalties too).
+    const PROD_HOSTS = ['ipickpickens.com', 'www.ipickpickens.com'];
+    if (!PROD_HOSTS.includes(url.hostname)) {
+      const marked = new Response(response.body, response);
+      marked.headers.set('X-Robots-Tag', 'noindex');
+      return marked;
+    }
+    return response;
   },
 };
 

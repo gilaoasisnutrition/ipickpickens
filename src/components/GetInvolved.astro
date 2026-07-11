@@ -3,6 +3,8 @@
  * Get Involved — signup form UI (name / email / zip / volunteer checkboxes).
  * Non-functional: form has data-todo="form-backend". No real submission wired.
  */
+import CelticTexture from './CelticTexture.astro';
+
 const volunteerOptions = [
   'Yard sign',
   'Door knocking',
@@ -14,6 +16,7 @@ const volunteerOptions = [
 ---
 
 <section class="section section--dark on-dark get-involved" id="get-involved" aria-labelledby="get-involved-title">
+  <CelticTexture stroke="rgba(216,178,90,0.05)" />
   <div class="container get-involved__grid">
     <div class="get-involved__intro">
       <p class="eyebrow">Join the Campaign</p>
@@ -64,6 +67,14 @@ const volunteerOptions = [
 </section>
 
 <style>
+  .get-involved {
+    position: relative;
+    overflow: hidden;
+  }
+  .get-involved > .container {
+    position: relative;
+    z-index: 1;
+  }
   .get-involved__grid {
     display: grid;
     gap: clamp(2rem, 1rem + 4vw, 3.5rem);

@@ -4,13 +4,18 @@
  * Positioning: he doesn't just run — he built the bench and wrote the playbook.
  * Facts sourced from the campaign brief; ALL biographical copy is draft.
  */
+import Triquetra from './Triquetra.astro';
+import CelticTexture from './CelticTexture.astro';
+
 const timeline = [
   { year: '2011', label: 'Enters Libertarian Party leadership' },
   { year: '2014', label: 'Elected Chair, Libertarian Party of Washington' },
   { year: '—', label: 'Publishes “Libertarian Leadership: Planting the Seed for a Libertarian Future”' },
   { year: '—', label: 'Founds the Libertarian Leadership Academy (LibertarianLeadership.org)' },
   { year: '—', label: 'Candidate-training work featured by the national Libertarian Party' },
-  { year: '—', label: 'Launches the Libertarian Leadership Academy Interview Series podcast' },
+  { year: '2017–20', label: 'Founds Cannasales Inc. — cannabis-industry brand development: marketing, training, event staff & wholesale' },
+  { year: '2021–', label: 'Moves into holistic product manufacturing & retail' },
+  { year: 'Daily', label: 'Hosts a weekday livestream showcasing Libertarian candidates nationwide' },
   { year: '—', label: 'Publishes “The Liberated Mind”' },
   { year: 'Today', label: 'Current Chair, Libertarian Party of Washington' },
   { year: '2028', label: 'Runs for Pacific County Commissioner', highlight: true },
@@ -18,10 +23,12 @@ const timeline = [
 ---
 
 <section class="section section--driftwood about" id="about" aria-labelledby="about-title">
+  <CelticTexture stroke="rgba(122,94,27,0.07)" />
   <div class="container about__grid">
     <div class="about__intro">
+      <Triquetra class="about__knot" size={38} stroke="var(--gold)" />
       <p class="eyebrow">A Leader of Leaders</p>
-      <h2 class="section-title" id="about-title">Not a first-timer. The guy who wrote the manual.</h2>
+      <h2 class="section-title" id="about-title">He built the bench. He wrote the manual.</h2>
 
       <!-- DRAFT COPY — verify with candidate -->
       <div class="about__prose">
@@ -43,10 +50,24 @@ const timeline = [
           as a model for candidate recruitment and training.
         </p>
         <p>
+          His experience isn't only political. From 2017 to 2020 he founded and
+          ran <strong>Cannasales Inc.</strong>, a brand-development agency —
+          marketing, training, event staffing, and wholesale under one roof —
+          making him a genuine veteran of the cannabis industry's formative years.
+          Since 2021 he has worked in holistic product manufacturing and retail.
+          He knows firsthand what it takes to start a business, meet a payroll,
+          and navigate regulation from the inside.
+        </p>
+        <p>
           Pacific County wouldn't be electing someone learning the job on the way
           in. It would be electing the person who spent fifteen years building the
           bench and writing the playbook — now ready to put that experience to
           work for the bay, the beaches, and the people who call this coast home.
+        </p>
+        <p class="about__proof">
+          And he still shows up every day for the movement: Michael hosts a
+          weekday livestream showcasing Libertarian candidates from across the
+          country — the leader-of-leaders philosophy in action.
         </p>
       </div>
 
@@ -82,10 +103,31 @@ const timeline = [
 </section>
 
 <style>
+  .about {
+    position: relative;
+    overflow: hidden;
+  }
+  .about > .container {
+    position: relative;
+    z-index: 1;
+  }
+  .about__knot {
+    display: block;
+    margin-bottom: 0.9rem;
+    opacity: 0.85;
+  }
+
   .about__grid {
     display: grid;
     gap: clamp(2.5rem, 1rem + 6vw, 4.5rem);
     align-items: start;
+  }
+  .about__proof {
+    margin-top: 1.1rem;
+    max-width: 60ch;
+    padding-left: 1rem;
+    border-left: 2px solid var(--gold);
+    color: var(--ink);
   }
   .about__prose p { margin-top: 1.1rem; max-width: 60ch; }
   .about__prose strong { color: var(--tide-deep); }

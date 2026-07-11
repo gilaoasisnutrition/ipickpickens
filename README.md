@@ -55,6 +55,8 @@ src/
     Hero.astro         # eyebrow + two-line name + credential + CTAs + portrait
     ChartTexture.astro # signature nautical-chart SVG (hero background)
     TideDivider.astro  # signature tide-line section divider
+    CelticTexture.astro# subtle Celtic knotwork lattice (heritage texture)
+    Triquetra.astro    # Celtic trinity-knot accent glyph
     Principles.astro   # four Guiding Principles cards
     About.astro        # "A Leader of Leaders" bio + timeline + Hinkle pull-quote
     Books.astro        # two book cards

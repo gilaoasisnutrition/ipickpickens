@@ -1,5 +1,6 @@
 ---
 import TideDivider from './TideDivider.astro';
+import Triquetra from './Triquetra.astro';
 
 const links = [
   { href: '#top', label: 'Home' },
@@ -27,6 +28,7 @@ const socials = [
     <h2 id="footer-heading" class="visually-hidden">Site footer</h2>
 
     <div class="footer__brand">
+      <Triquetra class="footer__knot" size={32} stroke="var(--gold-bright)" />
       <a class="wordmark" href="#top">
         <span>I&nbsp;Pick</span> <span class="wordmark__p">Pickens</span>
       </a>
@@ -81,6 +83,7 @@ const socials = [
     gap: 2rem;
     padding-block: clamp(2.5rem, 2rem + 2vw, 3.5rem);
   }
+  .footer__knot { display: block; margin-bottom: 0.85rem; opacity: 0.7; }
   .footer .wordmark {
     font-family: var(--font-display);
     font-weight: 700;

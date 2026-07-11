@@ -1,0 +1,48 @@
+---
+/**
+ * CelticTexture — a very faint interlocking-rings lattice (the geometric basis of
+ * Celtic knotwork). Used as a subtle, tasteful heritage texture behind sections,
+ * layered alongside the coastal nautical-chart motif. Decorative only.
+ */
+export interface Props {
+  class?: string;
+  /** Stroke colour — keep it low-alpha so it stays a quiet texture. */
+  stroke?: string;
+}
+const { class: className = '', stroke = 'rgba(193,149,63,0.06)' } = Astro.props;
+// Unique pattern id so multiple instances on one page don't collide.
+const uid = 'celtic-' + Math.random().toString(36).slice(2, 8);
+---
+
+<svg
+  class={`celtic-texture ${className}`}
+  viewBox="0 0 336 336"
+  preserveAspectRatio="xMidYMid slice"
+  aria-hidden="true"
+  focusable="false"
+  xmlns="http://www.w3.org/2000/svg"
+>
+  <defs>
+    <pattern id={uid} width="56" height="56" patternUnits="userSpaceOnUse">
+      <g fill="none" stroke={stroke} stroke-width="1.1">
+        <circle cx="0" cy="0" r="32" />
+        <circle cx="56" cy="0" r="32" />
+        <circle cx="0" cy="56" r="32" />
+        <circle cx="56" cy="56" r="32" />
+        <circle cx="28" cy="28" r="32" />
+      </g>
+    </pattern>
+  </defs>
+  <rect width="100%" height="100%" fill={`url(#${uid})`} />
+</svg>
+
+<style>
+  .celtic-texture {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    pointer-events: none;
+  }
+</style>

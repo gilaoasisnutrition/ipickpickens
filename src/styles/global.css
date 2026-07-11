@@ -12,8 +12,10 @@
   --fog-2: #e2e6dd;            /* slightly deeper light surface               */
   --driftwood: #bcb3a2;        /* weathered sand/gray — borders, secondary    */
   --driftwood-soft: #d5cdbe;   /* lighter driftwood for fills on light        */
-  --cranberry: #b01e38;        /* primary accent — buttons, links, name       */
-  --cranberry-bright: #e24b63; /* accent text on dark surfaces (large only)   */
+  --gold: #c1953f;             /* primary accent — buttons, borders, name     */
+  --gold-hover: #b98c38;       /* darker gold for button hover (keeps AA)     */
+  --gold-bright: #d8b25a;      /* bright accent text on dark surfaces         */
+  --gold-deep: #7a5e1b;        /* deep gold for small text/links on light     */
   --salmon-copper: #c97f5d;    /* secondary accent — glyphs, icon fills       */
   --cedar: #241f17;            /* deep warm brown — footer ink                */
 
@@ -73,7 +75,7 @@ svg {
   max-width: 100%;
 }
 
-a { color: var(--cranberry); }
+a { color: var(--gold-deep); }
 
 h1, h2, h3, h4 {
   font-family: var(--font-display);
@@ -86,19 +88,19 @@ button { font: inherit; cursor: pointer; }
 
 /* ---- Accessibility ------------------------------------------------------- */
 :focus-visible {
-  outline: 3px solid var(--cranberry);
+  outline: 3px solid var(--gold-deep);
   outline-offset: 3px;
   border-radius: 2px;
 }
-/* On dark surfaces, use the brighter cranberry for a visible focus ring */
-.on-dark :focus-visible { outline-color: var(--cranberry-bright); }
+/* On dark surfaces, use the brighter gold for a visible focus ring */
+.on-dark :focus-visible { outline-color: var(--gold-bright); }
 
 .skip-link {
   position: absolute;
   left: 0.6rem;
   top: -3rem;
   z-index: 200;
-  background: var(--cranberry);
+  background: var(--gold-deep);
   color: #fff;
   padding: 0.6rem 1rem;
   border-radius: var(--radius);
@@ -144,12 +146,12 @@ button { font: inherit; cursor: pointer; }
   letter-spacing: 0.22em;
   font-size: var(--step--1);
   font-weight: 600;
-  color: var(--cranberry);
+  color: var(--gold-deep);
   display: inline-flex;
   align-items: center;
   gap: 0.6rem;
 }
-.section--dark .eyebrow { color: var(--cranberry-bright); }
+.section--dark .eyebrow { color: var(--gold-bright); }
 .eyebrow::before {
   content: "";
   width: 1.6rem;
@@ -194,11 +196,11 @@ button { font: inherit; cursor: pointer; }
 .btn:active { transform: translateY(0); }
 
 .btn--primary {
-  background: var(--cranberry);
-  color: #fff;
-  border-color: var(--cranberry);
+  background: var(--gold);
+  color: var(--tide-deep);
+  border-color: var(--gold);
 }
-.btn--primary:hover { background: #971732; border-color: #971732; }
+.btn--primary:hover { background: var(--gold-hover); border-color: var(--gold-hover); }
 
 .btn--outline {
   background: transparent;
@@ -210,10 +212,10 @@ button { font: inherit; cursor: pointer; }
 /* Outline variant tuned for light surfaces */
 .btn--outline-ink {
   background: transparent;
-  color: var(--cranberry);
-  border-color: var(--cranberry);
+  color: var(--gold-deep);
+  border-color: var(--gold-deep);
 }
-.btn--outline-ink:hover { background: var(--cranberry); color: #fff; }
+.btn--outline-ink:hover { background: var(--gold-deep); color: #fff; }
 
 /* ---- Tide-line section divider (signature contour) ----------------------- */
 .tide-divider {

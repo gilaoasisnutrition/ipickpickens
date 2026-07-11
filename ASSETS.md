@@ -39,8 +39,8 @@ Recommended: compress JPGs (~80% quality) and keep hero/roots images ≤ 300 KB.
 | 5 | `roots-ilwaco-fleet.svg` | JPG | 1200×800 (3:2) | Roots strip | Ilwaco fishing fleet |
 | 6 | `roots-cranberry-bog.svg` | JPG | 1200×800 (3:2) | Roots strip | Cranberry bog harvest |
 | 7 | `roots-cedar-grove.svg` | JPG | 1200×800 (3:2) | Roots strip | Old-growth cedar, Long Island |
-| 8 | `book-libertarian-leadership.svg` | JPG/PNG | 600×900 (2:3) | Books section | Real book cover |
-| 9 | `book-campaign-workbook.svg` | JPG/PNG | 600×900 (2:3) | Books section | Real book cover |
+| 8 | `book-libertarian-leadership.svg` | JPG/PNG | 600×900 (2:3) | Books section | Real book cover — *Libertarian Leadership* |
+| 9 | `book-liberated-mind.svg` | JPG/PNG | 600×900 (2:3) | Books section | Real book cover — *The Liberated Mind* |
 | 10 | `favicon.svg` | SVG | 64×64 | Browser tab icon | Provided; replace with a real mark if desired |
 
 > **Book covers (#8, #9)** are real published books — use the actual cover art,
@@ -102,6 +102,6 @@ Use these for the *scenery* images only (#3–#7 and, optionally, #2 background)
 - Deep water teal: `#0D2B30`
 - Fog white: `#EDF0EC`
 - Driftwood: `#BCB3A2`
-- Cranberry: `#B01E38`
+- Gold (primary accent): `#C1953F` · bright (on dark): `#D8B25A` · deep (text on light): `#7A5E1B`
 - Salmon-copper: `#C97F5D`
 - Cedar: `#241F17`

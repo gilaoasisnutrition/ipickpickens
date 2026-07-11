@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 900" width="600" height="900" role="img" aria-label="Placeholder: The Liberated Mind book cover">
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0d2b30"/>
+      <stop offset="0.55" stop-color="#12383e"/>
+      <stop offset="1" stop-color="#edf0ec"/>
+    </linearGradient>
+  </defs>
+  <rect width="600" height="900" fill="url(#g)"/>
+  <rect x="10" y="10" width="580" height="880" fill="none" stroke="rgba(216,178,90,0.6)" stroke-width="2" stroke-dasharray="6 8"/>
+  <g font-family="Archivo, Arial, sans-serif" text-anchor="middle">
+    <text x="300" y="444" fill="rgba(237,240,236,0.92)" font-size="42" font-weight="700" letter-spacing="2">THE LIBERATED MIND</text>
+    <text x="300" y="494" fill="rgba(237,240,236,0.7)" font-size="23" letter-spacing="3">PLACEHOLDER · 600×900</text>
+    <text x="300" y="866" fill="rgba(237,240,236,0.6)" font-size="17" letter-spacing="1">Book cover 2:3 — drop in real cover</text>
+  </g>
+</svg>

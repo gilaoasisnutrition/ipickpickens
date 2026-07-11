@@ -1,0 +1,115 @@
+---
+import ChartTexture from './ChartTexture.astro';
+---
+
+<section class="hero on-dark" id="top">
+  <ChartTexture />
+  <div class="container hero__inner">
+    <div class="hero__copy">
+      <p class="eyebrow">Pacific County Commissioner · 2028</p>
+
+      <h1 class="hero__name">
+        <span class="hero__name-1">C. Michael</span>
+        <span class="hero__name-2">Pickens</span>
+      </h1>
+
+      <!-- DRAFT COPY — verify with candidate -->
+      <p class="hero__credential">
+        Author, Libertarian Party of Washington chair, and founder of the
+        Libertarian Leadership Academy — fighting for accountable local
+        government, working waterfronts, and property rights in Pacific County.
+      </p>
+
+      <div class="hero__cta">
+        <a class="btn btn--primary" href="#get-involved">Get Involved</a>
+        <a class="btn btn--outline" href="#platform">See the Platform</a>
+      </div>
+    </div>
+
+    <div class="hero__portrait">
+      <div class="portrait-frame">
+        <img
+          src="/assets/portrait-hero.svg"
+          width="900"
+          height="1125"
+          alt="Portrait of C. Michael Pickens, candidate for Pacific County Commissioner"
+          fetchpriority="high"
+        />
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .hero {
+    position: relative;
+    background: var(--tide-deep);
+    color: var(--fog);
+    overflow: hidden;
+  }
+  .hero__inner {
+    position: relative;
+    z-index: 1;
+    display: grid;
+    gap: clamp(2rem, 1rem + 5vw, 4rem);
+    align-items: center;
+    padding-block: clamp(3rem, 2rem + 6vw, 6rem);
+  }
+
+  .hero__name {
+    font-size: var(--step-4);
+    line-height: 0.94;
+    margin-top: 0.6rem;
+    text-transform: none;
+  }
+  .hero__name-1,
+  .hero__name-2 { display: block; }
+  .hero__name-1 { color: var(--fog); }
+  .hero__name-2 { color: var(--cranberry-bright); }
+
+  .hero__credential {
+    margin-top: 1.4rem;
+    max-width: 46ch;
+    font-size: var(--step-1);
+    color: var(--driftwood);
+  }
+
+  .hero__cta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.9rem;
+    margin-top: 2rem;
+  }
+
+  /* Offset cranberry-border frame over the chart texture */
+  .hero__portrait { justify-self: center; width: 100%; max-width: 420px; }
+  .portrait-frame {
+    position: relative;
+    border-radius: var(--radius-lg);
+  }
+  .portrait-frame::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    transform: translate(16px, 16px);
+    border: 3px solid var(--cranberry);
+    border-radius: var(--radius-lg);
+    z-index: 0;
+  }
+  .portrait-frame img {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 4 / 5;
+    object-fit: cover;
+    border-radius: var(--radius-lg);
+    border: 1px solid rgba(188, 179, 162, 0.35);
+    box-shadow: var(--shadow);
+  }
+
+  @media (min-width: 860px) {
+    .hero__inner { grid-template-columns: 1.15fr 0.85fr; }
+    .hero__portrait { justify-self: end; }
+  }
+</style>

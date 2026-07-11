@@ -1,0 +1,20 @@
+{
+  "name": "ipickpickens",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Campaign website for C. Michael Pickens — Pacific County Commissioner 2028 (IPickPickens.com)",
+  "type": "module",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "wrangler:dev": "wrangler dev",
+    "deploy": "wrangler deploy"
+  },
+  "dependencies": {
+    "astro": "^5.6.1"
+  },
+  "devDependencies": {
+    "wrangler": "^4.110.0"
+  }
+}

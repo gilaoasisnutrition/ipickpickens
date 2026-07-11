@@ -1,0 +1,103 @@
+---
+/**
+ * Events — placeholder list layout with one sample entry structure so real
+ * events can be dropped in 1:1. Includes an empty-state row.
+ */
+const events = [
+  {
+    // Sample entry — replace/duplicate this structure for real events.
+    // data-todo="events" — wire to a real events source before launch.
+    month: 'TBD',
+    day: '--',
+    title: 'Meet Michael — Community Coffee',
+    time: 'Time TBD',
+    place: 'Pacific County · location to be announced',
+    sample: true,
+  },
+];
+---
+
+<section class="section events" id="events" aria-labelledby="events-title">
+  <div class="container">
+    <p class="eyebrow">Out in the County</p>
+    <h2 class="section-title" id="events-title">Events</h2>
+    <p class="lede">
+      Come say hello. Event dates are being scheduled across the county — check
+      back soon, or <a href="#get-involved">sign up</a> to hear first.
+    </p>
+
+    <ul class="events__list" data-todo="events">
+      {events.map((e) => (
+        <li class="event-row">
+          <div class="event-row__date" aria-hidden="true">
+            <span class="event-row__month">{e.month}</span>
+            <span class="event-row__day">{e.day}</span>
+          </div>
+          <div class="event-row__body">
+            <h3 class="event-row__title">{e.title}</h3>
+            <p class="event-row__meta">{e.time} · {e.place}</p>
+            {e.sample && <span class="event-row__tag">Sample entry — real events coming soon</span>}
+          </div>
+          <a class="btn btn--outline-ink event-row__cta" href="#get-involved">RSVP</a>
+        </li>
+      ))}
+    </ul>
+  </div>
+</section>
+
+<style>
+  .events__list {
+    list-style: none;
+    padding: 0;
+    margin: 2.5rem 0 0;
+    display: grid;
+    gap: 1rem;
+  }
+  .event-row {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 1.2rem;
+    align-items: center;
+    background: #fff;
+    border: 1px solid var(--driftwood);
+    border-radius: var(--radius-lg);
+    padding: 1.2rem 1.4rem;
+  }
+  .event-row__date {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 74px;
+    height: 74px;
+    border-radius: var(--radius);
+    background: var(--tide-deep);
+    color: var(--fog);
+  }
+  .event-row__month {
+    font-family: var(--font-util);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    font-size: 0.68rem;
+    color: var(--salmon-copper);
+    font-weight: 700;
+  }
+  .event-row__day { font-family: var(--font-display); font-size: 1.6rem; line-height: 1; }
+  .event-row__title { font-size: var(--step-1); margin: 0; }
+  .event-row__meta { color: var(--ink-soft); margin: 0.25rem 0 0; }
+  .event-row__tag {
+    display: inline-block;
+    margin-top: 0.5rem;
+    font-family: var(--font-util);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    font-size: 0.68rem;
+    color: var(--cranberry);
+  }
+  .event-row__cta { grid-column: 2; justify-self: start; padding: 0.55rem 1.1rem; }
+
+  @media (min-width: 720px) {
+    .event-row { grid-template-columns: auto 1fr auto; }
+    .event-row__cta { grid-column: auto; justify-self: end; }
+  }
+</style>

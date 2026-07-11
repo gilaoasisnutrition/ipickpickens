@@ -1,0 +1,138 @@
+---
+/**
+ * Get Involved — signup form UI (name / email / zip / volunteer checkboxes).
+ * Non-functional: form has data-todo="form-backend". No real submission wired.
+ */
+const volunteerOptions = [
+  'Yard sign',
+  'Door knocking',
+  'Phone / text banking',
+  'Host an event',
+  'Donate my time / skills',
+  'Just keep me posted',
+];
+---
+
+<section class="section section--dark on-dark get-involved" id="get-involved" aria-labelledby="get-involved-title">
+  <div class="container get-involved__grid">
+    <div class="get-involved__intro">
+      <p class="eyebrow">Join the Campaign</p>
+      <h2 class="section-title" id="get-involved-title">It takes a county to win.</h2>
+      <p class="lede">
+        Add your name, tell us how you'd like to help, and we'll be in touch.
+        Every sign, every door, and every conversation moves this forward.
+      </p>
+    </div>
+
+    <!-- data-todo="form-backend" — no action/method wired; connect to a real
+         handler (e.g. form service or campaign CRM) before launch. -->
+    <form class="signup" data-todo="form-backend" aria-labelledby="get-involved-title">
+      <div class="signup__row">
+        <div class="field">
+          <label for="signup-name">Name</label>
+          <input id="signup-name" name="name" type="text" autocomplete="name" required />
+        </div>
+        <div class="field">
+          <label for="signup-zip">ZIP code</label>
+          <input id="signup-zip" name="zip" type="text" inputmode="numeric" autocomplete="postal-code" pattern="[0-9]{5}" />
+        </div>
+      </div>
+
+      <div class="field">
+        <label for="signup-email">Email</label>
+        <input id="signup-email" name="email" type="email" autocomplete="email" required />
+      </div>
+
+      <fieldset class="field volunteer">
+        <legend>How would you like to help?</legend>
+        <div class="volunteer__grid">
+          {volunteerOptions.map((opt, i) => (
+            <label class="checkbox">
+              <input type="checkbox" name="help" value={opt} />
+              <span>{opt}</span>
+            </label>
+          ))}
+        </div>
+      </fieldset>
+
+      <button class="btn btn--primary signup__submit" type="submit">Count Me In</button>
+      <p class="signup__note">
+        We'll never sell or share your information. Unsubscribe anytime.
+      </p>
+    </form>
+  </div>
+</section>
+
+<style>
+  .get-involved__grid {
+    display: grid;
+    gap: clamp(2rem, 1rem + 4vw, 3.5rem);
+    align-items: start;
+  }
+  .signup {
+    background: var(--tide-deep-2);
+    border: 1px solid rgba(188, 179, 162, 0.22);
+    border-radius: var(--radius-lg);
+    padding: clamp(1.4rem, 1rem + 2vw, 2rem);
+    display: grid;
+    gap: 1.1rem;
+  }
+  .signup__row {
+    display: grid;
+    gap: 1.1rem;
+    grid-template-columns: 1fr;
+  }
+  .field { display: grid; gap: 0.4rem; }
+  .field label,
+  .volunteer legend {
+    font-family: var(--font-util);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    font-size: 0.72rem;
+    font-weight: 600;
+    color: var(--driftwood);
+  }
+  .field input[type='text'],
+  .field input[type='email'] {
+    width: 100%;
+    padding: 0.75rem 0.85rem;
+    border-radius: var(--radius);
+    border: 1px solid var(--driftwood);
+    background: var(--fog);
+    color: var(--ink);
+    font: inherit;
+  }
+  .field input:focus-visible { outline-color: var(--cranberry-bright); }
+
+  .volunteer { border: 0; padding: 0; margin: 0; }
+  .volunteer legend { padding: 0; margin-bottom: 0.6rem; }
+  .volunteer__grid {
+    display: grid;
+    gap: 0.6rem;
+    grid-template-columns: 1fr;
+  }
+  .checkbox {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    color: var(--fog);
+    font-size: 0.95rem;
+    cursor: pointer;
+  }
+  .checkbox input {
+    width: 20px;
+    height: 20px;
+    accent-color: var(--cranberry);
+    flex: none;
+  }
+  .signup__submit { justify-self: start; margin-top: 0.3rem; }
+  .signup__note { font-size: var(--step--1); color: var(--driftwood); margin: 0; }
+
+  @media (min-width: 560px) {
+    .signup__row { grid-template-columns: 1.4fr 0.6fr; }
+    .volunteer__grid { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (min-width: 940px) {
+    .get-involved__grid { grid-template-columns: 0.85fr 1.15fr; }
+  }
+</style>

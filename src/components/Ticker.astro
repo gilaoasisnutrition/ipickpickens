@@ -1,0 +1,83 @@
+---
+/**
+ * Ticker — infinite horizontal marquee of Pacific County keywords, separated by
+ * a tiny razor-clam glyph. Duplicated inline so the scroll loops seamlessly.
+ * Honours prefers-reduced-motion (animation paused; content stays readable).
+ */
+const words = [
+  'Pacific County', 'Author', 'Leadership', 'Willapa Bay', 'Accountability',
+  'Working Waterfronts', 'Educator of Candidates', 'Long Beach', 'Oyster Country',
+  'Property Rights', 'Raymond', 'Ilwaco', 'South Bend', 'Liberty', '2028',
+];
+---
+
+<div class="ticker" role="marquee" aria-label="Campaign keywords">
+  <div class="ticker__track">
+    {[0, 1].map((copy) => (
+      <ul class="ticker__group" aria-hidden={copy === 1 ? 'true' : undefined}>
+        {words.map((w) => (
+          <li class="ticker__item">
+            <svg class="ticker__glyph" viewBox="0 0 28 12" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
+              <!-- Stylised razor clam shell -->
+              <path
+                d="M2 6.5 C 7 2, 21 2, 26 5.5 C 21 8.5, 7 9, 2 6.5 Z"
+                fill="currentColor"
+                opacity="0.9"
+              />
+              <path d="M4 6 C 10 4.2, 19 4.2, 24 6" fill="none" stroke="var(--tide-deep)" stroke-width="0.6" opacity="0.5" />
+            </svg>
+            <span>{w}</span>
+          </li>
+        ))}
+      </ul>
+    ))}
+  </div>
+</div>
+
+<style>
+  .ticker {
+    background: var(--salmon-copper);
+    color: var(--tide-deep);
+    border-bottom: 1px solid rgba(36, 31, 23, 0.25);
+    overflow: hidden;
+  }
+  .ticker__track {
+    display: flex;
+    width: max-content;
+    animation: ticker-scroll 48s linear infinite;
+  }
+  .ticker__group {
+    display: flex;
+    align-items: center;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  .ticker__item {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.7rem;
+    padding: 0.5rem 1.1rem;
+    font-family: var(--font-util);
+    text-transform: uppercase;
+    letter-spacing: 0.16em;
+    font-size: 0.74rem;
+    font-weight: 600;
+    white-space: nowrap;
+  }
+  .ticker__glyph { width: 22px; height: 10px; color: var(--tide-deep); flex: none; }
+
+  @keyframes ticker-scroll {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+
+  .ticker:hover .ticker__track { animation-play-state: paused; }
+
+  @media (prefers-reduced-motion: reduce) {
+    .ticker__track { animation: none; }
+    /* Static state: show the first group only, let it scroll horizontally if needed */
+    .ticker { overflow-x: auto; }
+    .ticker__group[aria-hidden='true'] { display: none; }
+  }
+</style>

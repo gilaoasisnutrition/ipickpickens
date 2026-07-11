@@ -1,0 +1,38 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Nav from '../components/Nav.astro';
+import Ticker from '../components/Ticker.astro';
+import Hero from '../components/Hero.astro';
+import Principles from '../components/Principles.astro';
+import About from '../components/About.astro';
+import Books from '../components/Books.astro';
+import Platform from '../components/Platform.astro';
+import Roots from '../components/Roots.astro';
+import Endorsements from '../components/Endorsements.astro';
+import Events from '../components/Events.astro';
+import GetInvolved from '../components/GetInvolved.astro';
+import DonateWidget from '../components/DonateWidget.astro';
+import Footer from '../components/Footer.astro';
+import TideDivider from '../components/TideDivider.astro';
+---
+
+<BaseLayout>
+  <Nav />
+  <Ticker />
+  <main id="main">
+    <Hero />
+    <Principles />
+    <TideDivider />
+    <About />
+    <Books />
+    <TideDivider />
+    <Platform />
+    <Roots />
+    <TideDivider />
+    <Endorsements />
+    <Events />
+    <GetInvolved />
+    <DonateWidget />
+  </main>
+  <Footer />
+</BaseLayout>

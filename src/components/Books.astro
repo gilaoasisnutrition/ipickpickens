@@ -1,109 +1,114 @@
 ---
 /**
- * Books — two book cards with placeholder covers and outbound purchase-link
- * placeholders (href="#" data-todo="amazon-link").
+ * Books — deliberately compact. The books earn a mention, not a billboard:
+ * small covers, one line each, text links out to purchase pages.
  */
 const books = [
   {
     cover: '/assets/book-libertarian-leadership.svg',
     title: 'Libertarian Leadership',
-    subtitle: 'Planting the Seed for a Libertarian Future',
     // DRAFT COPY — verify with candidate
-    blurb:
-      'The field manual for building a liberty movement that wins — recruiting candidates, running disciplined campaigns, and growing local organizations that last. Endorsed in print by Mark Hinkle (LP National Chair, 2010–2012) and Judge Jim Gray (2012 LP Vice-Presidential nominee).',
+    line: 'Planting the Seed for a Libertarian Future (2012) — endorsed by Mark Hinkle & Judge Jim Gray.',
   },
   {
     cover: '/assets/book-liberated-mind.svg',
     title: 'The Liberated Mind',
-    subtitle: 'Rewire Your Mind. Reclaim Your Power. Rewrite Your Life.',
-    // DRAFT COPY — verify with candidate (blurb inferred; subtitle confirmed)
-    blurb:
-      'A guide to breaking the mental patterns that hold you back — rewire your thinking, reclaim your power, and rewrite your life on your own terms.',
+    line: 'Rewire Your Mind. Reclaim Your Power. Rewrite Your Life.',
   },
 ];
 ---
 
 <section class="section books" id="books" aria-labelledby="books-title">
   <div class="container">
-    <p class="eyebrow">He Wrote the Playbook</p>
-    <h2 class="section-title" id="books-title">Books</h2>
-    <p class="lede">
-      Two books on how liberty-minded candidates actually win — the same
-      strategies Michael has used to train winners across the country.
-    </p>
+    <div class="books__row">
+      <div class="books__heading">
+        <p class="eyebrow">He Wrote the Playbook</p>
+        <h2 class="books__title" id="books-title">Books by Michael</h2>
+      </div>
 
-    <div class="books__grid">
-      {books.map((b) => (
-        <article class="book-card">
-          <div class="book-card__cover">
+      <ul class="books__list">
+        {books.map((b) => (
+          <li class="book">
             <img
+              class="book__cover"
               src={b.cover}
               width="600"
               height="900"
               alt={`Book cover: ${b.title}`}
               loading="lazy"
             />
-          </div>
-          <div class="book-card__body">
-            <h3 class="book-card__title">{b.title}</h3>
-            <p class="book-card__subtitle">{b.subtitle}</p>
-            <p class="book-card__blurb">{b.blurb}</p>
-            <a class="btn btn--outline-ink" href="#" data-todo="amazon-link">
-              Get the Book
-            </a>
-          </div>
-        </article>
-      ))}
+            <div class="book__text">
+              <h3 class="book__name">{b.title}</h3>
+              <p class="book__line">{b.line}</p>
+              <a class="book__link" href="#" data-todo="amazon-link">Get the book →</a>
+            </div>
+          </li>
+        ))}
+      </ul>
     </div>
   </div>
 </section>
 
 <style>
-  .books__grid {
-    margin-top: 2.5rem;
+  /* Compact section: roughly half the vertical rhythm of a standard section */
+  .books { padding-block: clamp(1.8rem, 1.4rem + 2vw, 3rem); }
+
+  .books__row {
     display: grid;
-    gap: 1.75rem;
-    grid-template-columns: 1fr;
+    gap: 1.5rem;
+    align-items: center;
   }
-  .book-card {
+  .books__title {
+    font-size: var(--step-1);
+    margin-top: 0.35rem;
+  }
+
+  .books__list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
     display: grid;
-    gap: 1.4rem;
-    align-items: start;
-    background: #fff;
-    border: 1px solid var(--driftwood);
-    border-radius: var(--radius-lg);
-    padding: 1.5rem;
-    box-shadow: 0 10px 30px -24px rgba(13, 43, 48, 0.6);
+    gap: 1.1rem;
   }
-  .book-card__cover img {
-    width: 100%;
-    max-width: 220px;
-    height: auto;
-    aspect-ratio: 2 / 3;
+  .book {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+  }
+  .book__cover {
+    flex: none;
+    width: 64px;
+    height: 96px;
     object-fit: cover;
-    border-radius: var(--radius);
-    box-shadow: var(--shadow);
-    margin-inline: auto;
+    border-radius: 3px;
+    box-shadow: 0 8px 18px -12px rgba(13, 43, 48, 0.6);
+    border: 1px solid var(--driftwood);
   }
-  .book-card__title { font-size: var(--step-2); }
-  .book-card__subtitle {
+  .book__name {
+    font-size: var(--step-0);
+    margin: 0;
+  }
+  .book__line {
+    margin: 0.2rem 0 0.3rem;
+    font-size: var(--step--1);
+    color: var(--ink-soft);
+    max-width: 46ch;
+  }
+  .book__link {
     font-family: var(--font-util);
     text-transform: uppercase;
     letter-spacing: 0.08em;
-    font-size: 0.75rem;
-    color: var(--salmon-copper);
-    margin: 0.35rem 0 0.9rem;
-    font-weight: 600;
+    font-size: 0.72rem;
+    font-weight: 700;
+    color: var(--gold-deep);
+    text-decoration: none;
+    border-bottom: 1px solid var(--gold);
+    padding-bottom: 1px;
   }
-  .book-card__blurb { color: var(--ink-soft); margin-bottom: 1.3rem; }
+  .book__link:hover { color: var(--tide-deep); border-color: var(--tide-deep); }
 
-  @media (min-width: 620px) {
-    .book-card { grid-template-columns: 200px 1fr; }
-    .book-card__cover img { margin-inline: 0; }
-  }
-  @media (min-width: 1000px) {
-    .books__grid { grid-template-columns: repeat(2, 1fr); }
-    .book-card { grid-template-columns: 1fr; }
-    .book-card__cover img { margin-inline: auto; }
+  @media (min-width: 780px) {
+    .books__row { grid-template-columns: auto 1fr; gap: clamp(2rem, 1rem + 4vw, 4rem); }
+    .books__list { grid-template-columns: repeat(2, 1fr); }
   }
 </style>

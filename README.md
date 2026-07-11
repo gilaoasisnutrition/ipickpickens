@@ -60,7 +60,8 @@ src/
     Principles.astro   # four Guiding Principles cards
     About.astro        # "A Leader of Leaders" bio + photo-thumbnail timeline + Hinkle pull-quote
     Highlight.astro    # Jack Canfield featured-interview section
-    Books.astro        # two book cards
+    Livestream.astro   # daily weekday livestream section (w/ Dee Oh Gee)
+    Books.astro        # compact books strip
     Platform.astro     # six county-scoped issue cards
     Roots.astro        # Pacific County Roots photo strip
     Endorsements.astro # designed "coming soon" grid

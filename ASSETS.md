@@ -50,7 +50,7 @@ Recommended: compress JPGs (~80% quality) and keep hero/roots images ≤ 300 KB.
 | `canfield-interview.jpg` | 1437×617 | Featured section | Michael & Jack Canfield, interview wide shot |
 | `canfield-titlecard.jpg` | 1466×610 | Featured section | Interview title card (Chief Empowerment Officer, Botanical Enlightenment) |
 | `canfield-selfie.jpg` | 1080×1440 | Featured section | Michael with Jack Canfield |
-| `about-deeohgee.jpg` | 1152×2048 | About timeline thumbnail (livestream entry) | Michael & Dee Oh Gee (headset) on the livestream couch |
+| `about-deeohgee.jpg` | 1152×2048 | Livestream section | Michael & Dee Oh Gee (headset) on the livestream couch |
 | `donate-deeohgee.jpg` | 2048×1153 | Donate section | Dee Oh Gee with the animated "meats and treats" speech bubble |
 | `portrait-hero.jpg` | 1153×2048 | Hero portrait frame | Michael at a Pacific County fair with a George Washington reenactor |
 | `about-2012.jpg` | 900×601 | About timeline thumbnail (2011 entry) | Black-and-white portrait |

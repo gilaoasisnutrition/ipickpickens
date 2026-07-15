@@ -1,0 +1,215 @@
+---
+// EmailCapture.astro — "the dispatch" launch-list signup on a deep parchment ground.
+---
+
+<section id="signup" class="section signup">
+  <div class="container">
+    <div class="signup-inner" data-reveal>
+      <span class="eyebrow">the dispatch</span>
+      <h2>Be First to Know When We Launch</h2>
+      <p class="signup-copy">
+        Join the list for early access — our small-batch runs are limited, and
+        they tend to sell out.
+      </p>
+
+      <form id="signup-form" novalidate>
+        <div class="field-row">
+          <label for="signup-email" class="field-label">Your email address</label>
+          <div class="ledger-bar">
+            <input
+              type="email"
+              id="signup-email"
+              name="email"
+              autocomplete="email"
+              inputmode="email"
+              placeholder="you@example.com"
+              required
+            />
+            <button type="submit" class="btn btn-primary">Notify Me</button>
+          </div>
+        </div>
+
+        <!-- Honeypot: real correspondents leave the pigeon alone -->
+        <div class="visually-hidden" aria-hidden="true">
+          <label for="signup-pigeon">Leave this field empty</label>
+          <input
+            type="text"
+            id="signup-pigeon"
+            name="pigeon"
+            tabindex="-1"
+            autocomplete="off"
+          />
+        </div>
+
+        <p class="form-status" role="status" aria-live="polite"></p>
+        <p class="privacy-note">No noise — a few letters a year.</p>
+      </form>
+    </div>
+  </div>
+</section>
+
+<script>
+  const form = document.getElementById('signup-form') as HTMLFormElement | null;
+
+  if (form) {
+    const emailInput = form.querySelector('#signup-email') as HTMLInputElement;
+    const pigeon = form.querySelector('#signup-pigeon') as HTMLInputElement;
+    const button = form.querySelector('button[type="submit"]') as HTMLButtonElement;
+    const status = form.querySelector('.form-status') as HTMLParagraphElement;
+    const buttonLabel = button.textContent;
+
+    const setStatus = (message: string, kind: 'error' | 'success' | '') => {
+      status.textContent = message;
+      status.classList.toggle('is-error', kind === 'error');
+      status.classList.toggle('is-success', kind === 'success');
+    };
+
+    form.addEventListener('submit', async (event) => {
+      event.preventDefault();
+
+      // Honeypot filled — quietly pretend nothing happened.
+      if (pigeon.value.trim() !== '') return;
+
+      const email = emailInput.value.trim();
+      const looksValid = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email);
+      if (!looksValid) {
+        setStatus('Please enter a valid email address.', 'error');
+        emailInput.focus();
+        return;
+      }
+
+      button.disabled = true;
+      button.textContent = 'Sealing the letter…';
+      setStatus('', '');
+
+      try {
+        const response = await fetch('/api/subscribe', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email }),
+        });
+
+        if (!response.ok) throw new Error(`Request failed: ${response.status}`);
+
+        setStatus("You're on the list — watch the post.", 'success');
+        form.reset();
+      } catch {
+        setStatus(
+          'The letter could not be sent just now — please try again in a moment.',
+          'error'
+        );
+      } finally {
+        button.disabled = false;
+        button.textContent = buttonLabel;
+      }
+    });
+  }
+</script>
+
+<style>
+  .signup {
+    background: var(--parchment-deep);
+    border-top: 1px solid var(--rule);
+    border-bottom: 1px solid var(--rule);
+  }
+
+  .signup-inner {
+    max-width: 38rem;
+    margin-inline: auto;
+    text-align: center;
+  }
+
+  .signup-inner h2 {
+    font-size: var(--text-2xl);
+  }
+
+  .signup-copy {
+    color: var(--ink-soft);
+    margin-bottom: 1.8rem;
+  }
+
+  #signup-form {
+    margin: 0 auto;
+  }
+
+  .field-label {
+    display: block;
+    font-family: var(--font-display-sc);
+    font-size: var(--text-sm);
+    letter-spacing: 0.22em;
+    text-transform: lowercase;
+    color: var(--ink-soft);
+    margin-bottom: 0.55rem;
+    text-align: left;
+  }
+
+  .ledger-bar {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .ledger-bar input {
+    width: 100%;
+    padding: 0.72rem 1rem;
+    font-family: var(--font-body);
+    font-size: var(--text-base);
+    color: var(--ink);
+    background: var(--parchment);
+    border: 1px solid var(--rule);
+    border-radius: 2px;
+  }
+
+  .ledger-bar input::placeholder {
+    color: var(--ink-soft);
+    opacity: 0.65;
+    font-style: italic;
+  }
+
+  .ledger-bar input:focus-visible {
+    outline: 2px solid var(--copper);
+    outline-offset: 2px;
+  }
+
+  .form-status {
+    min-height: 1.5em;
+    margin: 0.9rem 0 0;
+    font-size: var(--text-base);
+  }
+
+  .form-status.is-success {
+    color: var(--moss-deep);
+    font-style: italic;
+  }
+
+  .form-status.is-error {
+    color: var(--copper);
+  }
+
+  .privacy-note {
+    margin: 0.4rem 0 0;
+    font-size: var(--text-sm);
+    color: var(--ink-soft);
+    font-style: italic;
+  }
+
+  @media (min-width: 36rem) {
+    /* Joined input + button bar, like one continuous ledger line */
+    .ledger-bar {
+      flex-direction: row;
+      gap: 0;
+      align-items: stretch;
+    }
+
+    .ledger-bar input {
+      flex: 1;
+      border-right: none;
+      border-radius: 2px 0 0 2px;
+    }
+
+    .ledger-bar .btn {
+      border-radius: 0 2px 2px 0;
+      white-space: nowrap;
+    }
+  }
+</style>

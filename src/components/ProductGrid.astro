@@ -1,0 +1,58 @@
+---
+import ProductCard from './ProductCard.astro';
+import products from '../data/products.json';
+---
+
+<section id="products" class="section">
+  <div class="container">
+    <header class="product-grid__header" data-reveal>
+      <span class="eyebrow">the collection</span>
+      <h2>Botanical Preparations for the Dog</h2>
+      <p class="product-grid__intro">
+        Six small-batch blends, each drawn from the herbalist's ledger and
+        milled for daily wellness.
+      </p>
+      <div class="ornament" role="presentation"><span>❦</span></div>
+    </header>
+
+    <div class="product-grid">
+      {products.map((product) => <ProductCard product={product} />)}
+    </div>
+  </div>
+</section>
+
+<style>
+  .product-grid__header {
+    text-align: center;
+    max-width: 42rem;
+    margin-inline: auto;
+    margin-bottom: clamp(2.5rem, 5vw, 4rem);
+  }
+
+  .product-grid__header h2 {
+    font-size: var(--text-2xl);
+  }
+
+  .product-grid__intro {
+    color: var(--ink-soft);
+    margin-bottom: 0;
+  }
+
+  .product-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: clamp(1.5rem, 3vw, 2.25rem);
+  }
+
+  @media (min-width: 640px) {
+    .product-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (min-width: 960px) {
+    .product-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+</style>

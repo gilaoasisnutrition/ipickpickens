@@ -1,0 +1,170 @@
+---
+interface Product {
+  id: string;
+  slug: string;
+  name: string;
+  shortDescription: string;
+  price: number;
+  image: string;
+  badges: string[];
+  inStock: boolean;
+}
+
+interface Props {
+  product: Product;
+}
+
+const { product } = Astro.props;
+
+const priceFormatted = new Intl.NumberFormat('en-US', {
+  style: 'currency',
+  currency: 'USD',
+  maximumFractionDigits: 0,
+}).format(product.price);
+---
+
+<article class="product-card" data-reveal>
+  <div class="product-card__frame">
+    <div class="product-card__plate">
+      <img
+        src={product.image}
+        alt=""
+        width="600"
+        height="600"
+        loading="lazy"
+      />
+    </div>
+
+    {product.badges.length > 0 && (
+      <ul class="product-card__badges" aria-label="Product notes">
+        {product.badges.map((badge) => (
+          <li class="product-card__badge">{badge}</li>
+        ))}
+      </ul>
+    )}
+
+    <h3 class="product-card__name">{product.name}</h3>
+
+    <p class="product-card__description">{product.shortDescription}</p>
+
+    <div class="product-card__foot">
+      <p class="product-card__price">
+        <span class="visually-hidden">Price:</span>
+        {priceFormatted}
+      </p>
+
+      <button
+        class="btn btn-primary product-card__button"
+        data-add-to-cart
+        data-product-id={product.id}
+        disabled={!product.inStock}
+      >
+        {product.inStock ? 'Add to Cart' : 'Out of Stock'}
+      </button>
+
+      {!product.inStock && (
+        <p class="product-card__note">Returning soon — small batches take time.</p>
+      )}
+    </div>
+  </div>
+</article>
+
+<style>
+  .product-card {
+    background: var(--parchment-deep);
+    border: 1px solid var(--rule);
+    border-radius: 2px;
+    box-shadow: var(--paper-shadow);
+    padding: 0.55rem;
+    height: 100%;
+    transition: transform 200ms ease, box-shadow 200ms ease;
+  }
+
+  .product-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 22px rgba(46, 36, 24, 0.18);
+  }
+
+  /* Double-rule inset frame, like a trading-card border */
+  .product-card__frame {
+    border: 1px solid var(--rule);
+    outline: 1px solid var(--rule);
+    outline-offset: 2px;
+    border-radius: 1px;
+    padding: 1.4rem 1.3rem 1.5rem;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+  }
+
+  .product-card__plate {
+    background: var(--parchment);
+    border: 1px solid var(--rule);
+    padding: 0.75rem;
+    margin-bottom: 1.1rem;
+  }
+
+  .product-card__plate img {
+    width: 100%;
+    height: auto;
+  }
+
+  .product-card__badges {
+    list-style: none;
+    margin: 0 0 0.75rem;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.45rem;
+  }
+
+  .product-card__badge {
+    font-family: var(--font-display-sc);
+    font-size: 0.72rem;
+    letter-spacing: 0.16em;
+    text-transform: lowercase; /* renders as small caps */
+    color: var(--copper);
+    border: 1px solid var(--copper);
+    border-radius: 2px;
+    padding: 0.14rem 0.55rem 0.1rem;
+    line-height: 1.4;
+  }
+
+  .product-card__name {
+    font-size: var(--text-lg);
+    margin-bottom: 0.45em;
+  }
+
+  .product-card__description {
+    color: var(--ink-soft);
+    font-size: var(--text-sm);
+    line-height: 1.6;
+    margin-bottom: 1.2rem;
+  }
+
+  .product-card__foot {
+    margin-top: auto;
+    border-top: 1px solid var(--rule);
+    padding-top: 1rem;
+  }
+
+  .product-card__price {
+    font-family: var(--font-display);
+    font-size: var(--text-lg);
+    color: var(--copper);
+    margin: 0 0 0.75rem;
+    line-height: 1;
+  }
+
+  .product-card__button {
+    width: 100%;
+  }
+
+  .product-card__note {
+    font-size: var(--text-sm);
+    font-style: italic;
+    color: var(--ink-soft);
+    text-align: center;
+    margin: 0.6rem 0 0;
+  }
+</style>

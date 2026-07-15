@@ -1,32 +1,25 @@
 ---
-// Self-hosted fonts (no external font requests; font-display: swap built in)
-import '@fontsource/besley/500.css';
-import '@fontsource/besley/600.css';
-import '@fontsource/besley/700.css';
-import '@fontsource/archivo/500.css';
-import '@fontsource/archivo/600.css';
-import '@fontsource/archivo/700.css';
-import '@fontsource/source-sans-3/400.css';
-import '@fontsource/source-sans-3/400-italic.css';
-import '@fontsource/source-sans-3/600.css';
-import '@fontsource/caveat/600.css';
-import '@fontsource/caveat/700.css';
+// Base layout: document head, fonts, global styles, reveal-on-scroll script.
+import '@fontsource/im-fell-english';
+import '@fontsource/im-fell-english-sc';
+import '@fontsource/eb-garamond';
+import '@fontsource/eb-garamond/500.css';
+import '@fontsource/eb-garamond/600.css';
 import '../styles/global.css';
-import { CF_ANALYTICS_TOKEN } from '../config';
 
-export interface Props {
+interface Props {
   title?: string;
   description?: string;
 }
 
 const {
-  title = 'I Pick Pickens — C. Michael Pickens for Pacific County Commissioner',
-  description = 'C. Michael Pickens for Pacific County Commissioner (2028). Author, Libertarian Party of Washington chair, and founder of the Libertarian Leadership Academy — fighting for accountable local government, working waterfronts, and property rights in Pacific County.',
+  title = 'BE Canine — Botanical Nutrition for Dogs',
+  description =
+    'Premium botanical nutrition supplements for dogs, crafted by Botanical Enlightenment. Thoughtfully sourced herbs and whole-food ingredients for everyday canine wellness.',
 } = Astro.props;
 
-const site = 'https://ipickpickens.com';
-// OG image placeholder — replace with real 1200x630 asset (see ASSETS.md).
-const ogImage = `${site}/assets/og-image.png`;
+const ogImage = new URL('/assets/og-image.svg', Astro.site);
+const canonical = new URL(Astro.url.pathname, Astro.site);
 ---
 
 <!doctype html>
@@ -34,44 +27,66 @@ const ogImage = `${site}/assets/og-image.png`;
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <meta name="generator" content={Astro.generator} />
-
     <title>{title}</title>
     <meta name="description" content={description} />
-    <link rel="canonical" href={site} />
+    <link rel="canonical" href={canonical} />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="generator" content={Astro.generator} />
+    <meta name="theme-color" content="#f4edda" />
 
-    <!-- Open Graph -->
+    <!-- Open Graph / Twitter -->
     <meta property="og:type" content="website" />
-    <meta property="og:site_name" content="I Pick Pickens" />
+    <meta property="og:site_name" content="BE Canine" />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
-    <meta property="og:url" content={site} />
+    <meta property="og:url" content={canonical} />
     <meta property="og:image" content={ogImage} />
-    <meta property="og:image:width" content="1200" />
-    <meta property="og:image:height" content="630" />
-
-    <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={ogImage} />
 
-    <!-- Cloudflare Web Analytics (free, cookieless) — emitted only when a token
-         is set in src/config.ts -->
-    {
-      CF_ANALYTICS_TOKEN && (
-        <script
-          is:inline
-          defer
-          src="https://static.cloudflareinsights.com/beacon.min.js"
-          data-cf-beacon={`{"token": "${CF_ANALYTICS_TOKEN}"}`}
-        />
-      )
-    }
+    <script
+      type="application/ld+json"
+      set:html={JSON.stringify({
+        '@context': 'https://schema.org',
+        '@type': 'Organization',
+        name: 'BE Canine',
+        url: 'https://becanine.com',
+        description:
+          'Premium botanical nutrition supplements for dogs by Botanical Enlightenment.',
+        parentOrganization: {
+          '@type': 'Organization',
+          name: 'Botanical Enlightenment',
+          url: 'https://botanicalenlightenment.com',
+        },
+      })}
+    />
   </head>
   <body>
     <a class="skip-link" href="#main">Skip to content</a>
     <slot />
+
+    <!-- Gentle fade/settle on scroll for [data-reveal] elements -->
+    <script>
+      const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      const targets = document.querySelectorAll('[data-reveal]');
+      if (reduceMotion || !('IntersectionObserver' in window)) {
+        targets.forEach((el) => el.classList.add('is-revealed'));
+      } else {
+        const io = new IntersectionObserver(
+          (entries) => {
+            for (const entry of entries) {
+              if (entry.isIntersecting) {
+                entry.target.classList.add('is-revealed');
+                io.unobserve(entry.target);
+              }
+            }
+          },
+          { rootMargin: '0px 0px -8% 0px', threshold: 0.1 }
+        );
+        targets.forEach((el) => io.observe(el));
+      }
+    </script>
   </body>
 </html>

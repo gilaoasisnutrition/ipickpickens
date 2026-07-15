@@ -1,122 +1,157 @@
 ---
-import { Image } from 'astro:assets';
-import ChartTexture from './ChartTexture.astro';
-import portrait from '../assets/photos/portrait-hero.jpg';
+// Hero: full-width opening plate — wordmark, tagline, CTAs, engraved botanical.
 ---
 
-<section class="hero on-dark" id="top">
-  <ChartTexture />
-  <div class="container hero__inner">
-    <div class="hero__copy">
-      <p class="eyebrow">Pacific County Commissioner · 2028</p>
-
-      <h1 class="hero__name">
-        <span class="hero__name-1">C. Michael</span>
-        <span class="hero__name-2">Pickens</span>
-      </h1>
-
-      <!-- DRAFT COPY — verify with candidate -->
-      <p class="hero__credential">
-        Author, Libertarian Party of Washington chair, and founder of the
-        Libertarian Leadership Academy — fighting for accountable local
-        government, working waterfronts, and property rights in Pacific County.
+<section class="hero" id="top" aria-labelledby="hero-heading">
+  <div class="container hero-inner">
+    <div class="hero-text" data-reveal>
+      <span class="eyebrow">botanical enlightenment presents</span>
+      <h1 id="hero-heading">BE Canine</h1>
+      <div class="ornament" role="presentation"><span>❦</span></div>
+      <p class="hero-tagline">
+        Botanical nutrition for the good dog — crafted in the tradition of the
+        old herbals.
       </p>
-
-      <div class="hero__cta">
-        <a class="btn btn--primary" href="#get-involved">Get Involved</a>
-        <a class="btn btn--outline" href="#platform">See the Platform</a>
+      <p class="hero-support">
+        Whole-plant botanicals, thoughtfully sourced and prepared in small
+        batches to support everyday canine wellness.
+      </p>
+      <div class="hero-ctas">
+        <a class="btn btn-primary" href="#products">Explore the Collection</a>
+        <a class="btn btn-outline" href="#story">Our Craft</a>
       </div>
     </div>
 
-    <div class="hero__portrait">
-      <div class="portrait-frame">
-        <Image
-          src={portrait}
-          widths={[480, 840]}
-          sizes="(min-width: 860px) 420px, 90vw"
-          format="webp"
-          quality={80}
-          alt="C. Michael Pickens at a Pacific County fair, alongside a George Washington reenactor holding an ice cream cone"
-          fetchpriority="high"
-          loading="eager"
-        />
-      </div>
+    <div class="hero-figure" aria-hidden="true">
+      <img
+        src="/assets/hero-botanical.svg"
+        alt=""
+        width="520"
+        height="420"
+        loading="eager"
+      />
     </div>
   </div>
+
+  <a class="scroll-cue" href="#products">
+    <span aria-hidden="true">↓</span> the collection
+  </a>
 </section>
 
 <style>
   .hero {
     position: relative;
-    background: var(--tide-deep);
-    color: var(--fog);
+    min-height: calc(88vh - var(--header-h));
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-block: clamp(3rem, 7vw, 5rem) clamp(4rem, 8vw, 6rem);
     overflow: hidden;
   }
-  .hero__inner {
+
+  .hero-inner {
+    position: relative;
+    display: grid;
+    align-items: center;
+    gap: 2rem;
+  }
+
+  .hero-text {
     position: relative;
     z-index: 1;
-    display: grid;
-    gap: clamp(2rem, 1rem + 5vw, 4rem);
-    align-items: center;
-    padding-block: clamp(3rem, 2rem + 6vw, 6rem);
+    text-align: center;
+    max-width: 38rem;
+    margin-inline: auto;
   }
 
-  .hero__name {
-    font-size: var(--step-4);
-    line-height: 0.94;
-    margin-top: 0.6rem;
-    text-transform: none;
-  }
-  .hero__name-1,
-  .hero__name-2 { display: block; }
-  .hero__name-1 { color: var(--fog); }
-  .hero__name-2 { color: var(--gold-bright); }
-
-  .hero__credential {
-    margin-top: 1.4rem;
-    max-width: 46ch;
-    font-size: var(--step-1);
-    color: var(--driftwood);
+  .hero h1 {
+    font-size: var(--text-3xl);
+    margin-bottom: 0.2em;
   }
 
-  .hero__cta {
+  .hero-text .ornament {
+    max-width: 16rem;
+    margin-inline: auto;
+  }
+
+  .hero-tagline {
+    font-size: var(--text-lg);
+    font-style: italic;
+    color: var(--ink);
+    margin-bottom: 0.5em;
+  }
+
+  .hero-support {
+    font-size: var(--text-base);
+    color: var(--ink-soft);
+    margin-bottom: 1.8em;
+  }
+
+  .hero-ctas {
     display: flex;
     flex-wrap: wrap;
+    justify-content: center;
     gap: 0.9rem;
-    margin-top: 2rem;
   }
 
-  /* Offset gold-border frame over the chart texture */
-  .hero__portrait { justify-self: center; width: 100%; max-width: 420px; }
-  .portrait-frame {
-    position: relative;
-    border-radius: var(--radius-lg);
-  }
-  .portrait-frame::before {
-    content: '';
+  /* Engraved plate: faded behind the text on small screens, beside it on wide */
+  .hero-figure {
     position: absolute;
     inset: 0;
-    transform: translate(16px, 16px);
-    border: 3px solid var(--gold);
-    border-radius: var(--radius-lg);
-    z-index: 0;
-  }
-  .portrait-frame img {
-    position: relative;
-    z-index: 1;
-    width: 100%;
-    height: auto;
-    aspect-ratio: 4 / 5;
-    object-fit: cover;
-    /* Source photo is taller than 4:5 — bias the crop upward to keep faces */
-    object-position: 50% 22%;
-    border-radius: var(--radius-lg);
-    border: 1px solid rgba(188, 179, 162, 0.35);
-    box-shadow: var(--shadow);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0.14;
+    pointer-events: none;
   }
 
-  @media (min-width: 860px) {
-    .hero__inner { grid-template-columns: 1.15fr 0.85fr; }
-    .hero__portrait { justify-self: end; }
+  .hero-figure img {
+    width: min(32rem, 90%);
+    height: auto;
+  }
+
+  .scroll-cue {
+    align-self: center;
+    margin-top: clamp(2rem, 5vw, 3.5rem);
+    font-family: var(--font-display-sc);
+    font-size: var(--text-sm);
+    letter-spacing: 0.24em;
+    text-transform: lowercase;
+    color: var(--ink-soft);
+    text-decoration: none;
+  }
+
+  .scroll-cue:hover {
+    color: var(--moss-deep);
+  }
+
+  @media (min-width: 60rem) {
+    .hero-inner {
+      grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+      gap: 3rem;
+    }
+
+    .hero-text {
+      text-align: left;
+      margin-inline: 0;
+    }
+
+    .hero-text .ornament {
+      margin-inline: 0;
+    }
+
+    .hero-ctas {
+      justify-content: flex-start;
+    }
+
+    .hero-figure {
+      position: static;
+      opacity: 0.85;
+    }
+
+    .hero-figure img {
+      width: 100%;
+      max-width: 32.5rem;
+    }
   }
 </style>

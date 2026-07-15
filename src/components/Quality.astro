@@ -1,0 +1,135 @@
+---
+// Quality.astro — sourcing & standards, styled as numbered field-guide entries.
+const standards = [
+  {
+    numeral: 'I',
+    title: 'Whole-Plant Botanicals',
+    body: 'Named-origin herbs and whole-food ingredients, prepared as nature composed them — never isolates chasing shortcuts.',
+  },
+  {
+    numeral: 'II',
+    title: 'Small-Batch Craft',
+    body: 'Every formula is prepared in deliberately limited runs, so each jar arrives at the height of its freshness and potency.',
+  },
+  {
+    numeral: 'III',
+    title: 'Purity Verified',
+    body: 'Every batch is sent to an independent third-party laboratory and tested for identity and purity before it earns the label.',
+  },
+  {
+    numeral: 'IV',
+    title: 'Nothing Needless',
+    body: 'No artificial preservatives, colors, fillers, or by-products. If it does not serve your dog, it does not go in the jar.',
+  },
+];
+---
+
+<section id="quality" class="section">
+  <div class="container">
+    <header class="quality-header" data-reveal>
+      <span class="eyebrow">sourcing &amp; standards</span>
+      <h2>Held to the Apothecary&rsquo;s Standard</h2>
+      <p class="quality-intro">
+        Before a single jar is sealed, every ingredient must pass the same four
+        tests we would demand of any preparation worth writing down. These are
+        the entries in our ledger — kept since the first batch, unbroken since.
+      </p>
+      <div class="ornament" role="presentation"><span>❦</span></div>
+    </header>
+
+    <ol class="standards" data-reveal>
+      {standards.map((item) => (
+        <li class="standard">
+          <span class="standard-numeral" aria-hidden="true">{item.numeral}</span>
+          <div class="standard-text">
+            <h3>{item.title}</h3>
+            <p>{item.body}</p>
+          </div>
+        </li>
+      ))}
+    </ol>
+  </div>
+</section>
+
+<style>
+  .quality-header {
+    max-width: 44rem;
+    margin-inline: auto;
+    text-align: center;
+  }
+
+  .quality-header h2 {
+    font-size: var(--text-2xl);
+  }
+
+  .quality-intro {
+    color: var(--ink-soft);
+    font-size: var(--text-base);
+    margin-bottom: 0;
+  }
+
+  .quality-header .ornament {
+    max-width: 16rem;
+    margin-inline: auto;
+  }
+
+  .standards {
+    list-style: none;
+    margin: 2.5rem 0 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  .standard {
+    display: flex;
+    gap: 1.25rem;
+    align-items: flex-start;
+    padding: 1.75rem 1.6rem;
+    background: var(--parchment);
+    border: 1px solid var(--rule);
+    border-radius: 2px;
+    box-shadow: var(--paper-shadow);
+    position: relative;
+  }
+
+  /* Faint double-rule inset, like a plate border in an old folio */
+  .standard::after {
+    content: '';
+    position: absolute;
+    inset: 5px;
+    border: 1px solid var(--rule);
+    opacity: 0.45;
+    pointer-events: none;
+    border-radius: 1px;
+  }
+
+  .standard-numeral {
+    font-family: var(--font-display);
+    font-size: var(--text-2xl);
+    line-height: 1;
+    color: var(--copper);
+    min-width: 2.2ch;
+    text-align: center;
+    padding-top: 0.15rem;
+  }
+
+  .standard-text h3 {
+    font-size: var(--text-lg);
+    margin-bottom: 0.35em;
+  }
+
+  .standard-text p {
+    margin: 0;
+    color: var(--ink-soft);
+    font-size: var(--text-base);
+  }
+
+  @media (min-width: 44rem) {
+    .standards {
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+    }
+  }
+</style>

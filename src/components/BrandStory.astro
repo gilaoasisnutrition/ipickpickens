@@ -1,0 +1,170 @@
+---
+// Brand story: the craft behind BE Canine, set like a field-guide spread.
+const plates = [
+  {
+    numeral: 'I.',
+    title: 'Whole-plant botanicals',
+    note: 'Herbs kept close to their natural form, never reduced to shortcuts.',
+  },
+  {
+    numeral: 'II.',
+    title: 'Small-batch preparation',
+    note: 'Measured, blended, and finished by hand in limited runs.',
+  },
+  {
+    numeral: 'III.',
+    title: 'Formulated for dogs',
+    note: 'Every recipe composed for canine constitutions from the first draft.',
+  },
+];
+---
+
+<section id="story" class="story section">
+  <div class="container">
+    <div class="story-grid" data-reveal>
+      <div class="story-text">
+        <span class="eyebrow">our craft</span>
+        <h2>From the Apothecary's Bench</h2>
+        <p>
+          Long before pet food came in bags, herbalists kept careful ledgers of
+          the plants that nourished the animals in their charge. BE Canine
+          begins there — with whole-plant botanicals selected for their
+          character and provenance, then prepared in small batches so nothing
+          is rushed and nothing is lost.
+        </p>
+        <p>
+          Our recipes are informed by centuries of herbal tradition and held to
+          thoroughly modern quality standards. Each botanical is identified,
+          tested, and documented before it earns a place on the bench; each
+          finished blend is composed to support healthy joints, promote normal
+          digestion, and help maintain a calm, contented disposition.
+        </p>
+        <p>
+          And every formula is written for dogs from the outset — measured to
+          canine appetites and constitutions, never adapted as an afterthought.
+          It is nutrition the old herbalists would recognize, finished with the
+          care of a bookbinder.
+        </p>
+      </div>
+
+      <figure class="story-figure">
+        <blockquote>
+          <p>
+            &ldquo;Let the plant be whole, the batch be small, and the record
+            be true.&rdquo;
+          </p>
+          <cite>— the bench rule, Botanical Enlightenment</cite>
+        </blockquote>
+        <figcaption class="visually-hidden">
+          Guiding principles of the BE Canine workshop
+        </figcaption>
+        <ol class="plates" role="list">
+          {plates.map(({ numeral, title, note }) => (
+            <li>
+              <span class="plate-numeral" aria-hidden="true">{numeral}</span>
+              <span class="plate-body">
+                <strong>{title}</strong>
+                <span class="plate-note">{note}</span>
+              </span>
+            </li>
+          ))}
+        </ol>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<style>
+  .story {
+    background: var(--parchment-deep);
+    border-block: 1px solid var(--rule);
+  }
+
+  .story-grid {
+    display: grid;
+    gap: clamp(2.5rem, 5vw, 4rem);
+    align-items: start;
+  }
+
+  .story h2 {
+    font-size: var(--text-2xl);
+  }
+
+  .story-text p {
+    color: var(--ink-soft);
+    max-width: 60ch;
+  }
+
+  .story-figure {
+    margin: 0;
+    padding: clamp(1.5rem, 3vw, 2.2rem);
+    border: 1px solid var(--rule-strong);
+    outline: 1px solid var(--rule);
+    outline-offset: 5px;
+    background: var(--parchment);
+    box-shadow: var(--paper-shadow);
+  }
+
+  .story-figure blockquote {
+    margin: 0 0 1.6rem;
+    padding: 0;
+  }
+
+  .story-figure blockquote p {
+    font-family: var(--font-display);
+    font-size: var(--text-lg);
+    line-height: 1.4;
+    margin-bottom: 0.5em;
+  }
+
+  .story-figure cite {
+    font-style: normal;
+    font-family: var(--font-display-sc);
+    font-size: var(--text-sm);
+    letter-spacing: 0.14em;
+    color: var(--copper);
+  }
+
+  .plates {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    border-top: 1px solid var(--rule);
+  }
+
+  .plates li {
+    display: flex;
+    gap: 0.9rem;
+    padding-block: 0.9rem;
+    border-bottom: 1px solid var(--rule);
+  }
+
+  .plate-numeral {
+    font-family: var(--font-display);
+    color: var(--copper);
+    min-width: 2rem;
+  }
+
+  .plate-body {
+    display: block;
+  }
+
+  .plate-body strong {
+    display: block;
+    font-family: var(--font-display);
+    font-weight: 400;
+    font-size: var(--text-base);
+  }
+
+  .plate-note {
+    display: block;
+    font-size: var(--text-sm);
+    color: var(--ink-soft);
+  }
+
+  @media (min-width: 56rem) {
+    .story-grid {
+      grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
+    }
+  }
+</style>

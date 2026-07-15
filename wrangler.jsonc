@@ -1,63 +1,28 @@
 {
-  // Cloudflare Workers deployment for IPickPickens.com.
-  // A small Worker (worker/index.js) fronts the static Astro build: it serves
-  // ./dist via the ASSETS binding and handles POST /api/signup (Get Involved
-  // form), storing entries in the SIGNUPS KV namespace.
+  // Cloudflare Workers deployment for becanine.com.
+  // A tiny Worker (worker/index.js) fronts the static Astro build: it serves
+  // ./dist via the ASSETS binding and handles POST /api/subscribe (email
+  // capture stub — see worker/index.js for where to wire a real provider).
   //
-  // Optional bot check: create a (free) Turnstile site in the Cloudflare
-  // dashboard, paste the SITE key into src/config.ts, then set the secret:
-  //   npx wrangler secret put TURNSTILE_SECRET_KEY
-  //
-  // Docs: https://developers.cloudflare.com/workers/static-assets/
+  // Deploy: npm run deploy   (builds, then `wrangler deploy`)
+  // Docs:   https://developers.cloudflare.com/workers/static-assets/
   "$schema": "node_modules/wrangler/config-schema.json",
-  "name": "ipickpickens",
+  "name": "becanine",
   "main": "worker/index.js",
   "compatibility_date": "2026-07-01",
-  // TODO after ipickpickens.com is attached: set "workers_dev": false here so
-  // the production workers.dev URL stops serving (staging keeps its own).
 
   "assets": {
     "directory": "./dist",
     "binding": "ASSETS",
-    // Serve the styled /404.html for unknown paths
-    "not_found_handling": "404-page"
-  },
-  "kv_namespaces": [
-    {
-      "binding": "SIGNUPS",
-      // "ipickpickens-signups" namespace (created 2026-07-11)
-      "id": "0b90617001f64e5d896941ef1e64e966"
-    }
-  ],
-
-  // Staging: deploy with `npm run deploy:staging`.
-  // Separate Worker (ipickpickens-staging) + separate signups KV, served at
-  // staging.ipickpickens.com (domain provisioned automatically on deploy once
-  // the ipickpickens.com zone is in this Cloudflare account) and at
-  // ipickpickens-staging.<subdomain>.workers.dev. The Worker sends
-  // X-Robots-Tag: noindex on any non-production hostname.
-  "env": {
-    "staging": {
-      "name": "ipickpickens-staging",
-      "workers_dev": true,
-      "routes": [
-        { "pattern": "staging.ipickpickens.com", "custom_domain": true }
-      ],
-      "assets": {
-        "directory": "./dist",
-        "binding": "ASSETS",
-        "not_found_handling": "404-page",
-        // Route every request through the Worker so the X-Robots-Tag: noindex
-        // header is applied to pages too (prod keeps the faster asset path).
-        "run_worker_first": true
-      },
-      "kv_namespaces": [
-        {
-          "binding": "SIGNUPS",
-          // "ipickpickens-signups-staging" namespace (created 2026-07-11)
-          "id": "1d679cadec334fca85cedec27c497733"
-        }
-      ]
-    }
+    "not_found_handling": "single-page-application"
   }
+
+  // Custom domain — once the becanine.com zone is in this Cloudflare account,
+  // uncomment to attach the domain on deploy (or add it in the dashboard under
+  // Workers & Pages → becanine → Settings → Domains & Routes):
+  //
+  // "routes": [
+  //   { "pattern": "becanine.com", "custom_domain": true },
+  //   { "pattern": "www.becanine.com", "custom_domain": true }
+  // ]
 }

@@ -1,162 +1,148 @@
 ---
-import TideDivider from './TideDivider.astro';
-import Triquetra from './Triquetra.astro';
-
-const links = [
-  { href: '#top', label: 'Home' },
-  { href: '#about', label: 'About' },
-  { href: '#platform', label: 'Platform' },
-  { href: '#books', label: 'Books' },
-  { href: '#events', label: 'Events' },
-  { href: '#get-involved', label: 'Get Involved' },
-  { href: '#donate', label: 'Donate' },
-];
-
-const socials = [
-  { label: 'Facebook', href: 'https://www.facebook.com/cmichael.pickens' },
-  { label: 'X', href: 'https://x.com/LibertarianLead' },
-  { label: 'Instagram', href: 'https://www.instagram.com/cmichaelpickens/' },
-  { label: 'YouTube', href: 'https://www.youtube.com/@CMichaelPickens/' },
-];
+// Footer.astro — inverted palette: iron-gall ink ground, parchment text.
+const year = 2026;
 ---
 
-<footer class="footer on-dark" aria-labelledby="footer-heading">
-  <TideDivider class="tide-divider--on-dark" />
-  <div class="container footer__inner">
-    <h2 id="footer-heading" class="visually-hidden">Site footer</h2>
+<footer class="footer">
+  <div class="container">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <p class="wordmark">BE Canine</p>
+        <p class="tagline">
+          The canine line of
+          <a
+            href="https://botanicalenlightenment.com"
+            target="_blank"
+            rel="noopener"
+          >Botanical Enlightenment</a>
+        </p>
+        <p class="contact">
+          <a href="mailto:hello@becanine.com">hello@becanine.com</a>
+        </p>
+      </div>
 
-    <div class="footer__brand">
-      <Triquetra class="footer__knot" size={32} stroke="var(--gold-bright)" />
-      <a class="wordmark" href="#top">
-        <span>I&nbsp;Pick</span> <span class="wordmark__p">Pickens</span>
-      </a>
-      <p class="footer__tagline">C. Michael Pickens for Pacific County Commissioner · 2028</p>
-      <ul class="footer__social" aria-label="Social media">
-        {socials.map((s) => (
-          <li>
-            <a href={s.href} target="_blank" rel="noopener noreferrer" aria-label={s.label}>{s.label}</a>
-          </li>
-        ))}
-      </ul>
+      <nav class="footer-nav" aria-label="Footer">
+        <h3 class="footer-heading">on this page</h3>
+        <ul>
+          <li><a href="#story">Our Story</a></li>
+          <li><a href="#products">The Formulas</a></li>
+          <li><a href="#quality">Sourcing &amp; Standards</a></li>
+          <li><a href="#signup">The Dispatch</a></li>
+        </ul>
+      </nav>
     </div>
 
-    <nav class="footer__nav" aria-label="Footer">
-      {links.map((l) => <a href={l.href}>{l.label}</a>)}
-    </nav>
-  </div>
-
-  <!-- Compliance disclaimer box.
-       DRAFT — WA PDC (Public Disclosure Commission) disclosure requirements
-       MUST be confirmed before launch: exact committee name, "Paid for by"
-       formatting, treasurer/address, and any sponsor-ID rules.
-       Ref: https://www.pdc.wa.gov/ -->
-  <div class="footer__disclaimer">
-    <div class="container">
+    <div class="footer-legal">
       <p>
-        Paid for by <strong>[Committee Name TBD]</strong> — [Address TBD],
-        Pacific County, WA.
+        These statements have not been evaluated by the Food and Drug
+        Administration. This product is not intended to diagnose, treat, cure,
+        or prevent any disease.
       </p>
-      <p class="footer__fineprint">
-        Committee registration, contribution limits, and disclaimer language
-        pending confirmation with the Washington State Public Disclosure
-        Commission (PDC) before launch. Not authorized by any other committee.
+      <p>
+        For dogs only. Not for human consumption. If your dog is pregnant,
+        nursing, or receiving veterinary care, consult your veterinarian
+        before use.
       </p>
-    </div>
-  </div>
-
-  <div class="footer__meta">
-    <div class="container footer__meta-inner">
-      <span>© {new Date().getFullYear()} C. Michael Pickens Campaign. All rights reserved.</span>
-      <span>IPickPickens.com</span>
+      <p class="copyright">
+        &copy; {year} Botanical Enlightenment. All rights reserved.
+      </p>
     </div>
   </div>
 </footer>
 
 <style>
-  .footer { background: var(--tide-deep); color: var(--fog); }
-  .footer .tide-divider-wrap { background: var(--tide-deep); }
-
-  .footer__inner {
-    display: grid;
-    gap: 2rem;
-    padding-block: clamp(2.5rem, 2rem + 2vw, 3.5rem);
+  .footer {
+    background: var(--ink);
+    color: var(--parchment);
+    padding-block: clamp(3rem, 6vw, 4.5rem) 2rem;
+    font-size: var(--text-base);
   }
-  .footer__knot { display: block; margin-bottom: 0.85rem; opacity: 0.7; }
-  .footer .wordmark {
+
+  .footer a {
+    color: var(--gold);
+    text-decoration-color: rgba(244, 237, 218, 0.25);
+    text-underline-offset: 0.2em;
+  }
+
+  .footer a:hover {
+    color: var(--parchment);
+  }
+
+  .footer-top {
+    display: flex;
+    flex-direction: column;
+    gap: 2.25rem;
+  }
+
+  .wordmark {
     font-family: var(--font-display);
-    font-weight: 700;
-    font-size: 1.5rem;
-    color: var(--fog);
-    text-decoration: none;
+    font-size: var(--text-xl);
+    line-height: 1.1;
+    margin: 0 0 0.35rem;
   }
-  .footer .wordmark__p { color: var(--gold-bright); }
-  .footer__tagline { margin-top: 0.6rem; color: var(--driftwood); max-width: 40ch; }
 
-  .footer__social {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 1rem;
+  .tagline {
+    color: rgba(244, 237, 218, 0.75);
+    margin: 0 0 0.75rem;
+    font-style: italic;
+  }
+
+  .contact {
+    margin: 0;
+  }
+
+  .footer-heading {
+    font-family: var(--font-display-sc);
+    font-size: var(--text-sm);
+    font-weight: 400;
+    letter-spacing: 0.3em;
+    text-transform: lowercase;
+    color: rgba(244, 237, 218, 0.6);
+    margin: 0 0 0.8rem;
+  }
+
+  .footer-nav ul {
     list-style: none;
+    margin: 0;
     padding: 0;
-    margin: 1.2rem 0 0;
-  }
-  .footer__social a {
-    font-family: var(--font-util);
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-    font-size: 0.72rem;
-    font-weight: 600;
-    color: var(--fog);
-    text-decoration: none;
-    padding-bottom: 2px;
-    border-bottom: 1px solid var(--salmon-copper);
-  }
-  .footer__social a:hover { color: var(--gold-bright); }
-
-  .footer__nav {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 0.6rem 1.5rem;
-  }
-  .footer__nav a {
-    font-family: var(--font-util);
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-    font-size: 0.78rem;
-    font-weight: 600;
-    color: var(--driftwood);
-    text-decoration: none;
-  }
-  .footer__nav a:hover { color: var(--fog); }
-
-  .footer__disclaimer {
-    background: var(--cedar);
-    color: var(--fog);
-    border-top: 3px solid var(--gold);
-    padding-block: 1.4rem;
-    font-size: 0.9rem;
-  }
-  .footer__disclaimer strong { color: #fff; }
-  .footer__fineprint { margin-top: 0.5rem; font-size: var(--step--1); color: var(--driftwood); }
-
-  .footer__meta {
-    background: #0a2226;
-    padding-block: 1rem;
-  }
-  .footer__meta-inner {
     display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    gap: 0.5rem;
-    font-family: var(--font-util);
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-    font-size: 0.68rem;
-    color: var(--driftwood);
+    flex-direction: column;
+    gap: 0.45rem;
   }
 
-  @media (min-width: 780px) {
-    .footer__inner { grid-template-columns: 1.3fr 1fr; align-items: start; }
-    .footer__nav { grid-template-columns: repeat(2, minmax(0, auto)); justify-content: end; }
+  .footer-nav a {
+    text-decoration: none;
+  }
+
+  .footer-nav a:hover {
+    text-decoration: underline;
+  }
+
+  .footer-legal {
+    margin-top: 2.75rem;
+    padding-top: 1.75rem;
+    border-top: 1px solid rgba(244, 237, 218, 0.25);
+    color: rgba(244, 237, 218, 0.62);
+    font-size: var(--text-sm);
+    line-height: 1.7;
+  }
+
+  .footer-legal p {
+    margin: 0 0 0.75em;
+    max-width: 60rem;
+  }
+
+  .copyright {
+    margin-bottom: 0;
+    color: rgba(244, 237, 218, 0.5);
+  }
+
+  @media (min-width: 44rem) {
+    .footer-top {
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 3rem;
+    }
   }
 </style>

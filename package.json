@@ -1,23 +1,20 @@
 {
-  "name": "ipickpickens",
+  "name": "becanine",
   "version": "0.1.0",
   "private": true,
-  "description": "Campaign website for C. Michael Pickens — Pacific County Commissioner 2028 (IPickPickens.com)",
+  "description": "BE Canine — premium botanical canine nutrition supplements. One-page storefront for becanine.com.",
   "type": "module",
   "scripts": {
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
     "wrangler:dev": "wrangler dev",
-    "deploy": "wrangler deploy",
-    "deploy:staging": "wrangler deploy --env staging"
+    "deploy": "npm run build && wrangler deploy"
   },
   "dependencies": {
-    "@astrojs/sitemap": "^3.7.3",
-    "@fontsource/archivo": "^5.2.8",
-    "@fontsource/besley": "^5.2.8",
-    "@fontsource/caveat": "^5.2.8",
-    "@fontsource/source-sans-3": "^5.2.9",
+    "@fontsource/eb-garamond": "^5.2.8",
+    "@fontsource/im-fell-english": "^5.2.8",
+    "@fontsource/im-fell-english-sc": "^5.2.8",
     "astro": "^5.6.1"
   },
   "devDependencies": {

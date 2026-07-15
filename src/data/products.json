@@ -1,0 +1,62 @@
+[
+  {
+    "id": "joint-support",
+    "slug": "joint-support",
+    "name": "Sound Stride — Hip & Joint Botanical Blend",
+    "shortDescription": "A field-guide classic for the active dog: turmeric root, glucosamine, and green-lipped mussel, milled small-batch to support healthy joints and easy movement through every season.",
+    "price": 48,
+    "image": "/assets/products/joint-support.svg",
+    "badges": ["Best Seller", "Small-batch"],
+    "inStock": true
+  },
+  {
+    "id": "gut-health",
+    "slug": "gut-health",
+    "name": "Kettle & Root — Digestive Comfort Blend",
+    "shortDescription": "Slippery elm bark, pumpkin seed, and fennel in a gentle daily preparation that promotes normal digestion and helps maintain a balanced gut.",
+    "price": 38,
+    "image": "/assets/products/gut-health.svg",
+    "badges": ["Small-batch"],
+    "inStock": true
+  },
+  {
+    "id": "skin-coat",
+    "slug": "skin-coat",
+    "name": "Gloss & Burr — Skin & Coat Preparation",
+    "shortDescription": "Cold-pressed flaxseed, nettle leaf, and biotin-rich brewer's yeast, blended to support supple skin and a glossy, show-worthy coat.",
+    "price": 42,
+    "image": "/assets/products/skin-coat.svg",
+    "badges": ["New"],
+    "inStock": true
+  },
+  {
+    "id": "calm-blend",
+    "slug": "calm-blend",
+    "name": "Still Waters — Calming Botanical Blend",
+    "shortDescription": "Chamomile flower, passionflower, and L-theanine in a quiet evening blend that helps maintain a calm, settled disposition during travel, storms, and busy households.",
+    "price": 44,
+    "image": "/assets/products/calm-blend.svg",
+    "badges": ["Best Seller"],
+    "inStock": true
+  },
+  {
+    "id": "daily-multi",
+    "slug": "daily-multi",
+    "name": "The Daily Compendium — Whole-Food Multivitamin",
+    "shortDescription": "An everyday foundation of spirulina, kelp, and rosehip, thoughtfully balanced to support overall vitality from nose to tail.",
+    "price": 34,
+    "image": "/assets/products/daily-multi.svg",
+    "badges": [],
+    "inStock": true
+  },
+  {
+    "id": "immune-support",
+    "slug": "immune-support",
+    "name": "Hale & Hardy — Immune Support Blend",
+    "shortDescription": "Turkey tail mushroom, elderberry, and astragalus root, gathered into one hearty blend that supports a healthy, resilient immune system year-round.",
+    "price": 46,
+    "image": "/assets/products/immune-support.svg",
+    "badges": ["Small-batch"],
+    "inStock": false
+  }
+]

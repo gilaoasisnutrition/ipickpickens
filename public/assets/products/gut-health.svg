@@ -11,15 +11,17 @@
   <circle cx="300" cy="300" r="272" fill="#f4edda" opacity="0.45"/>
   <circle cx="300" cy="300" r="272" fill="none" stroke="#2e2418" stroke-width="2"/>
   <circle cx="300" cy="300" r="262" fill="none" stroke="#2e2418" stroke-width="1"/>
-  <g stroke="#2e2418" fill="none" stroke-linecap="round" stroke-linejoin="round">
-    <!-- knobby hand of ginger -->
-    <path d="M190 280C178 288 178 306 192 312C204 318 220 318 232 312C236 324 248 332 262 330C276 328 284 318 284 306C298 312 314 310 322 300C330 290 326 276 314 272C320 262 316 248 304 244C292 240 280 246 276 256C268 246 254 242 242 248C234 252 230 260 232 270C218 266 200 270 190 280Z" stroke-width="2.2"/>
+  <g stroke="#2e2418" fill="none" stroke-linecap="round" stroke-linejoin="round" transform="translate(300 350) scale(1.25) translate(-300 -350)">
+    <!-- knobby hand of ginger with cut finger tips -->
+    <path d="M162 296C152 304 153 320 166 326C178 331 194 330 204 323C210 334 224 340 238 336C250 333 257 323 256 312C270 318 286 316 296 306C306 296 304 282 294 276C304 268 306 252 294 245C284 240 272 244 268 254C266 240 256 231 243 233C231 235 225 245 227 257C217 249 202 250 194 260C186 269 188 282 197 288C185 286 172 288 162 296Z" stroke-width="2.2"/>
     <g stroke-width="1.2" opacity="0.85">
-      <path d="M232 270q6 10 1 22M276 256q4 12-1 24M314 272q-9 6-19 7M242 248q2 10-2 18"/>
-      <path d="M300 244q4-8 12-10M240 246q2-8 9-11"/>
+      <path d="M227 257q8 8 18 9M268 254q-6 10-16 12M294 276q-10 2-20-2M204 323q4-10 12-16M256 312q-8-6-12-14"/>
+      <ellipse cx="296" cy="250" rx="6" ry="3.8" transform="rotate(-35 296 250)"/>
+      <ellipse cx="245" cy="236" rx="5.5" ry="3.5" transform="rotate(5 245 236)"/>
+      <ellipse cx="198" cy="263" rx="5" ry="3.2" transform="rotate(48 198 263)"/>
     </g>
     <g stroke-width="1" opacity="0.7">
-      <path d="M205 288q6 8 4 18M255 312q6 6 12 6M270 300q4 6 3 14"/>
+      <path d="M170 300q6 7 4 16M216 310q6 6 4 15M266 296q6 5 4 14M240 250q5 7 4 16M284 258q4 6 3 13"/>
     </g>
     <!-- cut slices -->
     <g stroke-width="2">

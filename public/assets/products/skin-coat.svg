@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="600" height="600" viewBox="0 0 600 600">
+  <title>Plate III — Flax stems with seed pods</title>
+  <defs>
+    <path id="fl" d="M0 0Q9 -11 6 -27Q-4 -14 0 0Z"/>
+  </defs>
+  <circle cx="300" cy="300" r="272" fill="#f4edda" opacity="0.45"/>
+  <circle cx="300" cy="300" r="272" fill="none" stroke="#2e2418" stroke-width="2"/>
+  <circle cx="300" cy="300" r="262" fill="none" stroke="#2e2418" stroke-width="1"/>
+  <g stroke="#2e2418" fill="none" stroke-linecap="round" stroke-linejoin="round" transform="translate(320 330) scale(1.15) translate(-320 -330)">
+    <!-- stems -->
+    <g stroke-width="1.8">
+      <path d="M285 470C270 400 268 320 292 250C298 230 305 214 312 200"/>
+      <path d="M305 470C300 390 306 300 330 232"/>
+      <path d="M320 470C330 410 345 340 372 287"/>
+    </g>
+    <!-- narrow leaves -->
+    <g stroke-width="1.2">
+      <use href="#fl" transform="translate(277 420) rotate(18)"/>
+      <use href="#fl" transform="translate(271 362) rotate(-24)"/>
+      <use href="#fl" transform="translate(281 304) rotate(14)"/>
+      <use href="#fl" transform="translate(296 254) rotate(-20)"/>
+      <use href="#fl" transform="translate(302 410) rotate(-14)"/>
+      <use href="#fl" transform="translate(305 340) rotate(18)"/>
+      <use href="#fl" transform="translate(317 272) rotate(-18)"/>
+      <use href="#fl" transform="translate(327 430) rotate(22)"/>
+      <use href="#fl" transform="translate(341 370) rotate(-16)"/>
+      <use href="#fl" transform="translate(356 316) rotate(16)"/>
+    </g>
+    <!-- seed bolls -->
+    <g stroke-width="1.8">
+      <circle cx="313" cy="192" r="15"/>
+      <path d="M313 177v-9M306 180l-5-7M320 180l5-7" stroke-width="1.2"/>
+      <path d="M313 177q-6 14 0 30M313 177q6 14 0 30" stroke-width="1"/>
+      <circle cx="332" cy="223" r="13.5"/>
+      <path d="M332 210v-8M326 212l-4-6M338 212l4-6" stroke-width="1.2"/>
+      <path d="M332 210q-5 12 0 26M332 210q5 12 0 26" stroke-width="1"/>
+      <circle cx="374" cy="278" r="12.5"/>
+      <path d="M374 266v-8M368 268l-4-6M380 268l4-6" stroke-width="1.2"/>
+      <path d="M366 270l16 16M382 270l-16 16" stroke-width="1"/>
+    </g>
+    <!-- loose seeds beside the split boll -->
+    <g fill="#2e2418" stroke="none">
+      <ellipse cx="400" cy="304" rx="3.6" ry="6" transform="rotate(24 400 304)"/>
+      <ellipse cx="410" cy="320" rx="3.4" ry="5.6" transform="rotate(-14 410 320)"/>
+      <ellipse cx="393" cy="324" rx="3.2" ry="5.4" transform="rotate(40 393 324)"/>
+    </g>
+  </g>
+  <text x="576" y="580" text-anchor="end" font-family="Georgia, 'Times New Roman', serif" font-size="20" letter-spacing="3" fill="#2e2418">PL. III</text>
+</svg>

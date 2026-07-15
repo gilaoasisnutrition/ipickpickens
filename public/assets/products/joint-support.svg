@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="600" height="600" viewBox="0 0 600 600">
+  <title>Plate I — Turmeric root and leaf</title>
+  <circle cx="300" cy="300" r="272" fill="#f4edda" opacity="0.45"/>
+  <circle cx="300" cy="300" r="272" fill="none" stroke="#2e2418" stroke-width="2"/>
+  <circle cx="300" cy="300" r="262" fill="none" stroke="#2e2418" stroke-width="1"/>
+  <g stroke="#2e2418" fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <!-- leaf -->
+    <g stroke-width="2">
+      <path d="M305 332C282 285 278 210 328 142C348 200 342 282 316 332"/>
+      <path d="M310 330C300 272 306 205 327 148" stroke-width="1.3"/>
+      <path d="M310 332Q308 342 304 350" stroke-width="1.8"/>
+    </g>
+    <g stroke-width="1" opacity="0.8">
+      <path d="M306 300Q292 288 288 268M307 265Q294 256 291 236M310 232Q299 224 297 205M314 200Q306 192 305 176"/>
+      <path d="M313 300Q327 288 330 268M313 265Q326 255 328 236M315 232Q325 223 326 205"/>
+    </g>
+    <!-- rhizome -->
+    <g stroke-width="2.2">
+      <path d="M197 358C186 366 187 383 200 390C212 397 232 400 250 396C256 406 268 412 282 410C296 408 306 399 309 388C326 392 346 390 359 381C370 373 371 359 361 352C347 343 328 342 312 346C306 334 294 328 280 330C266 332 258 341 256 351C238 344 212 348 197 358Z"/>
+      <path d="M330 386C338 400 351 410 366 413C380 415 389 407 386 397C383 387 372 381 361 380"/>
+      <path d="M226 349C220 338 222 326 232 320C241 315 250 320 250 330"/>
+    </g>
+    <g stroke-width="1" opacity="0.7">
+      <path d="M225 355q7 9 5 24M262 352q7 10 5 26M300 340q7 9 6 24M338 350q6 9 4 22M352 384q5 8 3 18"/>
+    </g>
+    <circle cx="210" cy="372" r="3" stroke-width="1.2"/>
+    <circle cx="286" cy="394" r="2.5" stroke-width="1.2"/>
+  </g>
+  <text x="576" y="580" text-anchor="end" font-family="Georgia, 'Times New Roman', serif" font-size="20" letter-spacing="3" fill="#2e2418">PL. I</text>
+</svg>

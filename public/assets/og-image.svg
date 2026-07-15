@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <title>BE Canine — Botanical Nutrition for Dogs</title>
+  <desc>Old title-page style social card on parchment with a double-rule border and an engraved sprig ornament.</desc>
+  <rect width="1200" height="630" fill="#f4edda"/>
+  <rect x="30" y="30" width="1140" height="570" fill="none" stroke="#2e2418" stroke-width="2.5"/>
+  <rect x="42" y="42" width="1116" height="546" fill="none" stroke="#2e2418" stroke-width="1"/>
+  <!-- corner ticks, engraver's flourish -->
+  <g stroke="#96612f" stroke-width="1.4" fill="none" stroke-linecap="round" opacity="0.9">
+    <path d="M56 70q10-12 24-14M1144 70q-10-12-24-14M56 560q10 12 24 14M1144 560q-10 12-24 14"/>
+  </g>
+  <text x="600" y="170" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif" font-size="26" letter-spacing="9" fill="#96612f">FROM THE HERBALIST&#8217;S PRESS</text>
+  <text x="600" y="318" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif" font-size="118" letter-spacing="4" fill="#2e2418">BE Canine</text>
+  <!-- rules and sprig ornament -->
+  <g stroke="#2e2418" stroke-width="1.2" fill="none">
+    <path d="M420 372H556M644 372H780"/>
+  </g>
+  <g stroke="#3f5231" fill="none" stroke-width="1.7" stroke-linecap="round">
+    <path d="M600 352v34"/>
+    <path d="M600 378C591 374 584 366 583 356M600 378C609 374 616 366 617 356"/>
+    <path d="M600 366C593 362 589 355 589 347M600 366C607 362 611 355 611 347"/>
+    <circle cx="600" cy="349" r="3"/>
+  </g>
+  <text x="600" y="432" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif" font-size="31" letter-spacing="11" fill="#2e2418">BOTANICAL NUTRITION FOR DOGS</text>
+  <text x="600" y="540" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif" font-style="italic" font-size="25" letter-spacing="2" fill="#96612f">by Botanical Enlightenment</text>
+</svg>

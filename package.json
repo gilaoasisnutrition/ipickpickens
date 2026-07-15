@@ -12,9 +12,9 @@
     "deploy": "npm run build && wrangler deploy"
   },
   "dependencies": {
-    "@fontsource/eb-garamond": "^5.2.8",
-    "@fontsource/im-fell-english": "^5.2.8",
-    "@fontsource/im-fell-english-sc": "^5.2.8",
+    "@fontsource/eb-garamond": "^5.2.7",
+    "@fontsource/im-fell-english": "^5.2.6",
+    "@fontsource/im-fell-english-sc": "^5.2.6",
     "astro": "^5.6.1"
   },
   "devDependencies": {

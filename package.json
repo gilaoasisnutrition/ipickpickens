@@ -2,7 +2,7 @@
   "name": "ipickpickens",
   "version": "0.1.0",
   "private": true,
-  "description": "Campaign website for C. Michael Pickens — Pacific County Commissioner 2028 (IPickPickens.com)",
+  "description": "Professional showcase site for C. Michael Pickens (IPickPickens.com)",
   "type": "module",
   "scripts": {
     "dev": "astro dev",

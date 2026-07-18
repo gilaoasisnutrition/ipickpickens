@@ -100,6 +100,13 @@ for the placeholder filename (e.g. `roots-oysters.svg`) and update the `src`.
 
 ## Deployment (Cloudflare Workers)
 
+**CI (preferred):** `.github/workflows/deploy.yml` builds and deploys on every
+push to `main`, and can be run on demand (Actions → Deploy → Run workflow,
+choosing production or staging). It needs the `CLOUDFLARE_API_TOKEN` repository
+secret — Settings → Secrets and variables → Actions.
+
+**Manual deploys** work the same as before:
+
 Hosting is configured in `wrangler.jsonc`:
 
 ```jsonc

@@ -1,11 +1,13 @@
 ---
+import { SCHEDULER_URL } from '../config';
+
 const links = [
   { href: '#top', label: 'Home' },
   { href: '#about', label: 'About' },
-  { href: '#platform', label: 'Platform' },
+  { href: '#live', label: 'Live Show' },
   { href: '#books', label: 'Books' },
-  { href: '#events', label: 'Events' },
-  { href: '#get-involved', label: 'Get Involved' },
+  { href: '#principles', label: 'Principles' },
+  { href: '#contact', label: 'Contact' },
 ];
 ---
 
@@ -23,7 +25,7 @@ const links = [
     </nav>
 
     <div class="nav__actions">
-      <a class="btn btn--primary nav__donate" href="#donate">Donate</a>
+      <a class="btn btn--primary nav__cta" href={SCHEDULER_URL} target="_blank" rel="noopener noreferrer">Book a Call</a>
       <button
         class="nav__toggle"
         type="button"
@@ -41,7 +43,7 @@ const links = [
     {links.map((l) => (
       <a href={l.href}>{l.label}</a>
     ))}
-    <a class="btn btn--primary" href="#donate">Donate</a>
+    <a class="btn btn--primary" href={SCHEDULER_URL} target="_blank" rel="noopener noreferrer">Book a Call</a>
   </nav>
 </header>
 
@@ -94,7 +96,7 @@ const links = [
   .nav__links a[aria-current='true'] { color: var(--gold-bright); border-color: var(--gold-bright); }
 
   .nav__actions { display: flex; align-items: center; gap: 0.75rem; }
-  .nav__donate { padding: 0.6rem 1.15rem; font-size: 0.76rem; }
+  .nav__cta { padding: 0.6rem 1.15rem; font-size: 0.76rem; }
 
   .nav__toggle {
     display: inline-flex;

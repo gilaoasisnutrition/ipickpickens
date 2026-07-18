@@ -1,0 +1,124 @@
+---
+/**
+ * Seven Principles of Good Government — the leadership philosophy Michael
+ * teaches, drawn from Gov. Gary Johnson's book of the same name (2012).
+ * Numbered cards, styled like a nautical chart legend.
+ */
+const principles = [
+  {
+    title: 'Be Driven by Reality',
+    body: 'Good government starts with an honest read of the facts. Sound policy grows out of what is actually happening, and every program earns its keep by producing measurable results.',
+  },
+  {
+    title: 'Always Tell the Truth',
+    body: 'Honesty is the most powerful tool a leader has. Trust is built by telling people the truth — especially when the truth is uncomfortable.',
+  },
+  {
+    title: 'Do What Is Right and Fair',
+    body: 'Integrity means deciding on the merits, standing behind the decision, and accepting the consequences. The right call and the fair call are the same call.',
+  },
+  {
+    title: 'Set a Goal, Create a Plan, and Act',
+    body: 'Identify the goal, build a realistic plan, and move. Leadership is momentum — problems get solved through decisive, well-planned action.',
+  },
+  {
+    title: 'Communicate Clearly',
+    body: 'Everyone affected by a decision deserves to understand what is being done and why. Open communication builds accountability and lets people judge the results for themselves.',
+  },
+  {
+    title: 'Deliver Bad News Immediately and Admit Mistakes',
+    body: 'Share hard news early, own mistakes quickly, and correct course while problems are still small. Accountability means fixing things fast — and in the open.',
+  },
+  {
+    title: 'Do Whatever It Takes to Get the Job Done',
+    body: 'Public service deserves full commitment, energy, and determination. The purpose of leadership is meaningful work for the people being served.',
+  },
+];
+---
+
+<section class="section section--dark on-dark principles7" id="principles" aria-labelledby="principles7-title">
+  <div class="container">
+    <p class="eyebrow">The Philosophy Michael Teaches</p>
+    <h2 class="section-title" id="principles7-title">Seven Principles of Good Government</h2>
+    <p class="lede">
+      Drawn from Gov. Gary Johnson's <em>Seven Principles of Good Government</em> —
+      a leadership philosophy Michael has taught to candidates and leaders across
+      the country: honest, practical, transparent, accountable, and focused on
+      results.
+    </p>
+
+    <ul class="principles7__grid">
+      {principles.map((p, i) => (
+        <li class="issue-card">
+          <span class="issue-card__num">{String(i + 1).padStart(2, '0')}</span>
+          <h3 class="issue-card__title">{p.title}</h3>
+          <p class="issue-card__body">{p.body}</p>
+        </li>
+      ))}
+    </ul>
+
+    <p class="principles7__coda">
+      The through-line is simple: government serves best when it does fewer
+      things, does them well, and remembers that its purpose is to serve the
+      people.
+    </p>
+  </div>
+</section>
+
+<style>
+  .principles7__grid {
+    list-style: none;
+    padding: 0;
+    margin: 2.5rem 0 0;
+    display: grid;
+    gap: 1.1rem;
+    grid-template-columns: 1fr;
+  }
+  .issue-card {
+    position: relative;
+    background: var(--tide-deep-2);
+    border: 1px solid rgba(188, 179, 162, 0.22);
+    border-radius: var(--radius-lg);
+    padding: 1.6rem 1.5rem;
+    overflow: hidden;
+  }
+  .issue-card::after {
+    content: '';
+    position: absolute;
+    left: 0; top: 0; bottom: 0;
+    width: 4px;
+    background: var(--gold);
+  }
+  .issue-card__num {
+    font-family: var(--font-util);
+    font-weight: 700;
+    font-size: 0.85rem;
+    letter-spacing: 0.1em;
+    color: var(--salmon-copper);
+  }
+  .issue-card__title {
+    font-size: var(--step-1);
+    margin: 0.5rem 0 0.5rem;
+    color: var(--fog);
+  }
+  .issue-card__body { color: var(--driftwood); margin: 0; }
+
+  .principles7__coda {
+    margin: 2rem auto 0;
+    max-width: 62ch;
+    text-align: center;
+    font-family: var(--font-display);
+    font-style: italic;
+    font-size: var(--step-1);
+    color: var(--gold-bright);
+  }
+
+  @media (min-width: 640px) {
+    .principles7__grid { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (min-width: 1000px) {
+    .principles7__grid { grid-template-columns: repeat(3, 1fr); }
+    /* 7th card spans the last row's remaining width gracefully */
+    .issue-card:last-child { grid-column: 2; }
+  }
+</style>

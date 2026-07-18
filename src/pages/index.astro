@@ -8,54 +8,59 @@ import About from '../components/About.astro';
 import Highlight from '../components/Highlight.astro';
 import Livestream from '../components/Livestream.astro';
 import Books from '../components/Books.astro';
-import Platform from '../components/Platform.astro';
+import SevenPrinciples from '../components/SevenPrinciples.astro';
 import Roots from '../components/Roots.astro';
-import Endorsements from '../components/Endorsements.astro';
-import Events from '../components/Events.astro';
-import GetInvolved from '../components/GetInvolved.astro';
-import DonateWidget from '../components/DonateWidget.astro';
+import Contact from '../components/Contact.astro';
 import Footer from '../components/Footer.astro';
 import TideDivider from '../components/TideDivider.astro';
-import { SITE_URL, SOCIALS, BOOKS } from '../config';
+import { SITE_URL, SOCIALS, BOOKS, ALM_URL } from '../config';
 
-// Structured data: candidate + published books. Helps search engines build a
-// knowledge panel for "C. Michael Pickens Pacific County Commissioner".
+// Structured data: person + published books. Helps search engines build a
+// knowledge panel for "C. Michael Pickens".
 const schema = {
   '@context': 'https://schema.org',
   '@graph': [
     {
       '@type': 'Person',
-      '@id': `${SITE_URL}/#candidate`,
+      '@id': `${SITE_URL}/#person`,
       name: 'C. Michael Pickens',
       alternateName: 'CMPickens',
       url: SITE_URL,
       image: `${SITE_URL}/assets/og-image.png`,
       description:
-        'Candidate for Pacific County Commissioner (Washington, 2028). Author, Chair of the Libertarian Party of Washington, and founder of the Libertarian Leadership Academy.',
-      affiliation: {
-        '@type': 'Organization',
-        name: 'Libertarian Party of Washington',
-        url: 'https://lpwa.org',
-      },
+        'Author, leadership educator, Chair of the Libertarian Party of Washington, founder of the Libertarian Leadership Academy, and host of Advancing Liberty Media.',
+      affiliation: [
+        {
+          '@type': 'Organization',
+          name: 'Libertarian Party of Washington',
+          url: 'https://lpwa.org',
+        },
+        {
+          '@type': 'Organization',
+          name: 'Advancing Liberty Media',
+          url: ALM_URL,
+        },
+      ],
       sameAs: [
         SOCIALS.facebook,
         SOCIALS.x,
         SOCIALS.instagram,
         SOCIALS.youtube,
         'https://libertarianleadership.org',
+        ALM_URL,
       ],
     },
     {
       '@type': 'Book',
       name: 'Libertarian Leadership: Planting the Seed for a Libertarian Future',
-      author: { '@id': `${SITE_URL}/#candidate` },
+      author: { '@id': `${SITE_URL}/#person` },
       datePublished: '2012',
       url: BOOKS.libertarianLeadership,
     },
     {
       '@type': 'Book',
       name: 'The Liberated Mind: Rewire Your Mind. Reclaim Your Power. Rewrite Your Life.',
-      author: { '@id': `${SITE_URL}/#candidate` },
+      author: { '@id': `${SITE_URL}/#person` },
       url: BOOKS.liberatedMind,
     },
   ],
@@ -75,13 +80,10 @@ const schema = {
     <Livestream />
     <Books />
     <TideDivider />
-    <Platform />
+    <SevenPrinciples />
     <Roots />
     <TideDivider />
-    <Endorsements />
-    <Events />
-    <GetInvolved />
-    <DonateWidget />
+    <Contact />
   </main>
   <Footer />
 </BaseLayout>

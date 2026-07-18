@@ -1,8 +1,9 @@
 {
   // Cloudflare Workers deployment for IPickPickens.com.
   // A small Worker (worker/index.js) fronts the static Astro build: it serves
-  // ./dist via the ASSETS binding and handles POST /api/signup (Get Involved
-  // form), storing entries in the SIGNUPS KV namespace.
+  // ./dist via the ASSETS binding and handles POST /api/contact (Contact
+  // form), storing entries in the SIGNUPS KV namespace and forwarding them to
+  // the Advancing Liberty Media webhook when CONTACT_WEBHOOK_URL is set.
   //
   // Optional bot check: create a (free) Turnstile site in the Cloudflare
   // dashboard, paste the SITE key into src/config.ts, then set the secret:
@@ -29,6 +30,11 @@
       "id": "0b90617001f64e5d896941ef1e64e966"
     }
   ],
+  "vars": {
+    // TODO: paste the contact-form webhook endpoint used by
+    // AdvancingLibertyMedia.com. While empty, messages are only stored in KV.
+    "CONTACT_WEBHOOK_URL": ""
+  },
 
   // Staging: deploy with `npm run deploy:staging`.
   // Separate Worker (ipickpickens-staging) + separate signups KV, served at
@@ -57,7 +63,11 @@
           // "ipickpickens-signups-staging" namespace (created 2026-07-11)
           "id": "1d679cadec334fca85cedec27c497733"
         }
-      ]
+      ],
+      "vars": {
+        // Staging posts nowhere by default; set to a test endpoint if needed.
+        "CONTACT_WEBHOOK_URL": ""
+      }
     }
   }
 }

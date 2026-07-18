@@ -1,8 +1,8 @@
 ---
 /**
  * About — "A Leader of Leaders." Bio + vertical timeline + Hinkle pull-quote.
- * Positioning: he doesn't just run — he built the bench and wrote the playbook.
- * Facts sourced from the campaign brief; ALL biographical copy is draft.
+ * Positioning: professional showcase — he built the bench and wrote the
+ * playbook. ALL biographical copy is draft pending Michael's review.
  *
  * Timeline entries can carry a photo thumbnail (img: {src, alt, pos});
  * pos is the object-position that keeps faces framed in the small crop.
@@ -50,16 +50,17 @@ const timeline = [
   { year: '2017–20', label: 'Founds Cannasales Inc. — cannabis-industry brand development: marketing, training, event staff & wholesale' },
   { year: '2021–', label: 'Moves into holistic product manufacturing & retail, expanding into canine wellness products and cancer support guides' },
   { year: '—', label: 'Publishes “The Liberated Mind”' },
+  { year: '—', label: 'Launches Advancing Liberty Media (AdvancingLibertyMedia.com) — coaching, speaking, and the daily livestream' },
   {
     year: 'Today',
-    label: 'Current Chair, Libertarian Party of Washington',
+    label: 'Chair, Libertarian Party of Washington · Advancing Liberty Media',
+    highlight: true,
     img: {
       src: photo2019,
       pos: '28% 40%',
       alt: 'Professional portrait of Michael Pickens in a brown blazer and plaid shirt',
     },
   },
-  { year: '2028', label: 'Runs for Pacific County Commissioner', highlight: true },
 ];
 ---
 
@@ -71,7 +72,7 @@ const timeline = [
       <p class="eyebrow">A Leader of Leaders</p>
       <h2 class="section-title" id="about-title">He built the bench. He wrote the manual.</h2>
 
-      <!-- DRAFT COPY — verify with candidate -->
+      <!-- DRAFT COPY — verify with Michael -->
       <div class="about__prose">
         <p>
           For fifteen years, <strong>C. Michael Pickens</strong> has done the
@@ -89,7 +90,10 @@ const timeline = [
           California, and former Chair of the Spokane County Libertarians. Along
           the way he has coached candidates to record-breaking vote totals and
           local election wins — work the national Libertarian Party has pointed to
-          as a model for candidate recruitment and training.
+          as a model for candidate recruitment and training. Today that work
+          continues through <strong>Advancing Liberty Media</strong>
+          (<a href="https://advancinglibertymedia.com" target="_blank" rel="noopener noreferrer">AdvancingLibertyMedia.com</a>),
+          his home for coaching, speaking, and daily liberty media.
         </p>
         <p>
           His experience isn't only political. From 2017 to 2020 he founded and
@@ -103,14 +107,13 @@ const timeline = [
           regulation from the inside.
         </p>
         <p>
-          Pacific County wouldn't be electing someone learning the job on the way
-          in. It would be electing the person who spent fifteen years helping other
-          people run for office and win — now ready to put that experience to work
-          for the bay, the beaches, and the people who call this coast home.
+          Today Michael brings all of it together from his home on the Pacific
+          County coast — writing, coaching, broadcasting, and teaching the next
+          generation of principled leaders how to find their voice and win.
         </p>
       </div>
 
-      <!-- DRAFT COPY — verify with candidate. Endorsement of the BOOK, not the campaign. -->
+      <!-- DRAFT COPY — verify with Michael. Print endorsement of the book. -->
       <figure class="pull-quote">
         <blockquote>
           A clear, practical guide for anyone serious about building a liberty
@@ -118,7 +121,7 @@ const timeline = [
         </blockquote>
         <figcaption>
           — Mark Hinkle, <span>Libertarian Party National Chair, 2010–2012</span>
-          <span class="pull-quote__note">(print endorsement of <em>Libertarian Leadership</em>; endorsement of the book, not the 2028 campaign)</span>
+          <span class="pull-quote__note">(print endorsement of <em>Libertarian Leadership</em>)</span>
         </figcaption>
       </figure>
     </div>
@@ -148,7 +151,7 @@ const timeline = [
         ))}
       </ol>
       <p class="about__timeline-note">
-        <!-- DRAFT COPY — confirm exact years/titles with candidate before launch -->
+        <!-- DRAFT COPY — confirm exact years/titles with Michael before launch -->
         Some dates are approximate and awaiting confirmation.
       </p>
     </div>

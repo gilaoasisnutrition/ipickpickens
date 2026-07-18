@@ -1,8 +1,14 @@
 # IPickPickens.com
 
-Campaign website for **C. Michael Pickens**, candidate for **Pacific County
-Commissioner (Washington), 2028**. Slogan & domain: **I Pick Pickens** —
+Professional showcase site for **C. Michael Pickens** — author, leadership
+educator, Chair of the Libertarian Party of Washington, and host of
+[Advancing Liberty Media](https://advancinglibertymedia.com). Domain:
 [ipickpickens.com](https://ipickpickens.com).
+
+> Note: Pickens has not filed for any office. Earlier drafts of this site were
+> campaign-framed; the campaign components (Platform, Events, Endorsements,
+> Donate, PDC disclaimer) were removed in the professional-showcase refresh and
+> can be recovered from git history if he files later.
 
 Built with [Astro](https://astro.build) (static output) and vanilla CSS. Deployed
 to **Cloudflare Workers** using static assets.
@@ -13,7 +19,7 @@ to **Cloudflare Workers** using static assets.
 - **Astro 5** — static site generator, zero client JS by default
 - **Vanilla CSS** with design tokens as CSS custom properties (`src/styles/global.css`)
 - Two tiny vanilla-JS islands: the mobile nav toggle (`Nav.astro`) and the
-  donation panel interactions (`DonateWidget.astro`)
+  contact form (`Contact.astro`)
 - Fonts: Besley (display), Archivo (utility/signage), Source Sans 3 (body) via
   Google Fonts with `font-display: swap`
 - **Cloudflare Workers** static assets for hosting (`wrangler.jsonc`)
@@ -46,9 +52,9 @@ public/
   robots.txt
   favicon.svg
 worker/
-  index.js             # Cloudflare Worker: serves ./dist + POST /api/signup → KV
+  index.js             # Cloudflare Worker: serves ./dist + POST /api/contact → KV + ALM webhook
 src/
-  config.ts            # public config: Turnstile site key, analytics token, links
+  config.ts            # public config: Turnstile site key, analytics token, scheduler + links
   assets/photos/       # real photos — optimized by Astro at build (WebP + srcset)
   layouts/
     BaseLayout.astro   # <head>, meta/OG tags, font loading, skip link
@@ -67,13 +73,10 @@ src/
     Highlight.astro    # Jack Canfield featured-interview section
     Livestream.astro   # daily weekday livestream section (w/ Dee Oh Gee)
     Books.astro        # compact books strip
-    Platform.astro     # six county-scoped issue cards
+    SevenPrinciples.astro # Seven Principles of Good Government (after Gary Johnson)
     Roots.astro        # Pacific County Roots photo strip
-    Endorsements.astro # designed "coming soon" grid
-    Events.astro       # placeholder event list w/ sample entry
-    GetInvolved.astro  # signup form UI (non-functional)
-    DonateWidget.astro # donation panel placeholder (swappable)
-    Footer.astro       # nav repeat, socials, PDC disclaimer box
+    Contact.astro      # scheduler CTA + contact form (→ /api/contact)
+    Footer.astro       # nav repeat, socials
   pages/
     index.astro        # assembles the single-page site
 wrangler.jsonc         # Cloudflare Workers static-assets config
@@ -127,24 +130,24 @@ npm run wrangler:dev          # serves ./dist via the Workers runtime
 
 ---
 
-## ⚠️ Before launch — items awaiting candidate/committee input
+## ⚠️ Before launch — items awaiting Michael's input
 
-**Draft copy** (marked in the code with `<!-- DRAFT COPY — verify with candidate -->`):
-- Hero credential line, full bio, all Platform positions, book blurbs, the Hinkle
-  pull-quote wording, and the donation trust line.
-- Confirm the candidate's **exact current title** (Chair, LPWA) and all timeline
-  years/dates.
+**Two paste-in values (blocked in this environment — needed from
+AdvancingLibertyMedia.com):**
+- `SCHEDULER_URL` in `src/config.ts` — the exact "book a call" scheduler link.
+  Until pasted, all scheduler buttons land on AdvancingLibertyMedia.com itself.
+- `CONTACT_WEBHOOK_URL` in `wrangler.jsonc` — the webhook endpoint the ALM
+  contact form posts to. Until pasted, contact messages are only stored in KV
+  (nothing is lost; the Worker forwards to the webhook once set).
 
-**Functional TODOs** (marked with `data-todo="…"` or `TODO:` in the code):
-- `donate-embed` — DonateWidget is visual-only. **TODO: replace with the Give
-  Gold Payments embed.**
-- `events` / `endorsements` — placeholder content to be replaced with real data.
-- ~~Book purchase links~~ — ✅ wired to Amazon.
-- ~~Footer social links~~ — ✅ wired (Facebook, X, Instagram, YouTube).
-- ~~Livestream link~~ — ✅ wired to the YouTube channel's live tab.
-- ~~Signup form backend~~ — ✅ live: `worker/index.js` stores entries in the
-  `ipickpickens-signups` KV namespace. Read them with
-  `npx wrangler kv key list --binding SIGNUPS` (add `--local` during dev).
+**Draft copy** (marked in the code with `<!-- DRAFT COPY — verify with Michael -->`):
+- Hero credential line, full bio, book blurbs, and the Hinkle pull-quote wording.
+- Confirm the **exact current title** (Chair, LPWA), his role/wording for
+  **Advancing Liberty Media**, and all timeline years/dates.
+
+**Contact form backend** — ✅ live: `worker/index.js` stores messages in the
+`ipickpickens-signups` KV namespace (keys prefixed `contact:`). Read them with
+`npx wrangler kv key list --binding SIGNUPS` (add `--local` during dev).
 
 **Optional hardening (5 min each, both free):**
 - **Turnstile bot check** — dash.cloudflare.com → Turnstile → Add site; paste
@@ -154,13 +157,7 @@ npm run wrangler:dev          # serves ./dist via the Workers runtime
 - **Cloudflare Web Analytics** — dash.cloudflare.com → Web Analytics → Add a
   site; paste the token into `src/config.ts`.
 
-**Compliance:**
-- The footer disclaimer box (`Paid for by [Committee Name TBD] — [Address TBD]`)
-  must be finalized. Confirm **Washington State PDC** requirements (committee
-  registration, contribution limits, employer/occupation collection, and exact
-  disclaimer language) **before accepting any contributions**. Ref:
-  <https://www.pdc.wa.gov/>.
-
 **Assets:**
-- Replace all placeholder images per [ASSETS.md](./ASSETS.md), including a real
-  candidate portrait and a real 1200×630 OG image.
+- Replace remaining placeholder images per [ASSETS.md](./ASSETS.md), including
+  a real 1200×630 OG image (the meta tags reference `og-image.png`, which does
+  not exist yet).

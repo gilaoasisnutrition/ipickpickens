@@ -1,41 +1,55 @@
 name: Attach becanine.com domain
 
-# Manual one-shot: deploys the Worker with the becanine.com + www custom-domain
-# routes (wrangler.domain.jsonc). Kept separate from deploy.yml so the main
-# pipeline stays green if the zone is not (yet) in this Cloudflare account.
+# Attaches becanine.com + www to the already-deployed "becanine" Worker via
+# the Cloudflare API. Runs from CI because it needs the CLOUDFLARE_API_TOKEN
+# secret. Prints full API error details on failure so the blocker is obvious.
 
 on:
   workflow_dispatch:
   push:
     branches: [claude/becanine-storefront-build-s0mcvp]
     paths:
-      - wrangler.domain.jsonc
       - .github/workflows/attach-domain.yml
-
-concurrency:
-  group: deploy-becanine
-  cancel-in-progress: false
 
 jobs:
   attach-domain:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-
-      - uses: actions/setup-node@v4
-        with:
-          node-version: 22
-          cache: npm
-
-      - name: Install dependencies
-        run: npm ci
-
-      - name: Build site
-        run: npm run build
-
-      - name: Deploy with custom domains
+      - name: Attach custom domains via Cloudflare API
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          WRANGLER_SEND_METRICS: 'false'
-        run: npx wrangler deploy --config wrangler.domain.jsonc
+        run: |
+          set -euo pipefail
+          api="https://api.cloudflare.com/client/v4"
+          hdr_auth="Authorization: Bearer $CLOUDFLARE_API_TOKEN"
+          hdr_ct="Content-Type: application/json"
+
+          echo "== Token check =="
+          curl -s -H "$hdr_auth" "$api/user/tokens/verify" \
+            | jq '{success, status: .result.status, errors}'
+
+          echo "== Zone lookup: becanine.com =="
+          zone_json=$(curl -s -H "$hdr_auth" "$api/zones?name=becanine.com")
+          echo "$zone_json" | jq '{success, zones: [.result[]? | {id, name, status, account: .account.name}], errors}'
+          zone_id=$(echo "$zone_json" | jq -r '.result[0].id // empty')
+          if [ -z "$zone_id" ]; then
+            echo "::error::The becanine.com zone is not visible to this API token — either the zone is in a different Cloudflare account, or the token lacks Zone:Read. Attach the domain in the dashboard (Workers & Pages → becanine → Settings → Domains & Routes) or re-scope the token, then re-run."
+            exit 1
+          fi
+
+          acct="cc05cbfb54bb9dcb3dba0ee9ad98a1bf"
+          fail=0
+          for host in becanine.com www.becanine.com; do
+            echo "== Attaching $host =="
+            resp=$(curl -s -H "$hdr_auth" -H "$hdr_ct" -X PUT \
+              "$api/accounts/$acct/workers/domains" \
+              --data "{\"zone_id\":\"$zone_id\",\"hostname\":\"$host\",\"service\":\"becanine\",\"environment\":\"production\"}")
+            echo "$resp" | jq '{success, errors, attached: (.result | if . then {hostname, service} else null end)}'
+            [ "$(echo "$resp" | jq -r '.success')" = "true" ] || fail=1
+          done
+
+          echo "== Domains currently attached to the account =="
+          curl -s -H "$hdr_auth" "$api/accounts/$acct/workers/domains" \
+            | jq '[.result[]? | select(.service == "becanine") | {hostname, service}]'
+
+          exit $fail

@@ -10,6 +10,8 @@
   "name": "becanine",
   "main": "worker/index.js",
   "compatibility_date": "2026-07-01",
+  // Keep the workers.dev URL serving even when custom-domain routes exist.
+  "workers_dev": true,
 
   "assets": {
     "directory": "./dist",

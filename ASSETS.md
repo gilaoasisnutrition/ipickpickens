@@ -39,7 +39,7 @@ For the **remaining placeholders** (roots strip, OG image):
 | # | File (placeholder) | Real format | Dimensions / Aspect | Placement | Notes |
 |---|---|---|---|---|---|
 | 1 | ~~`portrait-hero.svg`~~ | — | — | Hero, right column | ✅ **DONE** — real photo in place (`portrait-hero.jpg`) |
-| 2 | `og-image.svg` | **PNG** | 1200×630 (1.91:1) | Social share card (`<head>` meta) | Referenced in meta as `og-image.png` — supply a real PNG |
+| 2 | ~~`og-image.svg`~~ | — | — | Social share card (`<head>` meta) | ✅ **DONE** — real photo (`og-image.jpg`, 1200×630, fair photo with the George Washington reenactor) |
 | 3 | ~~`roots-oysters.svg`~~ | — | — | Pacific County Roots strip | ✅ **DONE** — generated scenery (`src/assets/photos/roots-oysters.png`, 1264×848) |
 | 4 | ~~`roots-razor-clams.svg`~~ | — | — | Roots strip | ✅ **DONE** — generated scenery (`roots-razor-clams.png`) |
 | 5 | ~~`roots-ilwaco-fleet.svg`~~ | — | — | Roots strip | ✅ **DONE** — generated scenery (`roots-ilwaco-fleet.png`) |

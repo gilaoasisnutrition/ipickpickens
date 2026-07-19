@@ -1,0 +1,36 @@
+name: Attach becanine.com domain
+
+# Manual one-shot: deploys the Worker with the becanine.com + www custom-domain
+# routes (wrangler.domain.jsonc). Kept separate from deploy.yml so the main
+# pipeline stays green if the zone is not (yet) in this Cloudflare account.
+
+on:
+  workflow_dispatch:
+
+concurrency:
+  group: deploy-becanine
+  cancel-in-progress: false
+
+jobs:
+  attach-domain:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build site
+        run: npm run build
+
+      - name: Deploy with custom domains
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          WRANGLER_SEND_METRICS: 'false'
+        run: npx wrangler deploy --config wrangler.domain.jsonc

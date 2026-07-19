@@ -1,22 +1,33 @@
-# Manual diagnostic: verifies the CLOUDFLARE_API_TOKEN and reports the
-# ipickpickens.com zone status (pending vs active). Prints no secrets.
+# Manual Cloudflare operations for the ipickpickens Worker.
+# attach-domains: attaches ipickpickens.com + www as Worker custom domains,
+# overriding any DNS records imported from the old registrar (the reason a
+# plain `wrangler deploy` fails non-interactively). Prints no secrets.
 name: Diagnose Cloudflare
 
 on: workflow_dispatch
 
+env:
+  CF_ACCOUNT: cc05cbfb54bb9dcb3dba0ee9ad98a1bf
+  SCRIPT: ipickpickens
+
 jobs:
-  diagnose:
+  attach-domains:
     runs-on: ubuntu-latest
     steps:
-      - name: Verify token and zone status
+      - name: Attach custom domains (with DNS override)
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
         run: |
-          echo "== token verify =="
-          curl -s -H "Authorization: Bearer $CLOUDFLARE_API_TOKEN" \
-            https://api.cloudflare.com/client/v4/user/tokens/verify \
-            | jq '{success, errors, status: .result.status}'
-          echo "== zone ipickpickens.com =="
-          curl -s -H "Authorization: Bearer $CLOUDFLARE_API_TOKEN" \
-            "https://api.cloudflare.com/client/v4/zones?name=ipickpickens.com" \
-            | jq '{success, errors, zones: [.result[]? | {name, status, name_servers, original_name_servers}]}'
+          auth=(-H "Authorization: Bearer $CLOUDFLARE_API_TOKEN" -H "Content-Type: application/json")
+          zone=$(curl -s "${auth[@]}" "https://api.cloudflare.com/client/v4/zones?name=ipickpickens.com" | jq -r '.result[0].id')
+          echo "zone id: $zone"
+          for host in ipickpickens.com www.ipickpickens.com; do
+            echo "== attaching $host =="
+            curl -s -X PUT "${auth[@]}" \
+              "https://api.cloudflare.com/client/v4/accounts/$CF_ACCOUNT/workers/scripts/$SCRIPT/domains/records" \
+              --data "{\"zone_id\":\"$zone\",\"hostname\":\"$host\",\"service\":\"$SCRIPT\",\"environment\":\"production\",\"override_scope\":true,\"override_existing_origin\":true,\"override_existing_dns_record\":true}" \
+              | jq '{success, errors, result: (.result | if . then {hostname, service, cert_status} else null end)}'
+          done
+          echo "== attached domains for account =="
+          curl -s "${auth[@]}" "https://api.cloudflare.com/client/v4/accounts/$CF_ACCOUNT/workers/domains" \
+            | jq '{success, domains: [.result[]? | {hostname, service}]}'

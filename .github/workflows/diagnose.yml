@@ -26,8 +26,7 @@ jobs:
             curl -s -X PUT "${auth[@]}" \
               "https://api.cloudflare.com/client/v4/accounts/$CF_ACCOUNT/workers/scripts/$SCRIPT/domains/records" \
               --data "{\"zone_id\":\"$zone\",\"hostname\":\"$host\",\"service\":\"$SCRIPT\",\"environment\":\"production\",\"override_scope\":true,\"override_existing_origin\":true,\"override_existing_dns_record\":true}" \
-              | jq '{success, errors, result: (.result | if . then {hostname, service, cert_status} else null end)}'
+              | jq . || true
           done
           echo "== attached domains for account =="
-          curl -s "${auth[@]}" "https://api.cloudflare.com/client/v4/accounts/$CF_ACCOUNT/workers/domains" \
-            | jq '{success, domains: [.result[]? | {hostname, service}]}'
+          curl -s "${auth[@]}" "https://api.cloudflare.com/client/v4/accounts/$CF_ACCOUNT/workers/domains" | jq . || true

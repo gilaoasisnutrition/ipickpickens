@@ -1,8 +1,12 @@
 name: Attach becanine.com domain
 
-# Attaches becanine.com + www to the already-deployed "becanine" Worker via
-# the Cloudflare API. Runs from CI because it needs the CLOUDFLARE_API_TOKEN
-# secret. Prints full API error details on failure so the blocker is obvious.
+# Points becanine.com + www at the deployed "becanine" Worker:
+#   1. logs the zone's existing DNS records in full (recovery reference),
+#   2. deletes ONLY the A/AAAA/CNAME web records for the apex and www
+#      (MX/TXT/other subdomains untouched — email etc. keep working),
+#   3. attaches both hostnames as Worker custom domains,
+#   4. verifies what the live domain serves.
+# Runs from CI because it needs the CLOUDFLARE_API_TOKEN secret.
 
 on:
   workflow_dispatch:
@@ -15,7 +19,7 @@ jobs:
   attach-domain:
     runs-on: ubuntu-latest
     steps:
-      - name: Attach custom domains via Cloudflare API
+      - name: Replace apex/www DNS records with Worker custom domains
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
         run: |
@@ -23,33 +27,47 @@ jobs:
           api="https://api.cloudflare.com/client/v4"
           hdr_auth="Authorization: Bearer $CLOUDFLARE_API_TOKEN"
           hdr_ct="Content-Type: application/json"
-
-          echo "== Token check =="
-          curl -s -H "$hdr_auth" "$api/user/tokens/verify" \
-            | jq '{success, status: .result.status, errors}'
-
-          echo "== Zone lookup: becanine.com =="
-          zone_json=$(curl -s -H "$hdr_auth" "$api/zones?name=becanine.com")
-          echo "$zone_json" | jq '{success, zones: [.result[]? | {id, name, status, account: .account.name}], errors}'
-          zone_id=$(echo "$zone_json" | jq -r '.result[0].id // empty')
-          if [ -z "$zone_id" ]; then
-            echo "::error::The becanine.com zone is not visible to this API token — either the zone is in a different Cloudflare account, or the token lacks Zone:Read. Attach the domain in the dashboard (Workers & Pages → becanine → Settings → Domains & Routes) or re-scope the token, then re-run."
-            exit 1
-          fi
-
           acct="cc05cbfb54bb9dcb3dba0ee9ad98a1bf"
+          zone="6aa7ab8aaaf1f8d38b5a623d80c6a574"
+
+          echo "== Current response from https://becanine.com (pre-change reference) =="
+          curl -sI --max-time 15 https://becanine.com | head -8 || echo "(no response)"
+
+          echo "== Existing DNS records in the becanine.com zone (recovery reference) =="
+          records=$(curl -s -H "$hdr_auth" "$api/zones/$zone/dns_records?per_page=100")
+          echo "$records" | jq '[.result[] | {id, type, name, content, proxied, priority}]'
+
+          echo "== Deleting A/AAAA/CNAME records for becanine.com and www.becanine.com =="
+          ids=$(echo "$records" | jq -r '.result[] | select((.name == "becanine.com" or .name == "www.becanine.com") and (.type == "A" or .type == "AAAA" or .type == "CNAME")) | .id')
+          if [ -z "$ids" ]; then echo "(none to delete)"; fi
+          for id in $ids; do
+            echo "Deleting record $id:"
+            curl -s -H "$hdr_auth" -X DELETE "$api/zones/$zone/dns_records/$id" | jq '{success, errors}'
+          done
+
           fail=0
           for host in becanine.com www.becanine.com; do
-            echo "== Attaching $host =="
+            echo "== Attaching $host to Worker 'becanine' =="
             resp=$(curl -s -H "$hdr_auth" -H "$hdr_ct" -X PUT \
               "$api/accounts/$acct/workers/domains" \
-              --data "{\"zone_id\":\"$zone_id\",\"hostname\":\"$host\",\"service\":\"becanine\",\"environment\":\"production\"}")
+              --data "{\"zone_id\":\"$zone\",\"hostname\":\"$host\",\"service\":\"becanine\",\"environment\":\"production\"}")
             echo "$resp" | jq '{success, errors, attached: (.result | if . then {hostname, service} else null end)}'
             [ "$(echo "$resp" | jq -r '.success')" = "true" ] || fail=1
           done
 
-          echo "== Domains currently attached to the account =="
+          echo "== Custom domains now attached to Worker 'becanine' =="
           curl -s -H "$hdr_auth" "$api/accounts/$acct/workers/domains" \
             | jq '[.result[]? | select(.service == "becanine") | {hostname, service}]'
 
+          echo "== Verifying https://becanine.com serves the site (up to ~2 min for cert issuance) =="
+          for i in $(seq 1 24); do
+            body=$(curl -s --max-time 15 https://becanine.com/ || true)
+            if echo "$body" | grep -q "BE Canine"; then
+              echo "LIVE: becanine.com is serving the BE Canine storefront."
+              echo "$body" | grep -o '<title>[^<]*</title>' | head -1
+              exit $fail
+            fi
+            sleep 5
+          done
+          echo "::warning::becanine.com did not serve the new site within the wait window — the certificate may still be provisioning. Re-check in a few minutes."
           exit $fail

@@ -2,7 +2,7 @@
 /**
  * About — "A Leader of Leaders." Bio + vertical timeline + Hinkle pull-quote.
  * Positioning: professional showcase — he built the bench and wrote the
- * playbook. ALL biographical copy is draft pending Michael's review.
+ * playbook.
  *
  * Timeline entries can carry a photo thumbnail (img: {src, alt, pos});
  * pos is the object-position that keeps faces framed in the small crop.
@@ -72,7 +72,6 @@ const timeline = [
       <p class="eyebrow">A Leader of Leaders</p>
       <h2 class="section-title" id="about-title">He built the bench. He wrote the manual.</h2>
 
-      <!-- DRAFT COPY — verify with Michael -->
       <div class="about__prose">
         <p>
           For fifteen years, <strong>C. Michael Pickens</strong> has done the
@@ -113,7 +112,6 @@ const timeline = [
         </p>
       </div>
 
-      <!-- DRAFT COPY — verify with Michael. Print endorsement of the book. -->
       <figure class="pull-quote">
         <blockquote>
           A clear, practical guide for anyone serious about building a liberty
@@ -150,10 +148,6 @@ const timeline = [
           </li>
         ))}
       </ol>
-      <p class="about__timeline-note">
-        <!-- DRAFT COPY — confirm exact years/titles with Michael before launch -->
-        Some dates are approximate and awaiting confirmation.
-      </p>
     </div>
   </div>
 </section>
@@ -261,13 +255,6 @@ const timeline = [
     box-shadow: 0 8px 20px -14px rgba(13, 43, 48, 0.7);
     /* Raised up-right into the gutter beside the previous entry */
     margin-top: -1.7rem;
-  }
-
-  .about__timeline-note {
-    margin-top: 0.6rem;
-    font-size: var(--step--1);
-    color: var(--ink-soft);
-    font-style: italic;
   }
 
   @media (min-width: 940px) {

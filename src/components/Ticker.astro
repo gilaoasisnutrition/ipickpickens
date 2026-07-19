@@ -5,13 +5,13 @@
  * Honours prefers-reduced-motion (animation paused; content stays readable).
  */
 const words = [
-  'Pacific County', 'Author', 'Leadership', 'Willapa Bay', 'Accountability',
-  'Working Waterfronts', 'Educator of Candidates', 'Long Beach', 'Oyster Country',
-  'Property Rights', 'Raymond', 'Ilwaco', 'South Bend', 'Liberty', '2028',
+  'Pacific County', 'Author', 'Leadership', 'Willapa Bay', 'Coach',
+  'Advancing Liberty Media', 'Educator of Candidates', 'Long Beach', 'Oyster Country',
+  'Speaker', 'Raymond', 'Ilwaco', 'South Bend', 'Liberty', 'Entrepreneur',
 ];
 ---
 
-<div class="ticker" role="marquee" aria-label="Campaign keywords">
+<div class="ticker" role="marquee" aria-label="Keywords">
   <div class="ticker__track">
     {[0, 1].map((copy) => (
       <ul class="ticker__group" aria-hidden={copy === 1 ? 'true' : undefined}>

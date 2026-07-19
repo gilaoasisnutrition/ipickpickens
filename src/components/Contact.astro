@@ -1,67 +1,77 @@
 ---
 /**
- * Get Involved — signup form, wired to the Worker at POST /api/signup
- * (worker/index.js), which stores entries in the SIGNUPS KV namespace.
+ * Contact — scheduler CTA + message form, wired to the Worker at
+ * POST /api/contact (worker/index.js). Every message is stored in the
+ * SIGNUPS KV namespace and forwarded to the Advancing Liberty Media
+ * webhook when CONTACT_WEBHOOK_URL is configured (wrangler.jsonc).
  * Falls back to a normal form POST when JS is unavailable.
  * Turnstile bot check renders only when a site key is set in src/config.ts.
  */
 import CelticTexture from './CelticTexture.astro';
-import { TURNSTILE_SITE_KEY } from '../config';
+import { TURNSTILE_SITE_KEY, SCHEDULER_URL } from '../config';
 
-const volunteerOptions = [
-  'Yard sign',
-  'Door knocking',
-  'Phone / text banking',
-  'Host an event',
-  'Donate my time / skills',
+const interestOptions = [
+  'Campaign & leadership coaching',
+  'Speaking engagement',
+  'Podcast / media appearance',
+  'Livestream guest',
   'Just keep me posted',
 ];
 ---
 
-<section class="section section--dark on-dark get-involved" id="get-involved" aria-labelledby="get-involved-title">
+<section class="section section--dark on-dark contact" id="contact" aria-labelledby="contact-title">
   <CelticTexture stroke="rgba(216,178,90,0.05)" />
-  <div class="container get-involved__grid">
-    <div class="get-involved__intro">
-      <p class="eyebrow">Join the Campaign</p>
-      <h2 class="section-title" id="get-involved-title">It takes a county to win.</h2>
+  <div class="container contact__grid">
+    <div class="contact__intro">
+      <p class="eyebrow">Work With Michael</p>
+      <h2 class="section-title" id="contact-title">Let's talk.</h2>
       <p class="lede">
-        Add your name, tell us how you'd like to help, and we'll be in touch.
-        Every sign, every door, and every conversation moves this forward.
+        Coaching, speaking, media, or a conversation about leadership — the
+        fastest way to connect is to grab time on Michael's calendar.
       </p>
-      <p class="get-involved__vote">
-        Not registered to vote yet — or not sure? Washington makes it easy:
-        <a href="https://voter.votewa.gov" target="_blank" rel="noopener noreferrer">check your status at VoteWA.gov</a>.
+      <a
+        class="btn btn--primary contact__schedule"
+        href={SCHEDULER_URL}
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        Schedule with Michael
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </a>
+      <p class="contact__alm">
+        Michael's coaching and media work lives at
+        <a href="https://advancinglibertymedia.com" target="_blank" rel="noopener noreferrer">AdvancingLibertyMedia.com</a>.
       </p>
     </div>
 
-    <form class="signup" method="post" action="/api/signup" aria-labelledby="get-involved-title">
+    <form class="signup" method="post" action="/api/contact" aria-labelledby="contact-title">
       <div class="signup__row">
         <div class="field">
-          <label for="signup-name">Name</label>
-          <input id="signup-name" name="name" type="text" autocomplete="name" required />
+          <label for="contact-name">Name</label>
+          <input id="contact-name" name="name" type="text" autocomplete="name" required />
         </div>
         <div class="field">
-          <label for="signup-zip">ZIP code</label>
-          <input id="signup-zip" name="zip" type="text" inputmode="numeric" autocomplete="postal-code" pattern="[0-9]{5}" />
+          <label for="contact-email">Email</label>
+          <input id="contact-email" name="email" type="email" autocomplete="email" required />
         </div>
       </div>
 
-      <div class="field">
-        <label for="signup-email">Email</label>
-        <input id="signup-email" name="email" type="email" autocomplete="email" required />
-      </div>
-
-      <fieldset class="field volunteer">
-        <legend>How would you like to help?</legend>
-        <div class="volunteer__grid">
-          {volunteerOptions.map((opt, i) => (
+      <fieldset class="field interest">
+        <legend>What's this about?</legend>
+        <div class="interest__grid">
+          {interestOptions.map((opt) => (
             <label class="checkbox">
-              <input type="checkbox" name="help" value={opt} />
+              <input type="checkbox" name="interest" value={opt} />
               <span>{opt}</span>
             </label>
           ))}
         </div>
       </fieldset>
+
+      <div class="field">
+        <label for="contact-message">Message</label>
+        <textarea id="contact-message" name="message" rows="4"></textarea>
+      </div>
 
       {TURNSTILE_SITE_KEY && (
         <div
@@ -71,10 +81,11 @@ const volunteerOptions = [
         />
       )}
 
-      <button class="btn btn--primary signup__submit" type="submit">Count Me In</button>
+      <button class="btn btn--primary signup__submit" type="submit">Send Message</button>
       <p class="signup__status" role="status" aria-live="polite" hidden></p>
       <p class="signup__note">
-        We'll never sell or share your information. Unsubscribe anytime.
+        Your message goes straight to Michael's team. We keep your information
+        private — unsubscribe anytime.
       </p>
     </form>
   </div>
@@ -85,20 +96,21 @@ const volunteerOptions = [
 </section>
 
 <style>
-  .get-involved {
+  .contact {
     position: relative;
     overflow: hidden;
   }
-  .get-involved > .container {
+  .contact > .container {
     position: relative;
     z-index: 1;
   }
-  .get-involved__grid {
+  .contact__grid {
     display: grid;
     gap: clamp(2rem, 1rem + 4vw, 3.5rem);
     align-items: start;
   }
-  .get-involved__vote {
+  .contact__schedule { margin-top: 1.6rem; }
+  .contact__alm {
     margin-top: 1.2rem;
     padding: 0.8rem 1rem;
     border-left: 3px solid var(--gold);
@@ -107,7 +119,7 @@ const volunteerOptions = [
     color: var(--driftwood);
     font-size: var(--step--1);
   }
-  .get-involved__vote a { color: var(--gold-bright); font-weight: 600; }
+  .contact__alm a { color: var(--gold-bright); font-weight: 600; }
   .signup__status {
     margin: 0;
     font-weight: 600;
@@ -130,7 +142,7 @@ const volunteerOptions = [
   }
   .field { display: grid; gap: 0.4rem; }
   .field label,
-  .volunteer legend {
+  .interest legend {
     font-family: var(--font-util);
     text-transform: uppercase;
     letter-spacing: 0.08em;
@@ -139,7 +151,8 @@ const volunteerOptions = [
     color: var(--driftwood);
   }
   .field input[type='text'],
-  .field input[type='email'] {
+  .field input[type='email'],
+  .field textarea {
     width: 100%;
     padding: 0.75rem 0.85rem;
     border-radius: var(--radius);
@@ -148,11 +161,13 @@ const volunteerOptions = [
     color: var(--ink);
     font: inherit;
   }
-  .field input:focus-visible { outline-color: var(--gold-bright); }
+  .field textarea { resize: vertical; }
+  .field input:focus-visible,
+  .field textarea:focus-visible { outline-color: var(--gold-bright); }
 
-  .volunteer { border: 0; padding: 0; margin: 0; }
-  .volunteer legend { padding: 0; margin-bottom: 0.6rem; }
-  .volunteer__grid {
+  .interest { border: 0; padding: 0; margin: 0; }
+  .interest legend { padding: 0; margin-bottom: 0.6rem; }
+  .interest__grid {
     display: grid;
     gap: 0.6rem;
     grid-template-columns: 1fr;
@@ -175,18 +190,18 @@ const volunteerOptions = [
   .signup__note { font-size: var(--step--1); color: var(--driftwood); margin: 0; }
 
   @media (min-width: 560px) {
-    .signup__row { grid-template-columns: 1.4fr 0.6fr; }
-    .volunteer__grid { grid-template-columns: repeat(2, 1fr); }
+    .signup__row { grid-template-columns: 1fr 1fr; }
+    .interest__grid { grid-template-columns: repeat(2, 1fr); }
   }
   @media (min-width: 940px) {
-    .get-involved__grid { grid-template-columns: 0.85fr 1.15fr; }
+    .contact__grid { grid-template-columns: 0.85fr 1.15fr; }
   }
 </style>
 
 <script>
   // Progressive enhancement: submit via fetch and show inline status.
   // Without JS the form still POSTs normally; the Worker 303-redirects back
-  // with ?signup=thanks, handled below.
+  // with ?contact=thanks, handled below.
   const form = document.querySelector<HTMLFormElement>('.signup');
   const status = document.querySelector<HTMLParagraphElement>('.signup__status');
 
@@ -210,7 +225,7 @@ const volunteerOptions = [
       });
       const data = await res.json().catch(() => ({ ok: false, error: 'Unexpected response.' }));
       if (data.ok) {
-        show("You're in — thank you! We'll be in touch soon.", true);
+        show("Message sent — thank you! We'll be in touch soon.", true);
         form.reset();
       } else {
         show(data.error || 'Something went wrong — please try again.', false);
@@ -222,8 +237,8 @@ const volunteerOptions = [
     }
   });
 
-  // No-JS fallback landing: /?signup=thanks#get-involved
-  if (new URLSearchParams(location.search).get('signup') === 'thanks') {
-    show("You're in — thank you! We'll be in touch soon.", true);
+  // No-JS fallback landing: /?contact=thanks#contact
+  if (new URLSearchParams(location.search).get('contact') === 'thanks') {
+    show("Message sent — thank you! We'll be in touch soon.", true);
   }
 </script>

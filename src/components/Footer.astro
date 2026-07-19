@@ -5,11 +5,10 @@ import Triquetra from './Triquetra.astro';
 const links = [
   { href: '#top', label: 'Home' },
   { href: '#about', label: 'About' },
-  { href: '#platform', label: 'Platform' },
+  { href: '#live', label: 'Live Show' },
   { href: '#books', label: 'Books' },
-  { href: '#events', label: 'Events' },
-  { href: '#get-involved', label: 'Get Involved' },
-  { href: '#donate', label: 'Donate' },
+  { href: '#principles', label: 'Principles' },
+  { href: '#contact', label: 'Contact' },
 ];
 
 const socials = [
@@ -30,7 +29,10 @@ const socials = [
       <a class="wordmark" href="#top">
         <span>I&nbsp;Pick</span> <span class="wordmark__p">Pickens</span>
       </a>
-      <p class="footer__tagline">C. Michael Pickens for Pacific County Commissioner · 2028</p>
+      <p class="footer__tagline">
+        C. Michael Pickens — author, leadership educator, and host of
+        <a href="https://advancinglibertymedia.com" target="_blank" rel="noopener noreferrer">Advancing Liberty Media</a>.
+      </p>
       <ul class="footer__social" aria-label="Social media">
         {socials.map((s) => (
           <li>
@@ -45,28 +47,9 @@ const socials = [
     </nav>
   </div>
 
-  <!-- Compliance disclaimer box.
-       DRAFT — WA PDC (Public Disclosure Commission) disclosure requirements
-       MUST be confirmed before launch: exact committee name, "Paid for by"
-       formatting, treasurer/address, and any sponsor-ID rules.
-       Ref: https://www.pdc.wa.gov/ -->
-  <div class="footer__disclaimer">
-    <div class="container">
-      <p>
-        Paid for by <strong>[Committee Name TBD]</strong> — [Address TBD],
-        Pacific County, WA.
-      </p>
-      <p class="footer__fineprint">
-        Committee registration, contribution limits, and disclaimer language
-        pending confirmation with the Washington State Public Disclosure
-        Commission (PDC) before launch. Not authorized by any other committee.
-      </p>
-    </div>
-  </div>
-
   <div class="footer__meta">
     <div class="container footer__meta-inner">
-      <span>© {new Date().getFullYear()} C. Michael Pickens Campaign. All rights reserved.</span>
+      <span>© {new Date().getFullYear()} C. Michael Pickens. All rights reserved.</span>
       <span>IPickPickens.com</span>
     </div>
   </div>
@@ -91,6 +74,8 @@ const socials = [
   }
   .footer .wordmark__p { color: var(--gold-bright); }
   .footer__tagline { margin-top: 0.6rem; color: var(--driftwood); max-width: 40ch; }
+  .footer__tagline a { color: var(--gold-bright); text-decoration: none; }
+  .footer__tagline a:hover { text-decoration: underline; }
 
   .footer__social {
     display: flex;
@@ -128,16 +113,6 @@ const socials = [
     text-decoration: none;
   }
   .footer__nav a:hover { color: var(--fog); }
-
-  .footer__disclaimer {
-    background: var(--cedar);
-    color: var(--fog);
-    border-top: 3px solid var(--gold);
-    padding-block: 1.4rem;
-    font-size: 0.9rem;
-  }
-  .footer__disclaimer strong { color: #fff; }
-  .footer__fineprint { margin-top: 0.5rem; font-size: var(--step--1); color: var(--driftwood); }
 
   .footer__meta {
     background: #0a2226;

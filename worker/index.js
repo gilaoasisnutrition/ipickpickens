@@ -1,13 +1,16 @@
 /**
  * IPickPickens.com Worker.
  *
- * Serves the static Astro build (ASSETS binding) and handles the Get Involved
- * signup form at POST /api/signup:
+ * Serves the static Astro build (ASSETS binding) and handles the Contact
+ * form at POST /api/contact:
  *   - optional Cloudflare Turnstile verification (enforced only when the
  *     TURNSTILE_SECRET_KEY secret is set: npx wrangler secret put TURNSTILE_SECRET_KEY)
- *   - stores each signup as JSON in the SIGNUPS KV namespace
+ *   - stores each message as JSON in the SIGNUPS KV namespace
+ *   - forwards each message to the Advancing Liberty Media webhook when
+ *     CONTACT_WEBHOOK_URL is set (wrangler.jsonc vars) — the same endpoint
+ *     the AdvancingLibertyMedia.com contact form posts to
  *
- * Read signups any time with:
+ * Read stored messages any time with:
  *   npx wrangler kv key list --namespace-id <id>
  *   npx wrangler kv key get <key> --namespace-id <id>
  */
@@ -15,17 +18,18 @@
 const JSON_HEADERS = { 'content-type': 'application/json; charset=utf-8' };
 
 export default {
-  async fetch(request, env) {
+  async fetch(request, env, ctx) {
     const url = new URL(request.url);
 
-    if (url.pathname === '/api/signup') {
+    // /api/signup kept as an alias for any cached pages still posting there.
+    if (url.pathname === '/api/contact' || url.pathname === '/api/signup') {
       if (request.method !== 'POST') {
         return new Response(JSON.stringify({ ok: false, error: 'Method not allowed' }), {
           status: 405,
           headers: JSON_HEADERS,
         });
       }
-      return handleSignup(request, env);
+      return handleContact(request, env, ctx);
     }
 
     const response = await env.ASSETS.fetch(request);
@@ -42,7 +46,7 @@ export default {
   },
 };
 
-async function handleSignup(request, env) {
+async function handleContact(request, env, ctx) {
   let form;
   try {
     form = await request.formData();
@@ -52,8 +56,8 @@ async function handleSignup(request, env) {
 
   const name = (form.get('name') || '').toString().trim().slice(0, 200);
   const email = (form.get('email') || '').toString().trim().slice(0, 200);
-  const zip = (form.get('zip') || '').toString().trim().slice(0, 10);
-  const help = form.getAll('help').map((h) => h.toString().slice(0, 60));
+  const message = (form.get('message') || '').toString().trim().slice(0, 4000);
+  const interest = form.getAll('interest').map((h) => h.toString().slice(0, 60));
 
   if (!name || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
     return json(400, { ok: false, error: 'Please provide your name and a valid email.' });
@@ -69,25 +73,37 @@ async function handleSignup(request, env) {
   }
 
   if (!env.SIGNUPS) {
-    return json(503, { ok: false, error: 'Signup storage is not configured yet.' });
+    return json(503, { ok: false, error: 'Message storage is not configured yet.' });
   }
 
   const record = {
     name,
     email,
-    zip,
-    help,
+    interest,
+    message,
     at: new Date().toISOString(),
     ua: request.headers.get('user-agent') || '',
   };
   // Key sorts chronologically; suffix avoids collisions within the same ms.
-  const key = `signup:${record.at}:${crypto.randomUUID().slice(0, 8)}`;
+  const key = `contact:${record.at}:${crypto.randomUUID().slice(0, 8)}`;
   await env.SIGNUPS.put(key, JSON.stringify(record));
+
+  // Forward to the ALM webhook after responding; KV already has the copy, so
+  // a webhook hiccup never loses the message or fails the visitor.
+  if (env.CONTACT_WEBHOOK_URL) {
+    ctx.waitUntil(
+      fetch(env.CONTACT_WEBHOOK_URL, {
+        method: 'POST',
+        headers: JSON_HEADERS,
+        body: JSON.stringify(record),
+      }).catch(() => {})
+    );
+  }
 
   // No-JS fallback: regular form posts get redirected back with a flag.
   const accepts = request.headers.get('accept') || '';
   if (!accepts.includes('application/json')) {
-    return Response.redirect(new URL('/?signup=thanks#get-involved', request.url).toString(), 303);
+    return Response.redirect(new URL('/?contact=thanks#contact', request.url).toString(), 303);
   }
   return json(200, { ok: true });
 }

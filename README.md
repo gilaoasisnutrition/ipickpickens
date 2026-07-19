@@ -1,8 +1,8 @@
 # IPickPickens.com
 
 Professional showcase site for **C. Michael Pickens** — author, leadership
-educator, Chair of the Libertarian Party of Washington, and host of
-[Advancing Liberty Media](https://advancinglibertymedia.com). Domain:
+educator, Chair of the Libertarian Party of Washington, and founder of the
+[Libertarian Leadership Academy](https://libertarianleadership.org). Domain:
 [ipickpickens.com](https://ipickpickens.com).
 
 > Note: Pickens has not filed for any office. Earlier drafts of this site were
@@ -52,7 +52,7 @@ public/
   robots.txt
   favicon.svg
 worker/
-  index.js             # Cloudflare Worker: serves ./dist + POST /api/contact → KV + ALM webhook
+  index.js             # Cloudflare Worker: serves ./dist + POST /api/contact → KV + LLA webhook
 src/
   config.ts            # public config: Turnstile site key, analytics token, scheduler + links
   assets/photos/       # real photos — optimized by Astro at build (WebP + srcset)
@@ -139,18 +139,17 @@ npm run wrangler:dev          # serves ./dist via the Workers runtime
 
 ## ⚠️ Before launch — items awaiting Michael's input
 
-**Two paste-in values (blocked in this environment — needed from
-AdvancingLibertyMedia.com):**
+**Two paste-in values (needed from the Libertarian Leadership Academy):**
 - `SCHEDULER_URL` in `src/config.ts` — the exact "book a call" scheduler link.
-  Until pasted, all scheduler buttons land on AdvancingLibertyMedia.com itself.
-- `CONTACT_WEBHOOK_URL` in `wrangler.jsonc` — the webhook endpoint the ALM
+  Until pasted, all scheduler buttons land on LibertarianLeadership.org itself.
+- `CONTACT_WEBHOOK_URL` in `wrangler.jsonc` — the webhook endpoint the Academy
   contact form posts to. Until pasted, contact messages are only stored in KV
   (nothing is lost; the Worker forwards to the webhook once set).
 
 **Draft copy** (marked in the code with `<!-- DRAFT COPY — verify with Michael -->`):
 - Hero credential line, full bio, book blurbs, and the Hinkle pull-quote wording.
 - Confirm the **exact current title** (Chair, LPWA), his role/wording for
-  **Advancing Liberty Media**, and all timeline years/dates.
+  the **Libertarian Leadership Academy**, and all timeline years/dates.
 
 **Contact form backend** — ✅ live: `worker/index.js` stores messages in the
 `ipickpickens-signups` KV namespace (keys prefixed `contact:`). Read them with

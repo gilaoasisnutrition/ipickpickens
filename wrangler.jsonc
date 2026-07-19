@@ -35,6 +35,9 @@
     // the Libertarian Leadership Academy. While empty, messages are only stored in KV.
     "CONTACT_WEBHOOK_URL": ""
   },
+  "observability": {
+    "enabled": false
+  },
 
   // Staging: deploy with `npm run deploy:staging`.
   // Separate Worker (ipickpickens-staging) + separate signups KV, served at

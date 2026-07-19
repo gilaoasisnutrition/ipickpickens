@@ -71,6 +71,18 @@ npm run deploy       # astro build + wrangler deploy
 
 The first deploy serves the site at `becanine.<account>.workers.dev`.
 
+### Deploy via GitHub Actions (no local setup)
+
+`.github/workflows/deploy.yml` builds and deploys on every push to the build
+branch (or manually via *Actions → Deploy becanine to Cloudflare Workers →
+Run workflow*). One-time setup:
+
+1. Create an API token at *dash.cloudflare.com → My Profile → API Tokens*
+   using the **Edit Cloudflare Workers** template.
+2. Add it as the `CLOUDFLARE_API_TOKEN` repository secret (*Settings →
+   Secrets and variables → Actions*). If the token can see more than one
+   account, also add `CLOUDFLARE_ACCOUNT_ID`.
+
 ### Custom domain: becanine.com
 
 1. Add the `becanine.com` zone to the same Cloudflare account.

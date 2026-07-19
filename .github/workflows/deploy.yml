@@ -1,0 +1,54 @@
+name: Deploy becanine to Cloudflare Workers
+
+# Deploys the BE Canine storefront (this branch) to the "becanine" Worker.
+# Requires one repository secret:
+#   CLOUDFLARE_API_TOKEN — create at dash.cloudflare.com → My Profile →
+#     API Tokens → "Edit Cloudflare Workers" template, scoped to the account
+#     that hosts the other Botanical Enlightenment sites.
+# Optional secret (only needed if the token can see multiple accounts):
+#   CLOUDFLARE_ACCOUNT_ID
+#
+# Runs on every push to the build branch, or on demand via workflow_dispatch.
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [claude/becanine-storefront-build-s0mcvp]
+
+concurrency:
+  group: deploy-becanine
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build site
+        run: npm run build
+
+      - name: Ensure CLOUDFLARE_API_TOKEN secret is configured
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+        run: |
+          if [ -z "$CLOUDFLARE_API_TOKEN" ]; then
+            echo "::error::The CLOUDFLARE_API_TOKEN repository secret is not set. Add it under Settings → Secrets and variables → Actions → New repository secret (create the token at dash.cloudflare.com → My Profile → API Tokens with the 'Edit Cloudflare Workers' template), then re-run this workflow."
+            exit 1
+          fi
+          echo "Token present — proceeding to deploy."
+
+      - name: Deploy to Cloudflare Workers
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          WRANGLER_SEND_METRICS: 'false'
+        run: npx wrangler deploy

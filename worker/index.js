@@ -6,9 +6,9 @@
  *   - optional Cloudflare Turnstile verification (enforced only when the
  *     TURNSTILE_SECRET_KEY secret is set: npx wrangler secret put TURNSTILE_SECRET_KEY)
  *   - stores each message as JSON in the SIGNUPS KV namespace
- *   - forwards each message to the Advancing Liberty Media webhook when
+ *   - forwards each message to the Libertarian Leadership Academy webhook when
  *     CONTACT_WEBHOOK_URL is set (wrangler.jsonc vars) — the same endpoint
- *     the AdvancingLibertyMedia.com contact form posts to
+ *     the Libertarian Leadership Academy contact form posts to
  *
  * Read stored messages any time with:
  *   npx wrangler kv key list --namespace-id <id>
@@ -88,7 +88,7 @@ async function handleContact(request, env, ctx) {
   const key = `contact:${record.at}:${crypto.randomUUID().slice(0, 8)}`;
   await env.SIGNUPS.put(key, JSON.stringify(record));
 
-  // Forward to the ALM webhook after responding; KV already has the copy, so
+  // Forward to the Academy webhook after responding; KV already has the copy, so
   // a webhook hiccup never loses the message or fails the visitor.
   if (env.CONTACT_WEBHOOK_URL) {
     ctx.waitUntil(

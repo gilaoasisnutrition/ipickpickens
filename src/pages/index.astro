@@ -13,7 +13,7 @@ import Roots from '../components/Roots.astro';
 import Contact from '../components/Contact.astro';
 import Footer from '../components/Footer.astro';
 import TideDivider from '../components/TideDivider.astro';
-import { SITE_URL, SOCIALS, BOOKS, ALM_URL } from '../config';
+import { SITE_URL, SOCIALS, BOOKS, LLA_URL } from '../config';
 
 // Structured data: person + published books. Helps search engines build a
 // knowledge panel for "C. Michael Pickens".
@@ -28,7 +28,7 @@ const schema = {
       url: SITE_URL,
       image: `${SITE_URL}/assets/og-image.png`,
       description:
-        'Author, leadership educator, Chair of the Libertarian Party of Washington, founder of the Libertarian Leadership Academy, and host of Advancing Liberty Media.',
+        'Author, leadership educator, Chair of the Libertarian Party of Washington, and founder of the Libertarian Leadership Academy.',
       affiliation: [
         {
           '@type': 'Organization',
@@ -37,8 +37,8 @@ const schema = {
         },
         {
           '@type': 'Organization',
-          name: 'Advancing Liberty Media',
-          url: ALM_URL,
+          name: 'Libertarian Leadership Academy',
+          url: LLA_URL,
         },
       ],
       sameAs: [
@@ -46,8 +46,7 @@ const schema = {
         SOCIALS.x,
         SOCIALS.instagram,
         SOCIALS.youtube,
-        'https://libertarianleadership.org',
-        ALM_URL,
+        LLA_URL,
       ],
     },
     {

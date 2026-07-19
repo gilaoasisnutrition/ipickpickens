@@ -20,16 +20,16 @@ export const CF_ANALYTICS_TOKEN = '';
 
 export const SITE_URL = 'https://ipickpickens.com';
 
-/** Michael's media & coaching home. */
-export const ALM_URL = 'https://advancinglibertymedia.com';
+/** The Libertarian Leadership Academy — Michael's coaching & training home. */
+export const LLA_URL = 'https://libertarianleadership.org';
 
 /**
- * Pickens' scheduler link (the "book a call" scheduler on
- * AdvancingLibertyMedia.com). TODO: paste the exact scheduler URL
- * (e.g. Calendly/TidyCal link) — until then the buttons land on the ALM
- * site, where the scheduler lives.
+ * Pickens' scheduler link (the "book a call" scheduler at the Libertarian
+ * Leadership Academy). TODO: paste the exact scheduler URL (e.g.
+ * Calendly/TidyCal link) — until then the buttons land on the Academy site,
+ * where the scheduler lives.
  */
-export const SCHEDULER_URL = ALM_URL;
+export const SCHEDULER_URL = LLA_URL;
 
 export const SOCIALS = {
   facebook: 'https://www.facebook.com/cmichael.pickens',

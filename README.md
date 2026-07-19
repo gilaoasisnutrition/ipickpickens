@@ -146,11 +146,6 @@ npm run wrangler:dev          # serves ./dist via the Workers runtime
   contact form posts to. Until pasted, contact messages are only stored in KV
   (nothing is lost; the Worker forwards to the webhook once set).
 
-**Draft copy** (marked in the code with `<!-- DRAFT COPY — verify with Michael -->`):
-- Hero credential line, full bio, book blurbs, and the Hinkle pull-quote wording.
-- Confirm the **exact current title** (Chair, LPWA), his role/wording for
-  the **Libertarian Leadership Academy**, and all timeline years/dates.
-
 **Contact form backend** — ✅ live: `worker/index.js` stores messages in the
 `ipickpickens-signups` KV namespace (keys prefixed `contact:`). Read them with
 `npx wrangler kv key list --binding SIGNUPS` (add `--local` during dev).

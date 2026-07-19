@@ -2,38 +2,46 @@
 /**
  * Pacific County Roots — photo-led strip celebrating place. Carries the local
  * identity of the site. Short, affectionate copy per tile.
+ * Images live in src/assets/photos/ and are optimized by Astro at build.
  */
+import { Image } from 'astro:assets';
+import oysters from '../assets/photos/roots-oysters.png';
+import razorClams from '../assets/photos/roots-razor-clams.png';
+import ilwacoFleet from '../assets/photos/roots-ilwaco-fleet.png';
+import cranberryBog from '../assets/photos/roots-cranberry-bog.png';
+import cedarGrove from '../assets/photos/roots-cedar-grove.png';
+
 const tiles = [
   {
-    img: '/assets/roots-oysters.svg',
+    img: oysters,
     alt: 'Willapa Bay oyster beds exposed at low tide near South Bend',
     kicker: 'South Bend',
     title: 'Oyster Capital of the World',
     body: 'Willapa Bay grows some of the finest oysters on earth — and the families who tend those beds are the backbone of this county.',
   },
   {
-    img: '/assets/roots-razor-clams.svg',
+    img: razorClams,
     alt: 'Razor clam diggers on the Long Beach Peninsula at dawn',
     kicker: 'Long Beach Peninsula',
     title: "The World's Longest Drivable Beach",
     body: 'Razor clams at dawn, kites in the afternoon, and 28 miles of sand you can drive. This is where the coast comes to play.',
   },
   {
-    img: '/assets/roots-ilwaco-fleet.svg',
+    img: ilwacoFleet,
     alt: 'Commercial fishing boats moored at Ilwaco harbor',
     kicker: 'Ilwaco',
     title: 'A Working Fleet',
     body: 'The boats at Ilwaco harbor still go out before sunrise — a working way of life that shaped the people who live here.',
   },
   {
-    img: '/assets/roots-cranberry-bog.svg',
+    img: cranberryBog,
     alt: 'Flooded cranberry bog at harvest on the Long Beach Peninsula',
     kicker: 'Cranberry Country',
     title: 'A Century of Bogs',
     body: 'Pacific County cranberries have been harvested here for generations — a quiet, hard-won agricultural heritage worth protecting.',
   },
   {
-    img: '/assets/roots-cedar-grove.svg',
+    img: cedarGrove,
     alt: 'Old-growth cedar grove on Long Island in Willapa Bay',
     kicker: 'Willapa NWR',
     title: 'Ancient Cedars',
@@ -56,7 +64,15 @@ const tiles = [
     <ul class="roots__strip">
       {tiles.map((t) => (
         <li class="roots-tile">
-          <img src={t.img} width="1200" height="800" alt={t.alt} loading="lazy" />
+          <Image
+            src={t.img}
+            widths={[420, 760, 1140]}
+            sizes="(min-width: 1000px) 570px, min(85vw, 380px)"
+            format="webp"
+            quality={80}
+            alt={t.alt}
+            loading="lazy"
+          />
           <div class="roots-tile__overlay">
             <span class="roots-tile__kicker">{t.kicker}</span>
             <h3 class="roots-tile__title">{t.title}</h3>

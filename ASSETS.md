@@ -40,11 +40,11 @@ For the **remaining placeholders** (roots strip, OG image):
 |---|---|---|---|---|---|
 | 1 | ~~`portrait-hero.svg`~~ | — | — | Hero, right column | ✅ **DONE** — real photo in place (`portrait-hero.jpg`) |
 | 2 | `og-image.svg` | **PNG** | 1200×630 (1.91:1) | Social share card (`<head>` meta) | Referenced in meta as `og-image.png` — supply a real PNG |
-| 3 | `roots-oysters.svg` | JPG | 1200×800 (3:2) | Pacific County Roots strip | Willapa Bay oysters, South Bend |
-| 4 | `roots-razor-clams.svg` | JPG | 1200×800 (3:2) | Roots strip | Razor clam digging at dawn, Long Beach |
-| 5 | `roots-ilwaco-fleet.svg` | JPG | 1200×800 (3:2) | Roots strip | Ilwaco fishing fleet |
-| 6 | `roots-cranberry-bog.svg` | JPG | 1200×800 (3:2) | Roots strip | Cranberry bog harvest |
-| 7 | `roots-cedar-grove.svg` | JPG | 1200×800 (3:2) | Roots strip | Old-growth cedar, Long Island |
+| 3 | ~~`roots-oysters.svg`~~ | — | — | Pacific County Roots strip | ✅ **DONE** — generated scenery (`src/assets/photos/roots-oysters.png`, 1264×848) |
+| 4 | ~~`roots-razor-clams.svg`~~ | — | — | Roots strip | ✅ **DONE** — generated scenery (`roots-razor-clams.png`) |
+| 5 | ~~`roots-ilwaco-fleet.svg`~~ | — | — | Roots strip | ✅ **DONE** — generated scenery (`roots-ilwaco-fleet.png`) |
+| 6 | ~~`roots-cranberry-bog.svg`~~ | — | — | Roots strip | ✅ **DONE** — generated scenery (`roots-cranberry-bog.png`) |
+| 7 | ~~`roots-cedar-grove.svg`~~ | — | — | Roots strip | ✅ **DONE** — generated scenery (`roots-cedar-grove.png`) |
 | 8 | ~~`book-libertarian-leadership.svg`~~ | — | — | Books section | ✅ **DONE** — real cover `book-libertarian-leadership.jpg` (311×466) |
 | 9 | ~~`book-liberated-mind.svg`~~ | — | — | Books section | ✅ **DONE** — real cover `book-liberated-mind.jpg` (342×342, square) |
 | 10 | `favicon.svg` | SVG | 64×64 | Browser tab icon | Provided; replace with a real mark if desired |

@@ -91,7 +91,7 @@ full inventory: every filename, its dimensions/aspect, where it appears, and a
 ready-to-paste generation prompt for each scenery image.
 
 Quick version: drop your real image into `public/assets/`, then search the repo
-for the placeholder filename (e.g. `roots-oysters.svg`) and update the `src`.
+for the placeholder filename (e.g. `og-image.svg`) and update the `src`.
 
 > The hero portrait (`portrait-hero`) and the two book covers must be **real**
 > images — never AI-generated.

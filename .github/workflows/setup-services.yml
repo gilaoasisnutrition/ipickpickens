@@ -1,0 +1,84 @@
+# One-shot setup for Turnstile (contact-form bot check) + Web Analytics.
+# Creates both via the Cloudflare API, writes the public keys into
+# src/config.ts on main, deploys, then installs the Turnstile secret on the
+# Worker last — so the sitekey is live before enforcement turns on.
+# The Turnstile secret is masked and never printed.
+name: Setup Turnstile + Analytics
+
+on: workflow_dispatch
+
+permissions:
+  contents: write
+
+env:
+  CF_ACCOUNT: cc05cbfb54bb9dcb3dba0ee9ad98a1bf
+
+jobs:
+  setup:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Create Turnstile widget and Web Analytics site
+        id: create
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+        run: |
+          auth=(-H "Authorization: Bearer $CLOUDFLARE_API_TOKEN" -H "Content-Type: application/json")
+
+          echo "== create turnstile widget =="
+          tresp=$(curl -s -X POST "${auth[@]}" \
+            "https://api.cloudflare.com/client/v4/accounts/$CF_ACCOUNT/challenges/widgets" \
+            --data '{"name":"ipickpickens.com","domains":["ipickpickens.com","www.ipickpickens.com","staging.ipickpickens.com"],"mode":"managed"}')
+          echo "$tresp" | jq '{success, errors}'
+          sitekey=$(echo "$tresp" | jq -r '.result.sitekey // empty')
+          secret=$(echo "$tresp" | jq -r '.result.secret // empty')
+          [ -n "$secret" ] && echo "::add-mask::$secret"
+          if [ -z "$sitekey" ]; then echo "TURNSTILE CREATE FAILED"; exit 1; fi
+          echo "sitekey: $sitekey"
+          echo "TURNSTILE_SECRET=$secret" >> "$GITHUB_ENV"
+          echo "SITEKEY=$sitekey" >> "$GITHUB_ENV"
+
+          echo "== create web analytics site =="
+          rresp=$(curl -s -X POST "${auth[@]}" \
+            "https://api.cloudflare.com/client/v4/accounts/$CF_ACCOUNT/rum/site_info" \
+            --data '{"host":"ipickpickens.com","auto_install":false}')
+          echo "$rresp" | jq '{success, errors}'
+          rtoken=$(echo "$rresp" | jq -r '.result.site_token // empty')
+          if [ -z "$rtoken" ]; then echo "ANALYTICS CREATE FAILED"; exit 1; fi
+          echo "analytics token: $rtoken"
+          echo "RUM_TOKEN=$rtoken" >> "$GITHUB_ENV"
+
+      - name: Write keys into src/config.ts and push to main
+        run: |
+          sed -i "s|export const TURNSTILE_SITE_KEY = '';|export const TURNSTILE_SITE_KEY = '$SITEKEY';|" src/config.ts
+          sed -i "s|export const CF_ANALYTICS_TOKEN = '';|export const CF_ANALYTICS_TOKEN = '$RUM_TOKEN';|" src/config.ts
+          grep -E "TURNSTILE_SITE_KEY|CF_ANALYTICS_TOKEN" src/config.ts
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add src/config.ts
+          git commit -m "Enable Turnstile bot check and Web Analytics"
+          git push origin main
+
+      - name: Build and deploy with keys live
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+        run: |
+          npm ci
+          npm run build
+          npx wrangler deploy
+
+      - name: Install Turnstile secret on the Workers (enforcement on)
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+        run: |
+          printf '%s' "$TURNSTILE_SECRET" | npx wrangler secret put TURNSTILE_SECRET_KEY
+          printf '%s' "$TURNSTILE_SECRET" | npx wrangler secret put TURNSTILE_SECRET_KEY --env staging || true
+          echo "secret installed"

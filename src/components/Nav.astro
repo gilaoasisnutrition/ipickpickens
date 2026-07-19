@@ -120,6 +120,9 @@ const links = [
   .nav__toggle[aria-expanded='true'] span:nth-child(2) { opacity: 0; }
   .nav__toggle[aria-expanded='true'] span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
 
+  /* The author display:flex would otherwise beat the UA's [hidden] rule,
+     leaving the menu permanently expanded on mobile. */
+  .mobile-menu[hidden] { display: none; }
   .mobile-menu {
     display: flex;
     flex-direction: column;

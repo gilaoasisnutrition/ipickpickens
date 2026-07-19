@@ -14,8 +14,13 @@
   "name": "ipickpickens",
   "main": "worker/index.js",
   "compatibility_date": "2026-07-01",
-  // TODO after ipickpickens.com is attached: set "workers_dev": false here so
-  // the production workers.dev URL stops serving (staging keeps its own).
+  // Production serves only on the custom domains; the workers.dev copy is off
+  // (staging keeps its own workers.dev URL).
+  "workers_dev": false,
+  "routes": [
+    { "pattern": "ipickpickens.com", "custom_domain": true },
+    { "pattern": "www.ipickpickens.com", "custom_domain": true }
+  ],
 
   "assets": {
     "directory": "./dist",

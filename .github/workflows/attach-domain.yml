@@ -6,6 +6,11 @@ name: Attach becanine.com domain
 
 on:
   workflow_dispatch:
+  push:
+    branches: [claude/becanine-storefront-build-s0mcvp]
+    paths:
+      - wrangler.domain.jsonc
+      - .github/workflows/attach-domain.yml
 
 concurrency:
   group: deploy-becanine

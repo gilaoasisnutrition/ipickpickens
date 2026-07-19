@@ -1,0 +1,22 @@
+# Manual diagnostic: verifies the CLOUDFLARE_API_TOKEN and reports the
+# ipickpickens.com zone status (pending vs active). Prints no secrets.
+name: Diagnose Cloudflare
+
+on: workflow_dispatch
+
+jobs:
+  diagnose:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Verify token and zone status
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+        run: |
+          echo "== token verify =="
+          curl -s -H "Authorization: Bearer $CLOUDFLARE_API_TOKEN" \
+            https://api.cloudflare.com/client/v4/user/tokens/verify \
+            | jq '{success, errors, status: .result.status}'
+          echo "== zone ipickpickens.com =="
+          curl -s -H "Authorization: Bearer $CLOUDFLARE_API_TOKEN" \
+            "https://api.cloudflare.com/client/v4/zones?name=ipickpickens.com" \
+            | jq '{success, errors, zones: [.result[]? | {name, status, name_servers, original_name_servers}]}'

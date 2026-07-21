@@ -1,62 +1,79 @@
 [
   {
-    "id": "joint-support",
-    "slug": "joint-support",
-    "name": "Sound Stride — Hip & Joint Botanical Blend",
-    "shortDescription": "A field-guide classic for the active dog: turmeric root, glucosamine, and green-lipped mussel, milled small-batch to support healthy joints and easy movement through every season.",
-    "price": 48,
-    "image": "/assets/products/joint-support.svg",
-    "badges": ["Best Seller", "Small-batch"],
-    "inStock": true
-  },
-  {
-    "id": "gut-health",
-    "slug": "gut-health",
-    "name": "Kettle & Root — Digestive Comfort Blend",
-    "shortDescription": "Slippery elm bark, pumpkin seed, and fennel in a gentle daily preparation that promotes normal digestion and helps maintain a balanced gut.",
-    "price": 38,
-    "image": "/assets/products/gut-health.svg",
-    "badges": ["Small-batch"],
-    "inStock": true
-  },
-  {
-    "id": "skin-coat",
-    "slug": "skin-coat",
-    "name": "Gloss & Burr — Skin & Coat Preparation",
-    "shortDescription": "Cold-pressed flaxseed, nettle leaf, and biotin-rich brewer's yeast, blended to support supple skin and a glossy, show-worthy coat.",
-    "price": 42,
-    "image": "/assets/products/skin-coat.svg",
-    "badges": ["New"],
-    "inStock": true
-  },
-  {
-    "id": "calm-blend",
-    "slug": "calm-blend",
-    "name": "Still Waters — Calming Botanical Blend",
-    "shortDescription": "Chamomile flower, passionflower, and L-theanine in a quiet evening blend that helps maintain a calm, settled disposition during travel, storms, and busy households.",
-    "price": 44,
-    "image": "/assets/products/calm-blend.svg",
+    "id": "balanced-gut-probiotics",
+    "slug": "balanced-gut-probiotics",
+    "name": "Balanced Gut Probiotics",
+    "shortDescription": "Living cultures and prebiotic fiber, entered side by side in the herbalist's ledger as old companions. A daily measure that supports normal digestion and helps maintain a balanced, well-kept gut.",
+    "price": 45,
+    "image": "/assets/products/balanced-gut-probiotics.svg",
+    "photo": "/assets/products/photos/balanced-gut-probiotics.jpg",
     "badges": ["Best Seller"],
     "inStock": true
   },
   {
-    "id": "daily-multi",
-    "slug": "daily-multi",
-    "name": "The Daily Compendium — Whole-Food Multivitamin",
-    "shortDescription": "An everyday foundation of spirulina, kelp, and rosehip, thoughtfully balanced to support overall vitality from nose to tail.",
+    "id": "immunity-mushroom-complex",
+    "slug": "immunity-mushroom-complex",
+    "name": "Immunity Mushroom Complex",
+    "shortDescription": "Turkey tail, reishi, and shiitake — the forest floor's quiet stalwarts, gathered into one hearty blend. Supports a healthy, resilient immune system through every season.",
+    "price": 40,
+    "image": "/assets/products/immunity-mushroom-complex.svg",
+    "photo": "/assets/products/photos/immunity-mushroom-complex.jpg",
+    "badges": ["Small-batch"],
+    "inStock": true
+  },
+  {
+    "id": "joint-mobility",
+    "slug": "joint-mobility",
+    "name": "Joint & Mobility",
+    "shortDescription": "Glucosamine, turmeric root, and green-lipped mussel, milled for the dog who still insists on the long way home. Supports healthy joints and easy, gladsome movement.",
+    "price": 45,
+    "image": "/assets/products/joint-mobility.svg",
+    "photo": "/assets/products/photos/joint-mobility.jpg",
+    "badges": ["Best Seller"],
+    "inStock": true
+  },
+  {
+    "id": "foundational-health-daily",
+    "slug": "foundational-health-daily",
+    "name": "Foundational Health Daily",
+    "shortDescription": "A whole-food daily multivitamin — the first entry in any good ledger — balanced to support overall vitality from nose to tail. Prepared in Adult and Puppy formulas.",
+    "price": 50,
+    "image": "/assets/products/foundational-health-daily.svg",
+    "photo": "/assets/products/photos/foundational-health-daily.jpg",
+    "badges": ["Adult & Puppy"],
+    "inStock": true
+  },
+  {
+    "id": "paw-saver",
+    "slug": "paw-saver",
+    "name": "Paw Saver",
+    "shortDescription": "Considered care for hardworking paws, keeping pads supported and conditioned through seasons of gravel, salt, sand, and trail.",
     "price": 34,
-    "image": "/assets/products/daily-multi.svg",
+    "image": "/assets/products/paw-saver.svg",
+    "photo": "/assets/products/photos/paw-saver.jpg",
     "badges": [],
     "inStock": true
   },
   {
-    "id": "immune-support",
-    "slug": "immune-support",
-    "name": "Hale & Hardy — Immune Support Blend",
-    "shortDescription": "Turkey tail mushroom, elderberry, and astragalus root, gathered into one hearty blend that supports a healthy, resilient immune system year-round.",
-    "price": 46,
-    "image": "/assets/products/immune-support.svg",
-    "badges": ["Small-batch"],
-    "inStock": false
+    "id": "pumpkin-power",
+    "slug": "pumpkin-power",
+    "name": "Pumpkin Power",
+    "shortDescription": "A pumpkin-forward fiber blend, warm and unhurried as an October field. Promotes regularity and everyday digestive comfort.",
+    "price": 35,
+    "image": "/assets/products/pumpkin-power.svg",
+    "photo": "/assets/products/photos/pumpkin-power.jpg",
+    "badges": [],
+    "inStock": true
+  },
+  {
+    "id": "recovery-hydration",
+    "slug": "recovery-hydration",
+    "name": "Recovery & Hydration",
+    "shortDescription": "A well-measured electrolyte formula for the far side of a good day out. Supports normal hydration and recovery after exercise, travel, and warm afternoons.",
+    "price": 45,
+    "image": "/assets/products/recovery-hydration.svg",
+    "photo": "/assets/products/photos/recovery-hydration.jpg",
+    "badges": ["New"],
+    "inStock": true
   }
 ]

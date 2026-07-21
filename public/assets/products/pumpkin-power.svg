@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="600" height="600" viewBox="0 0 600 600">
+  <title>Plate VI — Ribbed pumpkin with vine and seeds</title>
+  <defs>
+    <g id="sd">
+      <path d="M0 -13C7 -13 12 -5 12 3C12 11 7 16 0 19C-7 16 -12 11 -12 3C-12 -5 -7 -13 0 -13Z"/>
+      <path d="M0 -9C5 -9 8 -3 8 3C8 9 4 13 0 15C-4 13 -8 9 -8 3C-8 -3 -5 -9 0 -9Z" stroke-width="0.9"/>
+    </g>
+  </defs>
+  <circle cx="300" cy="300" r="272" fill="#f4edda" opacity="0.45"/>
+  <circle cx="300" cy="300" r="272" fill="none" stroke="#2e2418" stroke-width="2"/>
+  <circle cx="300" cy="300" r="262" fill="none" stroke="#2e2418" stroke-width="1"/>
+  <g stroke="#2e2418" fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <!-- body -->
+    <path d="M300 214C238 212 178 248 176 328C174 408 240 450 298 450C358 450 422 410 422 328C422 248 362 216 300 214Z" stroke-width="2.4"/>
+    <!-- ribs -->
+    <g stroke-width="1.6">
+      <path d="M258 220C220 262 210 392 260 444"/>
+      <path d="M342 220C380 262 390 392 340 444"/>
+      <path d="M284 214C262 268 262 396 286 448"/>
+      <path d="M316 214C338 268 338 396 314 448"/>
+    </g>
+    <!-- stem -->
+    <g stroke-width="2">
+      <path d="M288 216C286 196 280 180 268 170C282 162 300 160 310 168C305 182 306 198 312 216"/>
+      <path d="M294 208C292 194 288 182 280 174" stroke-width="1"/>
+    </g>
+    <!-- curling vine -->
+    <path d="M314 190C348 176 376 182 384 206C390 226 376 240 360 234C348 229 348 214 360 210" stroke-width="1.6"/>
+    <!-- hatching -->
+    <g stroke-width="1" opacity="0.7">
+      <path d="M204 296q-6 36 4 66M216 272q-6 22-8 44M232 386q6 16 16 28M244 402q6 12 14 20"/>
+    </g>
+    <!-- seed trio -->
+    <g stroke-width="1.5">
+      <use href="#sd" transform="translate(464 394) rotate(18)"/>
+      <use href="#sd" transform="translate(444 434) rotate(-26) scale(0.9)"/>
+      <use href="#sd" transform="translate(482 436) rotate(42) scale(0.85)"/>
+    </g>
+  </g>
+  <text x="576" y="580" text-anchor="end" font-family="Georgia, 'Times New Roman', serif" font-size="20" letter-spacing="3" fill="#2e2418">PL. VI</text>
+</svg>

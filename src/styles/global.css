@@ -11,8 +11,8 @@
   --parchment-edge: #ddcda6;  /* aged edges, subtle fills */
   --ink:            #2e2418;  /* iron-gall ink — primary text */
   --ink-soft:       #5c4b36;  /* secondary text */
-  --moss:           #3f5231;  /* bottle green — accents, buttons */
-  --moss-deep:      #2e3d24;  /* hover/active green */
+  --moss:           #55703f;  /* label sage — matched to the BE Canine jar labels */
+  --moss-deep:      #3c5230;  /* hover/active green */
   --copper:         #96612f;  /* aged copper — highlights, prices */
   --gold:           #ab8747;  /* gilt — small flourishes */
   --rule:           rgba(46, 36, 24, 0.28);   /* hairline rules */

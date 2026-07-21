@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="600" height="600" viewBox="0 0 600 600">
+  <title>Plate VII — Water droplets over an oat stem</title>
+  <defs>
+    <g id="dr">
+      <path d="M0 -24C8 -10 15 -1 15 9C15 21 8 29 0 29C-8 29 -15 21 -15 9C-15 -1 -8 -10 0 -24Z"/>
+      <path d="M-7 10C-7 17 -3 22 2 23" stroke-width="1"/>
+    </g>
+    <g id="sp">
+      <path d="M0 0Q-6 12 -4 26Q0 34 4 26Q6 12 0 0Z"/>
+      <path d="M0 6Q-1 16 0 24" stroke-width="0.9"/>
+      <path d="M3 27Q6 36 4 46" stroke-width="1"/>
+    </g>
+  </defs>
+  <circle cx="300" cy="300" r="272" fill="#f4edda" opacity="0.45"/>
+  <circle cx="300" cy="300" r="272" fill="none" stroke="#2e2418" stroke-width="2"/>
+  <circle cx="300" cy="300" r="262" fill="none" stroke="#2e2418" stroke-width="1"/>
+  <g stroke="#2e2418" fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <!-- oat stem -->
+    <path d="M296 468C300 400 304 330 306 252" stroke-width="2"/>
+    <!-- leaf blade -->
+    <path d="M300 400C276 388 258 366 252 338C272 348 290 366 300 382" stroke-width="1.6"/>
+    <path d="M298 392C286 384 276 372 270 358" stroke-width="1" opacity="0.7"/>
+    <!-- drooping panicle -->
+    <g stroke-width="1.2">
+      <path d="M306 252Q286 258 272 276M306 252Q304 232 294 216M306 252Q322 240 342 236M306 252Q330 262 344 280M305 268Q288 280 280 298"/>
+    </g>
+    <g stroke-width="1.4">
+      <use href="#sp" transform="translate(272 276) rotate(24)"/>
+      <use href="#sp" transform="translate(294 214) rotate(-6) scale(0.95)"/>
+      <use href="#sp" transform="translate(342 236) rotate(-30) scale(0.9)"/>
+      <use href="#sp" transform="translate(344 280) rotate(-14)"/>
+      <use href="#sp" transform="translate(280 298) rotate(20) scale(0.85)"/>
+    </g>
+    <!-- three falling droplets -->
+    <g stroke-width="1.8">
+      <use href="#dr" transform="translate(238 140) scale(0.8)"/>
+      <use href="#dr" transform="translate(310 106)"/>
+      <use href="#dr" transform="translate(374 160) scale(0.7)"/>
+    </g>
+    <!-- tiny vitality lines -->
+    <g stroke-width="1.1" opacity="0.8">
+      <path d="M310 64v-14M272 78l-8-12M348 78l8-12M242 102l-12-8M380 110l12-8"/>
+      <path d="M208 154l-14-4M408 172l14-4M238 186v12M374 206v12"/>
+    </g>
+  </g>
+  <text x="576" y="580" text-anchor="end" font-family="Georgia, 'Times New Roman', serif" font-size="20" letter-spacing="3" fill="#2e2418">PL. VII</text>
+</svg>

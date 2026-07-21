@@ -6,8 +6,10 @@
     "shortDescription": "Living cultures and prebiotic fiber, entered side by side in the herbalist's ledger as old companions. A daily measure that supports normal digestion and helps maintain a balanced, well-kept gut.",
     "price": 45,
     "image": "/assets/products/balanced-gut-probiotics.svg",
-    "photo": "/assets/products/photos/balanced-gut-probiotics.jpg",
-    "badges": ["Best Seller"],
+    "photo": null,
+    "badges": [
+      "Best Seller"
+    ],
     "inStock": true
   },
   {
@@ -17,8 +19,10 @@
     "shortDescription": "Turkey tail, reishi, and shiitake — the forest floor's quiet stalwarts, gathered into one hearty blend. Supports a healthy, resilient immune system through every season.",
     "price": 40,
     "image": "/assets/products/immunity-mushroom-complex.svg",
-    "photo": "/assets/products/photos/immunity-mushroom-complex.jpg",
-    "badges": ["Small-batch"],
+    "photo": null,
+    "badges": [
+      "Small-batch"
+    ],
     "inStock": true
   },
   {
@@ -29,7 +33,9 @@
     "price": 45,
     "image": "/assets/products/joint-mobility.svg",
     "photo": "/assets/products/photos/joint-mobility.jpg",
-    "badges": ["Best Seller"],
+    "badges": [
+      "Best Seller"
+    ],
     "inStock": true
   },
   {
@@ -40,7 +46,9 @@
     "price": 50,
     "image": "/assets/products/foundational-health-daily.svg",
     "photo": "/assets/products/photos/foundational-health-daily.jpg",
-    "badges": ["Adult & Puppy"],
+    "badges": [
+      "Adult & Puppy"
+    ],
     "inStock": true
   },
   {
@@ -50,7 +58,7 @@
     "shortDescription": "Considered care for hardworking paws, keeping pads supported and conditioned through seasons of gravel, salt, sand, and trail.",
     "price": 34,
     "image": "/assets/products/paw-saver.svg",
-    "photo": "/assets/products/photos/paw-saver.jpg",
+    "photo": null,
     "badges": [],
     "inStock": true
   },
@@ -61,7 +69,7 @@
     "shortDescription": "A pumpkin-forward fiber blend, warm and unhurried as an October field. Promotes regularity and everyday digestive comfort.",
     "price": 35,
     "image": "/assets/products/pumpkin-power.svg",
-    "photo": "/assets/products/photos/pumpkin-power.jpg",
+    "photo": null,
     "badges": [],
     "inStock": true
   },
@@ -72,8 +80,10 @@
     "shortDescription": "A well-measured electrolyte formula for the far side of a good day out. Supports normal hydration and recovery after exercise, travel, and warm afternoons.",
     "price": 45,
     "image": "/assets/products/recovery-hydration.svg",
-    "photo": "/assets/products/photos/recovery-hydration.jpg",
-    "badges": ["New"],
+    "photo": null,
+    "badges": [
+      "New"
+    ],
     "inStock": true
   }
 ]

@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="600" height="600" viewBox="0 0 600 600">
+  <title>Plate II — Reishi and turkey tail mushrooms</title>
+  <circle cx="300" cy="300" r="272" fill="#f4edda" opacity="0.45"/>
+  <circle cx="300" cy="300" r="272" fill="none" stroke="#2e2418" stroke-width="2"/>
+  <circle cx="300" cy="300" r="262" fill="none" stroke="#2e2418" stroke-width="1"/>
+  <g stroke="#2e2418" fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <!-- ground -->
+    <path d="M160 442Q300 424 444 444" stroke-width="1.6"/>
+    <g stroke-width="1" opacity="0.7">
+      <path d="M196 452q10-6 22-6M258 448q10-6 24-5M338 450q12-6 26-4M406 454q10-6 22-5"/>
+    </g>
+    <!-- tall reishi with kidney cap -->
+    <g stroke-width="2.2">
+      <path d="M212 242C200 212 228 186 272 184C322 182 356 204 354 232C353 246 338 252 318 248C304 245 294 241 284 244C266 250 240 254 226 250C218 247 214 245 212 242Z"/>
+      <path d="M284 244C278 300 268 368 262 434"/>
+      <path d="M304 247C296 306 288 372 284 434"/>
+    </g>
+    <g stroke-width="1.1" opacity="0.85">
+      <path d="M224 234C218 212 240 194 276 192C314 190 340 204 342 226"/>
+      <path d="M240 228C240 214 254 204 278 202C306 200 326 210 330 222"/>
+      <path d="M256 222C258 214 268 210 280 210C296 209 310 214 314 220"/>
+    </g>
+    <g stroke-width="1" opacity="0.7">
+      <path d="M232 252q10 4 22 2M320 252q10 0 18-4"/>
+      <path d="M268 300q6 4 12 4M274 360q5 4 10 4"/>
+    </g>
+    <!-- weathered snag bearing the shelves -->
+    <path d="M372 302C366 344 366 400 374 440" stroke-width="2"/>
+    <path d="M382 310q-4 30-4 52" stroke-width="1" opacity="0.7"/>
+    <!-- fan-shaped turkey tail shelves -->
+    <g stroke-width="2">
+      <path d="M368 370C364 340 388 316 424 314C460 312 486 334 488 358C446 374 404 376 368 370Z"/>
+      <path d="M384 408C382 386 400 368 428 366C456 364 476 380 478 398C444 410 410 412 384 408Z"/>
+    </g>
+    <g stroke-width="1.1" opacity="0.85">
+      <path d="M380 362C380 340 398 324 426 322C454 320 474 336 478 354"/>
+      <path d="M394 364C396 348 410 336 428 334C448 332 464 342 468 356"/>
+      <path d="M408 366C410 356 418 348 430 346C444 344 456 352 458 362"/>
+      <path d="M396 402C398 388 410 378 428 376C446 374 460 384 464 394"/>
+    </g>
+    <g stroke-width="1" opacity="0.75">
+      <path d="M392 372q0 7-2 12M416 375q0 8-1 14M444 374q0 8 1 14M466 368q2 7 4 12"/>
+    </g>
+    <!-- stipple at the base -->
+    <g fill="#2e2418" stroke="none">
+      <circle cx="238" cy="446" r="1.6"/><circle cx="296" cy="443" r="1.6"/><circle cx="326" cy="448" r="1.4"/>
+      <circle cx="356" cy="446" r="1.5"/><circle cx="210" cy="450" r="1.4"/>
+    </g>
+  </g>
+  <text x="576" y="580" text-anchor="end" font-family="Georgia, 'Times New Roman', serif" font-size="20" letter-spacing="3" fill="#2e2418">PL. II</text>
+</svg>

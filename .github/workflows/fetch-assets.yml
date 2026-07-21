@@ -1,6 +1,7 @@
 name: Fetch store product data and photos
 
-# One-shot research fetch: pulls the PUBLIC storefront product feed and product
+# One-shot research fetch (skip-ci on its own result commit):
+# pulls the PUBLIC storefront product feed and product
 # photos from www.becanine.com (same brand, existing store) into the repo so
 # the new site can use the real product imagery. Commits results with
 # [skip ci] so it does not trigger a deploy.

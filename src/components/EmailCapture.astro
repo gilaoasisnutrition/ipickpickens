@@ -5,11 +5,11 @@
 <section id="signup" class="section signup">
   <div class="container">
     <div class="signup-inner" data-reveal>
-      <span class="eyebrow">the dispatch</span>
-      <h2>Be First to Know When We Launch</h2>
+      <span class="eyebrow">launch list</span>
+      <h2>Your Dog&rsquo;s Best Years Start Here</h2>
       <p class="signup-copy">
-        Join the list for early access — our small-batch runs are limited, and
-        they tend to sell out.
+        Get early access when we launch. Our small batches sell out — and
+        first pick always goes to the list.
       </p>
 
       <form id="signup-form" novalidate>
@@ -42,7 +42,7 @@
         </div>
 
         <p class="form-status" role="status" aria-live="polite"></p>
-        <p class="privacy-note">No noise — a few letters a year.</p>
+        <p class="privacy-note">A few emails a year. Only the good stuff.</p>
       </form>
     </div>
   </div>
@@ -79,7 +79,7 @@
       }
 
       button.disabled = true;
-      button.textContent = 'Sealing the letter…';
+      button.textContent = 'Sending…';
       setStatus('', '');
 
       try {
@@ -91,11 +91,11 @@
 
         if (!response.ok) throw new Error(`Request failed: ${response.status}`);
 
-        setStatus("You're on the list — watch the post.", 'success');
+        setStatus("You're on the list — your dog's ahead of the pack.", 'success');
         form.reset();
       } catch {
         setStatus(
-          'The letter could not be sent just now — please try again in a moment.',
+          'Something went wrong on our end — please try again in a moment.',
           'error'
         );
       } finally {

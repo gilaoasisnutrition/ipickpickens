@@ -13,9 +13,9 @@ interface Props {
 }
 
 const {
-  title = 'BE Canine — Botanical Nutrition for Dogs',
+  title = 'BE Canine — Premium Canine Nutrition for Your Dog',
   description =
-    'Premium botanical nutrition supplements for dogs, crafted by Botanical Enlightenment. Thoughtfully sourced herbs and whole-food ingredients for everyday canine wellness.',
+    'Premium canine nutrition supplements, formulated by canine-nutrition experts. Whole-food ingredients, small batches, every batch third-party tested.',
 } = Astro.props;
 
 const ogImage = new URL('/assets/og-image.svg', Astro.site);
@@ -54,7 +54,7 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
         name: 'BE Canine',
         url: 'https://becanine.com',
         description:
-          'Premium botanical nutrition supplements for dogs by Botanical Enlightenment.',
+          'Premium canine nutrition supplements — nutritionist-formulated, whole-food, small-batch, third-party tested. By Botanical Enlightenment.',
         parentOrganization: {
           '@type': 'Organization',
           name: 'Botanical Enlightenment',

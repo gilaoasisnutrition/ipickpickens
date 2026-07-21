@@ -1,0 +1,63 @@
+name: Fetch store product data and photos
+
+# One-shot research fetch: pulls the PUBLIC storefront product feed and product
+# photos from www.becanine.com (same brand, existing store) into the repo so
+# the new site can use the real product imagery. Commits results with
+# [skip ci] so it does not trigger a deploy.
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [claude/becanine-storefront-build-s0mcvp]
+    paths:
+      - .github/workflows/fetch-assets.yml
+
+permissions:
+  contents: write
+
+jobs:
+  fetch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Fetch product feed and photos
+        run: |
+          set -euo pipefail
+          UA="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36"
+          mkdir -p assets-research public/assets/products/photos
+
+          echo "== products.json =="
+          curl -sL -A "$UA" --max-time 30 "https://www.becanine.com/products.json?limit=250" -o assets-research/store-products.json
+          jq '{count: (.products | length)}' assets-research/store-products.json
+
+          jq '[.products[] | {handle, title, product_type, tags, price: (.variants[0].price // null), available: ([.variants[].available] | any), body_preview: ((.body_html // "") | gsub("<[^>]*>"; " ") | .[0:500]), images: [.images[].src]}]' \
+            assets-research/store-products.json > assets-research/store-products-summary.json
+
+          echo "== product photos (first image each, resized to 900px) =="
+          jq -r '.products[] | [.handle, (.images[0].src // "")] | @tsv' assets-research/store-products.json \
+          | while IFS=$'\t' read -r handle src; do
+              if [ -n "$src" ]; then
+                base="${src%%\?*}"
+                echo "  $handle"
+                curl -sL -A "$UA" --max-time 30 "${base}?width=900" -o "public/assets/products/photos/${handle}.jpg" || true
+              fi
+            done
+          ls -la public/assets/products/photos
+
+          echo "== homepage html (creative direction reference, trimmed) =="
+          curl -sL -A "$UA" --max-time 30 "https://www.becanine.com/" -o assets-research/homepage-full.html || true
+          head -c 400000 assets-research/homepage-full.html > assets-research/homepage.html
+          rm -f assets-research/homepage-full.html
+
+          echo "== brand og-image / logo =="
+          grep -o 'property="og:image" content="[^"]*"' assets-research/homepage.html | head -3 || true
+
+      - name: Commit results
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git diff --cached --quiet && { echo "Nothing fetched — no commit."; exit 0; }
+          git commit -m "CI: fetch store product feed and photos for asset research [skip ci]"
+          git push

@@ -1,10 +1,10 @@
 name: Fetch store product data and photos
 
-# One-shot research fetch (skip-ci on its own result commit):
-# pulls the PUBLIC storefront product feed and product
-# photos from www.becanine.com (same brand, existing store) into the repo so
-# the new site can use the real product imagery. Commits results with
-# [skip ci] so it does not trigger a deploy.
+# One-shot research fetch (skip-ci on its own result commit).
+# The live store at www.becanine.com is currently deactivated ("Store
+# unavailable"), so this pulls the brand's real product pages, photos, and
+# design reference from the Wayback Machine archive of the store, plus a
+# best-effort grab of the Facebook page's public meta tags.
 
 on:
   workflow_dispatch:
@@ -22,82 +22,103 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Fetch product data and photos via sitemap
+      - name: Fetch archived store data and photos
         run: |
           set -u
-          UA="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36"
           mkdir -p assets-research public/assets/products/photos
-          fetch() { curl -sL -A "$UA" --max-time 30 "$1" -o "$2"; }
-
-          echo "== homepage (creative direction reference) =="
-          fetch "https://www.becanine.com/" assets-research/homepage-full.html || true
-          head -c 400000 assets-research/homepage-full.html > assets-research/homepage.html 2>/dev/null || true
-          rm -f assets-research/homepage-full.html
-
-          echo "== sitemap discovery =="
-          fetch "https://www.becanine.com/sitemap.xml" assets-research/sitemap-index.xml || true
-          psm=$(grep -o 'https://[^<]*sitemap_products[^<]*' assets-research/sitemap-index.xml | head -1 || true)
-          echo "products sitemap: ${psm:-NOT FOUND}"
-          if [ -n "$psm" ]; then
-            fetch "$psm" assets-research/sitemap-products.xml || true
-          fi
-
-          echo "== extract product urls, titles, image urls =="
           python3 - <<'PY'
-          import re, json, pathlib
-          xml = pathlib.Path('assets-research/sitemap-products.xml')
-          out = []
-          if xml.exists():
-              text = xml.read_text(errors='replace')
-              for block in re.findall(r'<url>(.*?)</url>', text, re.S):
-                  loc = re.search(r'<loc>([^<]+)</loc>', block)
-                  img = re.search(r'<image:loc>([^<]+)</image:loc>', block)
-                  title = re.search(r'<image:title>([^<]+)</image:title>', block)
-                  if loc and '/products/' in loc.group(1):
-                      out.append({
-                          'url': loc.group(1),
-                          'handle': loc.group(1).rstrip('/').split('/')[-1],
-                          'image': img.group(1) if img else None,
-                          'title': title.group(1) if title else None,
-                      })
-          pathlib.Path('assets-research/products-from-sitemap.json').write_text(json.dumps(out, indent=2))
-          print(f"{len(out)} product urls found")
-          PY
+          import json, re, html, time, subprocess, pathlib, urllib.parse
 
-          echo "== download product photos (900px) and page metadata =="
-          python3 - <<'PY'
-          import json, pathlib, subprocess, re, html
           UA = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36"
-          items = json.loads(pathlib.Path('assets-research/products-from-sitemap.json').read_text())
-          meta = []
-          for it in items[:25]:
-              h = it['handle']
-              if it.get('image'):
-                  base = it['image'].split('?')[0]
-                  dest = f"public/assets/products/photos/{h}.jpg"
-                  subprocess.run(['curl', '-sL', '-A', UA, '--max-time', '30', f"{base}?width=900", '-o', dest])
-                  print(' photo:', h)
-              r = subprocess.run(['curl', '-sL', '-A', UA, '--max-time', '30', it['url']], capture_output=True, text=True)
-              page = r.stdout or ''
-              d = re.search(r'<meta name="description" content="([^"]*)"', page)
-              og = re.search(r'property="og:image" content="([^"]*)"', page)
-              meta.append({'handle': h, 'title': it.get('title'), 'url': it['url'],
-                           'description': html.unescape(d.group(1)) if d else None,
-                           'og_image': og.group(1) if og else None})
-          pathlib.Path('assets-research/product-pages-meta.json').write_text(json.dumps(meta, indent=2))
-          print(f"{len(meta)} product pages scanned")
-          PY
-          ls -la public/assets/products/photos || true
 
-          echo "== brand og-image / theme colors from homepage =="
-          grep -o 'property="og:image" content="[^"]*"' assets-research/homepage.html | head -3 || true
-          grep -oE '(background|color)[^;]{0,60}#[0-9a-fA-F]{3,8}' assets-research/homepage.html | sort | uniq -c | sort -rn | head -20 || true
+          def get(url, dest=None, timeout='45'):
+              args = ['curl', '-sL', '-A', UA, '--max-time', timeout, url]
+              if dest:
+                  args += ['-o', dest]
+                  return subprocess.run(args).returncode
+              r = subprocess.run(args, capture_output=True, text=True)
+              return r.stdout
+
+          # 1. CDX index of archived product pages (any becanine.com host form)
+          cdx_url = ('https://web.archive.org/cdx/search/cdx'
+                     '?url=becanine.com%2Fproducts%2F*&matchType=domain'
+                     '&output=json&filter=statuscode:200&fl=timestamp,original&limit=500')
+          raw = get(cdx_url)
+          pathlib.Path('assets-research/cdx-products.json').write_text(raw or '[]')
+          rows = []
+          try:
+              rows = json.loads(raw)[1:]
+          except Exception as e:
+              print('CDX parse failed:', e)
+
+          latest = {}
+          for ts, orig in rows:
+              path = urllib.parse.urlparse(orig).path.rstrip('/')
+              if '/products/' not in path:
+                  continue
+              handle = path.split('/')[-1].split('?')[0]
+              if not handle or handle in ('products',):
+                  continue
+              if handle not in latest or ts > latest[handle][0]:
+                  latest[handle] = (ts, orig)
+          print(f'{len(latest)} unique archived product pages')
+
+          # 2. Fetch each archived page; extract title/desc/og:image; download photo
+          meta = []
+          for handle, (ts, orig) in sorted(latest.items())[:30]:
+              page = get(f'https://web.archive.org/web/{ts}/{orig}')
+              title = re.search(r'<meta property="og:title" content="([^"]*)"', page or '')
+              desc = re.search(r'<meta (?:property="og:description"|name="description") content="([^"]*)"', page or '')
+              og = re.search(r'<meta property="og:image" content="([^"]*)"', page or '')
+              price = re.search(r'<meta property="og:price:amount" content="([^"]*)"', page or '')
+              img_url = None
+              if og:
+                  img_url = og.group(1)
+                  if img_url.startswith('//'):
+                      img_url = 'https:' + img_url
+                  if 'web.archive.org' not in img_url:
+                      img_url = f'https://web.archive.org/web/{ts}im_/{img_url}'
+                  rc = get(img_url, dest=f'public/assets/products/photos/{handle}.jpg')
+                  print(f'photo {handle}: rc={rc}')
+              meta.append({
+                  'handle': handle, 'archived_at': ts, 'url': orig,
+                  'title': html.unescape(title.group(1)) if title else None,
+                  'description': html.unescape(desc.group(1))[:400] if desc else None,
+                  'price': price.group(1) if price else None,
+                  'image': img_url,
+              })
+              time.sleep(1)
+          pathlib.Path('assets-research/archived-products.json').write_text(json.dumps(meta, indent=2))
+
+          # 3. Archived homepage for creative direction
+          raw = get('https://web.archive.org/cdx/search/cdx?url=becanine.com&matchType=domain'
+                    '&output=json&filter=statuscode:200&fl=timestamp,original&limit=200')
+          try:
+              home = [r for r in json.loads(raw)[1:] if urllib.parse.urlparse(r[1]).path in ('', '/')]
+              if home:
+                  ts, orig = max(home)
+                  get(f'https://web.archive.org/web/{ts}/{orig}', dest='assets-research/archived-homepage.html')
+                  print('archived homepage:', ts)
+          except Exception as e:
+              print('homepage archive failed:', e)
+
+          # 4. Best-effort: Facebook page public meta
+          fb = get('https://www.facebook.com/botanicalenlightenmentcanine')
+          tags = re.findall(r'<meta property="og:[^"]+" content="[^"]*"', fb or '')
+          pathlib.Path('assets-research/facebook-meta.txt').write_text('\n'.join(tags) or 'no og tags returned')
+          print('facebook og tags:', len(tags))
+          PY
+
+          # keep only reasonably-sized real images (drop error pages saved as .jpg)
+          find public/assets/products/photos -name '*.jpg' -size -5k -delete || true
+          ls -la public/assets/products/photos || true
 
       - name: Commit results
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git pull --rebase origin claude/becanine-storefront-build-s0mcvp || true
           git add -A
           git diff --cached --quiet && { echo "Nothing fetched — no commit."; exit 0; }
-          git commit -m "CI: fetch store product feed and photos for asset research [skip ci]"
+          git commit -m "CI: fetch archived store product data and photos [skip ci]"
           git push

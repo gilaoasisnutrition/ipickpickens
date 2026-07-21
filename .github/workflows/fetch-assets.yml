@@ -22,37 +22,76 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Fetch product feed and photos
+      - name: Fetch product data and photos via sitemap
         run: |
-          set -euo pipefail
+          set -u
           UA="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36"
           mkdir -p assets-research public/assets/products/photos
+          fetch() { curl -sL -A "$UA" --max-time 30 "$1" -o "$2"; }
 
-          echo "== products.json =="
-          curl -sL -A "$UA" --max-time 30 "https://www.becanine.com/products.json?limit=250" -o assets-research/store-products.json
-          jq '{count: (.products | length)}' assets-research/store-products.json
-
-          jq '[.products[] | {handle, title, product_type, tags, price: (.variants[0].price // null), available: ([.variants[].available] | any), body_preview: ((.body_html // "") | gsub("<[^>]*>"; " ") | .[0:500]), images: [.images[].src]}]' \
-            assets-research/store-products.json > assets-research/store-products-summary.json
-
-          echo "== product photos (first image each, resized to 900px) =="
-          jq -r '.products[] | [.handle, (.images[0].src // "")] | @tsv' assets-research/store-products.json \
-          | while IFS=$'\t' read -r handle src; do
-              if [ -n "$src" ]; then
-                base="${src%%\?*}"
-                echo "  $handle"
-                curl -sL -A "$UA" --max-time 30 "${base}?width=900" -o "public/assets/products/photos/${handle}.jpg" || true
-              fi
-            done
-          ls -la public/assets/products/photos
-
-          echo "== homepage html (creative direction reference, trimmed) =="
-          curl -sL -A "$UA" --max-time 30 "https://www.becanine.com/" -o assets-research/homepage-full.html || true
-          head -c 400000 assets-research/homepage-full.html > assets-research/homepage.html
+          echo "== homepage (creative direction reference) =="
+          fetch "https://www.becanine.com/" assets-research/homepage-full.html || true
+          head -c 400000 assets-research/homepage-full.html > assets-research/homepage.html 2>/dev/null || true
           rm -f assets-research/homepage-full.html
 
-          echo "== brand og-image / logo =="
+          echo "== sitemap discovery =="
+          fetch "https://www.becanine.com/sitemap.xml" assets-research/sitemap-index.xml || true
+          psm=$(grep -o 'https://[^<]*sitemap_products[^<]*' assets-research/sitemap-index.xml | head -1 || true)
+          echo "products sitemap: ${psm:-NOT FOUND}"
+          if [ -n "$psm" ]; then
+            fetch "$psm" assets-research/sitemap-products.xml || true
+          fi
+
+          echo "== extract product urls, titles, image urls =="
+          python3 - <<'PY'
+          import re, json, pathlib
+          xml = pathlib.Path('assets-research/sitemap-products.xml')
+          out = []
+          if xml.exists():
+              text = xml.read_text(errors='replace')
+              for block in re.findall(r'<url>(.*?)</url>', text, re.S):
+                  loc = re.search(r'<loc>([^<]+)</loc>', block)
+                  img = re.search(r'<image:loc>([^<]+)</image:loc>', block)
+                  title = re.search(r'<image:title>([^<]+)</image:title>', block)
+                  if loc and '/products/' in loc.group(1):
+                      out.append({
+                          'url': loc.group(1),
+                          'handle': loc.group(1).rstrip('/').split('/')[-1],
+                          'image': img.group(1) if img else None,
+                          'title': title.group(1) if title else None,
+                      })
+          pathlib.Path('assets-research/products-from-sitemap.json').write_text(json.dumps(out, indent=2))
+          print(f"{len(out)} product urls found")
+          PY
+
+          echo "== download product photos (900px) and page metadata =="
+          python3 - <<'PY'
+          import json, pathlib, subprocess, re, html
+          UA = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36"
+          items = json.loads(pathlib.Path('assets-research/products-from-sitemap.json').read_text())
+          meta = []
+          for it in items[:25]:
+              h = it['handle']
+              if it.get('image'):
+                  base = it['image'].split('?')[0]
+                  dest = f"public/assets/products/photos/{h}.jpg"
+                  subprocess.run(['curl', '-sL', '-A', UA, '--max-time', '30', f"{base}?width=900", '-o', dest])
+                  print(' photo:', h)
+              r = subprocess.run(['curl', '-sL', '-A', UA, '--max-time', '30', it['url']], capture_output=True, text=True)
+              page = r.stdout or ''
+              d = re.search(r'<meta name="description" content="([^"]*)"', page)
+              og = re.search(r'property="og:image" content="([^"]*)"', page)
+              meta.append({'handle': h, 'title': it.get('title'), 'url': it['url'],
+                           'description': html.unescape(d.group(1)) if d else None,
+                           'og_image': og.group(1) if og else None})
+          pathlib.Path('assets-research/product-pages-meta.json').write_text(json.dumps(meta, indent=2))
+          print(f"{len(meta)} product pages scanned")
+          PY
+          ls -la public/assets/products/photos || true
+
+          echo "== brand og-image / theme colors from homepage =="
           grep -o 'property="og:image" content="[^"]*"' assets-research/homepage.html | head -3 || true
+          grep -oE '(background|color)[^;]{0,60}#[0-9a-fA-F]{3,8}' assets-research/homepage.html | sort | uniq -c | sort -rn | head -20 || true
 
       - name: Commit results
         run: |

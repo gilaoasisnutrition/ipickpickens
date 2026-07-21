@@ -9,7 +9,7 @@ import products from '../data/products.json';
       <span class="eyebrow">the collection</span>
       <h2>Botanical Preparations for the Dog</h2>
       <p class="product-grid__intro">
-        Six small-batch blends, each drawn from the herbalist's ledger and
+        Seven small-batch formulas, each drawn from the herbalist's ledger and
         milled for daily wellness.
       </p>
       <div class="ornament" role="presentation"><span>❦</span></div>
@@ -53,6 +53,13 @@ import products from '../data/products.json';
   @media (min-width: 960px) {
     .product-grid {
       grid-template-columns: repeat(3, 1fr);
+    }
+
+    /* With seven cards (3/3/1), seat a lone orphan in the center column
+       so the last row reads as intentional. :global() reaches the child
+       ProductCard root across Astro's style scoping. */
+    .product-grid > :global(:last-child:nth-child(3n + 1)) {
+      grid-column: 2;
     }
   }
 </style>

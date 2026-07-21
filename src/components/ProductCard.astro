@@ -6,6 +6,7 @@ interface Product {
   shortDescription: string;
   price: number;
   image: string;
+  photo?: string | null;
   badges: string[];
   inStock: boolean;
 }
@@ -25,14 +26,26 @@ const priceFormatted = new Intl.NumberFormat('en-US', {
 
 <article class="product-card" data-reveal>
   <div class="product-card__frame">
-    <div class="product-card__plate">
+    <div class:list={['product-card__plate', 'card-media', { 'has-photo': Boolean(product.photo) }]}>
       <img
+        class="product-card__engraving"
         src={product.image}
         alt=""
         width="600"
         height="600"
         loading="lazy"
       />
+      {product.photo && (
+        <img
+          class="product-card__photo"
+          src={product.photo}
+          alt=""
+          width="900"
+          height="900"
+          loading="lazy"
+          onerror="this.closest('.card-media').classList.add('photo-missing')"
+        />
+      )}
     </div>
 
     {product.badges.length > 0 && (
@@ -104,9 +117,32 @@ const priceFormatted = new Intl.NumberFormat('en-US', {
     margin-bottom: 1.1rem;
   }
 
-  .product-card__plate img {
+  /* Stack photo over engraved plate inside the same frame */
+  .card-media {
+    display: grid;
+  }
+
+  .card-media > img {
+    grid-area: 1 / 1;
     width: 100%;
     height: auto;
+  }
+
+  /* Photograph: primary visual when present, softened to sit in the
+     apothecary world — slight sepia, hairline inner rule */
+  .product-card__photo {
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+    filter: sepia(0.15) contrast(0.98);
+    outline: 1px solid var(--rule);
+    outline-offset: -1px;
+    background: var(--parchment);
+  }
+
+  /* If the photo 404s, the onerror hook adds .photo-missing and the
+     engraved plate beneath shows instead */
+  .card-media.photo-missing .product-card__photo {
+    display: none;
   }
 
   .product-card__badges {
